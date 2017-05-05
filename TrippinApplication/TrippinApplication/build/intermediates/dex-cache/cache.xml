@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\c3a0e42758d5809c97d96ef79e66173b4ad83c14\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="938ba83fbb26987368049237e47718d56e91e222">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c583c15c813d3a9b7a1d5ca2eb64737c731817c1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\26e5f63dc1ff916bc782c59b75aaa0717139b9d2\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f6afcfbf1989631424f9ceaae6ee24777d3cf6ba">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_cb02ebbf78d6b5dc752900d14c6ef8cbcc81c770\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\b346cc74600102a76b8d8cd562b2858b7a158699\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="266e4ac186afacc3b220a0cf8382348283b42407">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b9caaeb9a240563c43ddfcbb34bea096d80c3654\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\4eb108825daaf7b7c944240505d0c99d63f10c49\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7d51ec7ba8190079b552a51499c304738a86c67e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\4e240450ade4ef124c1b6f1ca48dd32ef68abaa7\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6079f942bb34faee179b4c46396a26fbbfc43e5d">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d19a9d5e666ad02dc6fa051a10cb6a593e331beb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\b024955e9c5d1a37ef5e44af45a1c614ba9ff77d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d1e7862a5a7675940acb6efcab34b38de89c9e18">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1885b8c3a264b9984ebae4a92eb59f319312a71d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\f2665918d3f2f397fe781e810db9baee8babe484\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3270d392adef5decc7bace1a3c2e749bec7bf19e">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8b5f79e5d4ff76098b383062b1b4abd31640d87c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\c2c2a63cda5763202d2090f9129db7978e661ebd\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d39f676be8400123523882d189a1d84040d34339">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5a77fc132c01623c49758d3be64beec20c22b13d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\3d5f3283e48f95a69842f9bd25d1bc43b30a8284\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="580fa73d5bf63ffd04b9d66d0e75a2ed21842702">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ed72d7e2954b2b93dc3a942f99a1e4013493ddc7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\744d2a8148847525afaa306367789d7de7a63d87\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4cfc5a74aa9453cbec685cdbcb3e3f3539b483bd">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0d88d0e9362545ae53aa39d32a8a3f15aa68ae3c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\bda52372e53fc10576f77b20e80015f625714d3f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a93aa431de60b775c91158433f3c687f1d32cb9c">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_624eda6886775e7fcdd53817def7d0cb474e54b0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\6f6ebef1470e9be84230e3f70cf20387dbf28e79\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9f5c557145ddef094005eb73d72a7eaf330a0cf1">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c0464b55e5631bcff30d6b83195673605945f276\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\ea288c3d8cfe0fc8a07bd6461782ad187782688c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="614b2ffd04818e865e1c02cc149c6b92e518e862">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5c54e7c9b1e83d93581c7cf7475616391640c539\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\22f88495a805d5e6262843516737f82118db17dc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4ab00b7d310cfdfff3a9446554485647153d0792">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f7ad702f18934ff5cb60b71d10e9b0e739927264\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\4fb448049cd2b3076130747c1989fe76b60cdaa6\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a9f41e6463de88c3f979d796382fc24fb7e9cd41">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6f90448081ecac200bcc2980d98dcec056344d08\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\2d8837dd0fbade5034c86a9e5cfbaef691f5dc4d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bd11b3899f275668a9355f19cea2c2320f5f9d14">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0e9f1300a3ee56b25e8acce086e33d944c0ae012\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\d7ae8f08bc970122df2a4034ea440b982b3a9e35\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="93a0248fe0524b4fa2d16f5f7c3cff8452796454">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4722de8b3b9fcb30e579bc403b6c6d198a080ae6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\a5b282f9c98a540a8c04c9cb6fe5e561857c30f4\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5eb18d47b7e87f80d69560ac1f7d961a37dad795\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\37261fe56ec8889dd454d8ac2ae974f83c860efe\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_13c3efa378a2f438a395f786ddcf63f29cd79702\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\8e998f78934db889c3c0b23d6f21e09c41949f12\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8c06a6a62b77c11422e124130c418a33fc6b6dbd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\7622edf50b6d69c41863e93ffdd3d24548131c83\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="73699fb64ea3de4a43d0f5c37dc525a5e1341ca1">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1ee39d780d81ebe3b1d5d81653230fcac000140a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\1d7f1dc05d07a29dcf91f070321857e097a9425a\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0ef21408e3142ffbfbd4a7ec1762c3325c6c386c">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d3903865c218a76ef52801f30bfec91cb80e8a6c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\6ec48d44356bf805d728c17f05113d7b541e48b1\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="1bf2ceb0034efe20249a561096f6e288cce7a0a4">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8c307f30d2a1826f07a61c71881c0e3ce48ea394\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\18109e8a0d1dd5fc83db8d307cfd7e514f81a039\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7357a05eea2a049c33488c7e8c6f887b3483d4b8">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_68e51c8fcdf647a05664c4c4060374c710ef3e8f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\1afdf0f5366673fb33e2c8d883d98cece2326958\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="53f7fbab5e6f4149eb5a1cdeabaeeeee11a84ebe">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3230815c586bc291de2e64ca63f0bb01d619a9d6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\0eb51e3924c4d024cc6e9c95da94be5ba6d251e1\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="1f4bb2577a30d0b3268fed038ed59230709ad593">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f54133ff7b17c1ff793df71aac40a67cc2fc6ad6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\30c45af5f33e3fcd06e758f6434c9d5705ee95b0\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e77688b91ff0aca024b6be41f2436a908903c32b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\17fa990bb9b6d4594b0242705762154bfbc9f462\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="300e72616fdf265bb36bff7adb1ebec7b1d72817">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_932d058e933cc0668c79067440e5400362583ecd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ba564417255bcc5ff74d915a199a25d29254df79">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_cc1c743df7aaa9a22e0426c445f20a652e325e93\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\9d6f6a0199fa9e72fabac0c5b8ff95df033c9ffe\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f2c9c986087e5862518757d0c988c8eac1a47bfd">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6e65f612010a0dbb1a249a60c888c64f0ff169cc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c29de488e8adad1889311a3c11a54834b2504db8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.3.1_a5a2825b34de3f3f7ae9d3d699d30b462eec82a0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\7c0d7f26ceb0412be275e747c5125f4195b9825c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bf803332f826adea247cc452d0bb04d7943f0007">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2e8e4a323eba6bd3323a6dcab0d377ba54995eb3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\11d0f7387cc500fbd1ccfaebc5892cf31467be97\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c48db997d87eb3e3ad47713cfbfe7cb878a2e66c">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b72d505e76c3e944f64f76bf4c819044f61c4c05\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\5203acb26daf33003c0a7f03c68415aaed1d3808\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d57767271a9c140da143ec0db9a0673b6d96eccb">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_697b6f21f3e9954dd823887d3da9c2c7453e914d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\7039291ae80aa7b9322b2d86ee77db55038f3bd6\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="43ab9b69758a0f22706629223c367e9bd478e1a8">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e950def8f3e6ea92fd32468e907cf0a4130e8338\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\656dd6226ca5b4049c635b8639a729c37b5d9bcc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="de2c50f4a24277d22d675d598640da6d4622b14d">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f769a94d2788ab54d955accae2ab2d64b14ee9e5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\f5c773c089dd8ec73f77cfa45f84af1997039448\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a723c85825d9591baec200523c10662e30c8bed7">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bd62810a0fef8b572fd4839da4149a00f03c8177\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\d43269103a10ee72f215e818da04e7214895faf2\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7a343e17f154f513a09c12946fae0f172be079ec">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0aa9f6746af85a2e43801c90a930a90f255bb9e0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\f76e261573bd2475cc99e01ab9e1dd9e12cf6684\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9e3d8a9e51bd1d53cc95f96f04d5a3198a524e74\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\b36acd99c69aef1647ee50725cc74c9ccf846757\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f861fce2e9fa167e7fe8d8558cf2cbb910b9fb34">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5e58f2da0310e22bcca9ff2ecdb33e806c78fcd0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\73d9ab41a2674e80f9ddb1dbf03f5bf55a39cd01\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a5da6fc5a6f39aee309ae6ae670e1b942759dc51">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fc4da2c7296b1bb7c673e8ee1e8557d0c6ca61f0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\74c77e170ea5f5bf17773e97943ddb473106c9aa\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5243af50631020511cf2403789678149b1a319e6">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_229df177f8f142cf0356b9432f8900fdb69c2d18\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\2d0cb9f155a229c4f252fc2ce286fd9f3091679c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="97e3259dcdaa9b33014a849f6d3bdbb4ef478383">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_55765688394a547274d542858b4e2547588c6545\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\300ed28c914befb5859a2400f2b1c3ec8abe21b4\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ea5537e2a88ce0497d3e2272b1cf93f2e0c77b0d">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8d184e42c8f5f83968eced98e9d9b77b884cd836\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\dfc651f4e637b008d0be102e9eda9df1c2ff843c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="eb96a230c7b55d545fbdee45157a5a75b2b26284">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6a9789704d8927746d646422cfe5c5bb597b29f2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\8033d24b881c736c2f2da694137f120e8ad7114f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ce5313bb5ccc0c1e10c995e4efb2f2b08c848b39">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7dba00d19cd815d5a899f3596a1e646e5444d607\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\94e75acec901689c510489d1dc9eb733e3d3ff4c\output\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_f4406022666cad047f36762d6b7115f715120c1d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\a9073dbb0c84c578839bd393bc4f1fa1ee3070d4\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ba2f029ff37297295d2d197ac6e957b361bfccaf">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_84ba62a0b48194b42b31ad2c3dd3a12f395399bc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\cca1e2e91ac735501131353458438ea1229174a2\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_91436326cea4c32d65de8f9378df1bc7eebd8f80\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\fd0858f08cf01fd748a6db2acb8b83596d6ad461\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="74d1712880eb2b4ab37ddf3c6a3232c883756726">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_881fc069ad5c08397b7e94c0d9b203a2f4d06d55\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\a9118c45c8fe6c0b71985bc001b4b67226b6d393\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="415336382149f2a79eb80599e340e188f6724d6d">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bf2b220503e0e217a149fc2c0765fe3b9b2c903d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\94e75acec901689c510489d1dc9eb733e3d3ff4c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4de22f2082c0090d165a17dfeb5d8f96e6fed5b9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\5d34d065d37546ff6e77614459a315fa4990c37a\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a917154cf730ea6ec2495705309e6a4065cde2ac">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_50738c0ee663a62fb6400586455961fa78089a76\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\32f01c17b72800fd927eceffa03703f91f84b911\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5a6a7eb9bafe68411676be3e1fecb87cb493cdda\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\fece0fa81d769efb5ad3602e5473eaa01cab4b95\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5fef4ad8c5b2519596b80a241d56b69dffcd6845">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ce8806f1a924d90ac21fbb1ede3beb7f566dc57b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\58eb8aa6572e247ffc6697aeae383daf62b64335\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="12e94600a0ea3beae6ea0f1d18a0768ded5bc1ae">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_76e8e98fcfff5d275f5924aac8cd7a4f60027bc2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\c37ae28951c39a3af9930fc47a8279039abd6e54\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_22d32fd19192f1c19a5f7500990572bf4fce0965\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\966510af75b472c51254614eb056201ce6ec1d00\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f4540ad2a6e3741694e9332f0c20607c780fae6c">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_01cd2a66ada55d4d51eed07cdaed70d776072346\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\49016c1b2b56a16d0f6e94c884304a5cb493ff59\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5e651c1430cc9b8a3b3b5a9d92bb173214dfdf42">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2e10b7798e6ad12b4a6ed66ab694fbdd94d82304\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\efb60b3217f36e8c419aea40b7a7d55045c8a859\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2253c7760f5cbc16f3f4b369dd8869e50043053a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\b4909f554f4261aa4a78a2933b098a1bb91177da\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="db0a4170961a16af6d7a5222bf90a5876eea4227">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_430f35e4883539a1b9f9c07750091f7f5d491119\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\332e7773ea728899fbd520fbf7f7a4c6cb2c2bc4\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6d16df2955bbd154b36819386cfd2e3b7f7cae5b">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5af615ab0595a38ad6053cbb5406d8b935947062\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\.android\build-cache\87c5c1ea2195742c2d0a1d911bb2a9aeb73e7531\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="26cd46f7bc6e1f269062b61269317a29329a9a7b">
+        <dex dex="C:\Hila\Studies\FinalProject\TrippinApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c1e8683b7bc2ef685bdb73d10903ac206c040a32\classes.dex" />
+    </item>
+
+</items>
