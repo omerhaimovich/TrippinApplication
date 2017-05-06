@@ -1,5 +1,6 @@
 package trippin.trippinapp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ public class Trip {
     Date to_date;
     Date created_at;
     Date updated_at;
+    ArrayList<Attraction> attractions;
 
     public Trip(String google_id, String name, Date from_date, Date to_date) {
         this(UUID.randomUUID().toString(), google_id, name, from_date, to_date);
@@ -28,5 +30,6 @@ public class Trip {
         this.to_date = to_date;
         this.created_at = new Date();
         this.updated_at = new Date();
+        this.attractions = new ArrayList<Attraction>();
     }
 }
