@@ -1,5 +1,7 @@
 package trippin.trippinapp.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,6 +14,7 @@ public class Attraction {
     String m_googleID;
     String m_name;
     int m_rate;
+    LatLng m_attractionLocation;
 
     public Attraction(String googleID, String name, int rate) {
         this(UUID.randomUUID().toString(), googleID, name, rate);
