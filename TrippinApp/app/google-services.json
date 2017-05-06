@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "38180510687",
+    "project_id": "primal-gate-166722"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38180510687:android:f4ebec183b4f159a",
+        "android_client_info": {
+          "package_name": "trippin.trippinapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38180510687-uovsitm3ivti15h9aj8gm0pj6h56lb08.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "trippin.trippinapp",
+            "certificate_hash": "31fe6d41fab755c179c45061c0d54170f730cc55"
+          }
+        },
+        {
+          "client_id": "38180510687-vgv0vdv38ifg102qn5hn4vgc4gli3i1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNNd-EDCdtFBs6j_grK-ZQDftjZVjxw9U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
