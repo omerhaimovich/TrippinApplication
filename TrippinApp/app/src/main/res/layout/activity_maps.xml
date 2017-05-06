@@ -11,6 +11,9 @@
         tools:context="trippin.trippinapp.MapsActivity">
     </fragment>
     <Button
+        android:layout_width="wrap_content" android:layout_alignParentTop="true" android:onClick="ShowProfile"
+        android:layout_height="wrap_content" android:text="Profile" android:height="80dp"/>
+    <Button
         android:layout_width="wrap_content" android:layout_centerInParent="true" android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"  android:text="Start TripPin"/>
 </RelativeLayout>
