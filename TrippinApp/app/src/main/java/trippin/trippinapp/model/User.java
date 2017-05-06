@@ -7,12 +7,12 @@ import java.util.ArrayList;
  */
 
 public class User {
-    String email;
-    ArrayList<Trip> trips;
-    Trip current_trip;
+    String m_email;
+    ArrayList<Trip> m_trips;
+    String m_currentTripID;
 
     public User(String email) {
-        this.email = email;
-        trips = new ArrayList<Trip>();
+        this.m_email = email;
+        m_trips = new ArrayList<Trip>();
     }
 }

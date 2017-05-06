@@ -1,7 +1,9 @@
-package trippin.trippinapp;
+package trippin.trippinapp.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import trippin.trippinapp.R;
 
 public class TripActivity extends AppCompatActivity {
 
