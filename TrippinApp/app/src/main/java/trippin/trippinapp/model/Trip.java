@@ -46,10 +46,6 @@ public class Trip {
         this.m_startDate = m_startDate;
     }
 
-    public Date getEndDate() {
-        return m_endDate;
-    }
-
     public void setEndDate(Date m_endDate) {
         this.m_endDate = m_endDate;
     }
@@ -84,5 +80,9 @@ public class Trip {
         this.m_createdAt = new Date();
         this.m_updatedAt = new Date();
         this.m_attractions = new ArrayList<>();
+    }
+
+    public Date getEndDate() {
+        return m_endDate;
     }
 }
