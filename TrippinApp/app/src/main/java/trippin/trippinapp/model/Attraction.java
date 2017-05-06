@@ -18,7 +18,7 @@ public class Attraction {
     Date updaed_at;
 
     public Attraction(String google_id, String name, Date from_time, Date to_time, int rate) {
-        this( UUID.randomUUID().toString(), google_id, name, from_time, to_time, rate);
+        this(UUID.randomUUID().toString(), google_id, name, from_time, to_time, rate);
     }
 
     public Attraction(String _id, String google_id, String name, Date from_time, Date to_time, int rate) {
