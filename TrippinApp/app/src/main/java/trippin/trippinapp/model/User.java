@@ -8,11 +8,27 @@ import java.util.ArrayList;
 
 public class User {
     String m_email;
-    ArrayList<Trip> m_trips;
-    String m_currentTripID;
+    public ArrayList<Trip> m_trips;
+    public Trip m_currentTrip;
 
     public User(String email) {
         this.m_email = email;
         m_trips = new ArrayList<Trip>();
+    }
+
+    public ArrayList<Trip> getTrips() {
+        return m_trips;
+    }
+
+    public Trip getCurrentTrip() {
+        return m_currentTrip;
+    }
+
+    public void setCurrentTrip(Trip m_currentTrip) {
+        this.m_currentTrip = m_currentTrip;
+    }
+
+    public void AddTrip(Trip trip) {
+        m_trips.add(trip);
     }
 }

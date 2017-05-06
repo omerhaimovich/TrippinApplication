@@ -32,4 +32,16 @@ public class Trip {
         this.m_updatedAt = new Date();
         this.attractions = new ArrayList<>();
     }
+
+    public Date getStartDate() {
+        return m_startDate;
+    }
+
+    public Date getEndDate() {
+        return m_endDate;
+    }
+
+    public String getName() {
+        return m_name;
+    }
 }
