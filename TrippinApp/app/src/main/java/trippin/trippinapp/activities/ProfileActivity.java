@@ -1,12 +1,11 @@
-package trippin.trippinapp;
+package trippin.trippinapp.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.sql.Date;
-
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
+import trippin.trippinapp.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

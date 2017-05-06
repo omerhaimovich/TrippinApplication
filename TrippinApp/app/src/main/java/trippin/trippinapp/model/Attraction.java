@@ -1,5 +1,7 @@
 package trippin.trippinapp.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -8,29 +10,20 @@ import java.util.UUID;
  */
 
 public class Attraction {
-    String id;
-    String google_id;
-    String name;
-    Date from_time;
-    Date to_time;
-    int rate;
-    Date created_at;
-    Date updaed_at;
-    Trip trip;
+    String m_id;
+    String m_googleID;
+    String m_name;
+    int m_rate;
+    LatLng m_attractionLocation;
 
-    public Attraction(String google_id, String name, Date from_time, Date to_time, int rate, Trip trip) {
-        this(UUID.randomUUID().toString(), google_id, name, from_time, to_time, rate, trip);
+    public Attraction(String googleID, String name, int rate) {
+        this(UUID.randomUUID().toString(), googleID, name, rate);
     }
 
-    public Attraction(String _id, String google_id, String name, Date from_time, Date to_time, int rate, Trip trip) {
-        this.id = _id;
-        this.google_id = google_id;
-        this.name = name;
-        this.from_time = from_time;
-        this.to_time = to_time;
-        this.rate = rate;
-        this.created_at = new Date();
-        this.updaed_at = new Date();
-        this.trip = trip;
+    public Attraction(String _id, String m_googleID, String name, int rate) {
+        this.m_id = _id;
+        this.m_googleID = m_googleID;
+        this.m_name = name;
+        this.m_rate = rate;
     }
 }
