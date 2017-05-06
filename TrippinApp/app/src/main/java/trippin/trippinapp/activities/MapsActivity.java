@@ -9,10 +9,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import trippin.trippinapp.R;
+import trippin.trippinapp.model.Attraction;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -46,9 +51,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        ArrayList<Attraction> attractions = new ArrayList<>();
+
+        // TODO: 06-May-17 Hila - check this with real attractions from server API 
+        for (int i = 0; i < 10; i++) {
+            String attractionName = ("Attraction" + i);
+            LatLng attractionPos = new LatLng((-34 - i * 2), (151 + i * 5));
+
+            Attraction attraction = new Attraction("gdsfg",
+                    attractionName,
+                    1,
+                    attractionPos);
+            attractions.add(attraction);
+
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.title(attractionName);
+            markerOptions.position(attractionPos);
+            markerOptions.icon(attraction.getImage());
+            mMap.addMarker(markerOptions);
+        }
+
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(attractions.get(0).getAttractionLocation()));
     }
 }

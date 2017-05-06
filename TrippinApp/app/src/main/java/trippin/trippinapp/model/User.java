@@ -7,6 +7,9 @@ import java.util.ArrayList;
  */
 
 public class User {
+
+    private static final int ITEM_NOT_EXIST = -1;
+
     String m_email;
     ArrayList<Trip> m_trips;
     String m_currentTripID;
@@ -15,4 +18,61 @@ public class User {
         this.m_email = email;
         m_trips = new ArrayList<Trip>();
     }
+
+    public ArrayList<Trip> getUserTrips() {
+        if (m_trips == null) {
+            m_trips = new ArrayList<>();
+        }
+
+        return m_trips;
+    }
+
+    public void addNewTrip(Trip newTrip) {
+
+        boolean isTripNew = true;
+
+        for (Trip currTrip : getUserTrips()) {
+            if (currTrip.getID().compareTo(newTrip.getID()) == 0) {
+                isTripNew = false;
+            }
+        }
+
+        if (isTripNew) {
+            getUserTrips().add(newTrip);
+        }
+    }
+
+    public void updateTrip(Trip newTrip) {
+
+        for (Trip currTrip : getUserTrips()) {
+            if (currTrip.getID().compareTo(newTrip.getID()) == 0) {
+
+                currTrip.setStartDate(newTrip.getStartDate());
+                currTrip.setEndDate(newTrip.getEndDate());
+                currTrip.setName(newTrip.getName());
+                currTrip.setCreatedAt(newTrip.getCreatedAt());
+
+                break;
+            }
+        }
+    }
+
+    public void removeTrip(Trip tripToRemove) {
+
+        int tripToDeleteIndex = ITEM_NOT_EXIST;
+
+        for (int i = 0; i < getUserTrips().size(); i++) {
+            Trip currTrip = getUserTrips().get(i);
+
+            if (currTrip.getID().compareTo(tripToRemove.getID()) == 0) {
+                tripToDeleteIndex = i;
+                break;
+            }
+        }
+
+        if (tripToDeleteIndex != ITEM_NOT_EXIST) {
+            getUserTrips().remove(tripToDeleteIndex);
+        }
+    }
+
 }
