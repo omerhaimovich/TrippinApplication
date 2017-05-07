@@ -1,5 +1,6 @@
 package trippin.trippinapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -8,7 +9,7 @@ import java.util.UUID;
  * Created by tacco on 5/6/17.
  */
 
-public class Trip {
+public class Trip implements Serializable {
     String m_ID;
     String m_googleID;
     String m_name;

@@ -20,8 +20,6 @@ public class User {
     }
 
     public ArrayList<Trip> getUserTrips() {
-        m_trips = new ArrayList<>();
-
         return m_trips;
     }
 
@@ -36,7 +34,7 @@ public class User {
         }
 
         if (isTripNew) {
-            getUserTrips().add(newTrip);
+            m_trips.add(newTrip);
         }
     }
 

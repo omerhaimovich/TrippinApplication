@@ -13,30 +13,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="London"
-            android:textAlignment="center"
-            android:textSize="36dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1/1/2016 - 10/2/2016"
-            android:textAlignment="center" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
@@ -44,11 +20,37 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="End trip" />
+            android:text="End trip"
+            android:id="@+id/btnTripEnd" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Show On Map" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="London" android:id="@+id/txtTripTitle"
+            android:textAlignment="center"
+            android:textSize="36dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1/1/2016 - 10/2/2016" android:id="@+id/txtTripDates"
+            android:textAlignment="center" />
+
+        <ListView android:id="@+id/lstAttraction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>

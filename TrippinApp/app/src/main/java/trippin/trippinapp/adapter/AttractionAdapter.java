@@ -6,10 +6,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,14 +14,15 @@ import java.util.ArrayList;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.activities.TripActivity;
+import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 
 /**
- * Created by tacco on 5/6/17.
+ * Created by tacco on 5/7/17.
  */
 
-public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickListener{
-    private ArrayList<Trip> dataSet;
+public class AttractionAdapter extends ArrayAdapter<Attraction> {
+    private ArrayList<Attraction> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -32,37 +30,37 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
         TextView txtName;
         TextView txtFromTime;
         TextView txtToTime;
-        LinearLayout info;
+        TextView txtRate;
     }
 
-    public TripsAdapter(ArrayList<Trip> data, Context context) {
-        super(context, R.layout.trip_item, data);
+    public AttractionAdapter(ArrayList<Attraction> data, Context context) {
+        super(context, R.layout.attraction_item, data);
         this.dataSet = data;
         this.mContext = context;
 
     }
 
-    @Override
-    public void onClick(View v) {
-
-        int position = (Integer) v.getTag();
-        Object object = getItem(position);
-        Trip trip = (Trip)object;
-
-        Intent intent = new Intent(this.getContext(), TripActivity.class);
-        intent.putExtra("trip", trip);
-        this.getContext().startActivity(intent);
-    }
+//    @Override
+//    public void onClick(View v) {
+//
+////        int position = (Integer) v.getTag();
+////        Object object = getItem(position);
+////        Attraction trip = (Attraction) object;
+////
+////        Intent intent = new Intent(this.getContext(), TripActivity.class);
+////        intent.putExtra("trip", trip);
+////        this.getContext().startActivity(intent);
+//    }
 
     private int lastPosition = -1;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Trip trip = getItem(position);
+        Attraction attraction = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
-        ViewHolder viewHolder; // view lookup cache stored in tag
+        AttractionAdapter.ViewHolder viewHolder; // view lookup cache stored in tag
 
         final View result;
 
@@ -74,30 +72,29 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtName);
             viewHolder.txtFromTime = (TextView) convertView.findViewById(R.id.txtFromTime);
             viewHolder.txtToTime = (TextView) convertView.findViewById(R.id.txtToTime);
-            viewHolder.info = (LinearLayout) convertView.findViewById(R.id.tripItemContent);
+            viewHolder.txtRate = (TextView) convertView.findViewById(R.id.txtRate);
 
             result = convertView;
 
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
+            viewHolder = (AttractionAdapter.ViewHolder) convertView.getTag();
+            result = convertView;
         }
 
         //Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
         //result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.txtName.setText(trip.getName());
-        viewHolder.txtFromTime.setText(DateFormat.format("dd/MM/yy", trip.getStartDate()).toString());
+        viewHolder.txtName.setText(attraction.getName());
+        viewHolder.txtFromTime.setText(DateFormat.format("dd/MM/yy", attraction.getStartDate()).toString());
 
-        if (trip.getEndDate() != null)
-        {
-            viewHolder.txtToTime.setText(DateFormat.format("dd/MM/yy", trip.getEndDate()).toString());
+        if (attraction.getEndDate() != null) {
+            viewHolder.txtToTime.setText(DateFormat.format("dd/MM/yy", attraction.getEndDate()).toString());
         }
 
-        viewHolder.info.setOnClickListener(this);
-        viewHolder.info.setTag(position);
+        //viewHolder.info.setOnClickListener(this);
+        //viewHolder.info.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }

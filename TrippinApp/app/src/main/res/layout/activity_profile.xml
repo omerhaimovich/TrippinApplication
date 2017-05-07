@@ -10,12 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="trippin.trippinapp.activities.ProfileActivity">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Start New Trip" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,22 +21,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Current Trip:"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="No Current Trip" />
+        <LinearLayout
+            android:layout_width="match_parent" android:orientation="horizontal"
+            android:layout_height="wrap_content" android:layout_margin="25dp" >
 
-        <TextView
+            <TextView
+                android:layout_width="0dp" android:layout_weight="2"
+                android:layout_height="wrap_content" android:textSize="18dp"
+                 android:id="@+id/txtCurrentTripLocation"
+                android:text="No Current Trip" />
+
+            <TextView
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/txtCurrentTripDate"
+                android:text="01/01/2016" />
+        </LinearLayout>
+
+        <TextView android:textSize="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Previous Trips:" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp" android:id="@android:id/list"/>
+        <ListView android:layout_margin="20dp"
+            android:layout_width="match_parent" android:layout_marginBottom="50dp"
+            android:layout_height="match_parent"
+            android:id="@android:id/list"/>
     </LinearLayout>
+
+    <Button android:id="@+id/btnProfileAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start New Trip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

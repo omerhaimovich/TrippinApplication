@@ -61,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Attraction attraction = new Attraction("gdsfg",
                     attractionName,
                     1,
-                    attractionPos);
+                    attractionPos, null, null);
             attractions.add(attraction);
 
             MarkerOptions markerOptions = new MarkerOptions();

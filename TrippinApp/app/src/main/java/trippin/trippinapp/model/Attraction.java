@@ -3,6 +3,7 @@ package trippin.trippinapp.model;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -10,24 +11,45 @@ import java.util.UUID;
  * Created by tacco on 5/6/17.
  */
 
-public class Attraction {
+public class Attraction implements Serializable {
     String m_id;
     String m_googleID;
     String m_name;
     int m_rate;
+    Date m_startDate;
+
+    public Date getStartDate() {
+        return m_startDate;
+    }
+
+    public void setStartDate(Date m_startDate) {
+        this.m_startDate = m_startDate;
+    }
+
+    public Date getEndDate() {
+        return m_endDate;
+    }
+
+    public void setEndDate(Date m_endDate) {
+        this.m_endDate = m_endDate;
+    }
+
+    Date m_endDate;
     LatLng m_attractionLocation;
 BitmapDescriptor m_image;
 
-    public Attraction(String googleID, String name, int rate, LatLng location) {
-        this(UUID.randomUUID().toString(), googleID, name, rate, location);
+    public Attraction(String googleID, String name, int rate, LatLng location, Date startDate, Date endDate) {
+        this(UUID.randomUUID().toString(), googleID, name, rate, location, startDate, endDate);
     }
 
-    public Attraction(String _id, String m_googleID, String name, int rate, LatLng location) {
+    public Attraction(String _id, String m_googleID, String name, int rate, LatLng location, Date startDate, Date endDate) {
         this.m_id = _id;
         this.m_googleID = m_googleID;
         this.m_name = name;
         this.m_rate = rate;
         m_attractionLocation = location;
+        this.m_startDate = startDate;
+        this.m_endDate = endDate;
     }
 
     public String getID() {
