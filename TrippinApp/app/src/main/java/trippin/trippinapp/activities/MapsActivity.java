@@ -85,7 +85,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String attractionName4 = ("MyMindWorks Ltd");
         String attractionName5 = ("Pizza Express");
 
-
         LatLng attractionPos3 = new LatLng(51.507196, -0.126829);
         LatLng attractionPos4 = new LatLng(51.508126, -0.127132);
         LatLng attractionPos5 = new LatLng(51.508448, -0.126147);
