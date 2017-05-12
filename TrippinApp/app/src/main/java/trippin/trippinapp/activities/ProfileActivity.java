@@ -17,8 +17,6 @@ import trippin.trippinapp.R;
 
 public class ProfileActivity extends ListActivity {
 
-    User user = new User("atoma@gmail.com");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +28,7 @@ public class ProfileActivity extends ListActivity {
         t1.getAttractions().add(new Attraction(null, "Mcdonalds", 4, null, new Date(),new Date()));
         Trip t2 = new Trip(null, "London", new Date("20/12/2015"), new Date("29/12/2015"));
         Trip t3 = new Trip(null, "Paris", new Date("05/08/2016"), new Date("13/08/2016"));
+        User user = User.getCurrentUser();
         user.addNewTrip(t1);
         user.addNewTrip(t2);
         user.addNewTrip(t3);
@@ -39,7 +38,9 @@ public class ProfileActivity extends ListActivity {
         setListAdapter(trips_adapter);
 
         ((TextView)findViewById(R.id.txtCurrentTripLocation)).setText(user.getCurrentTrip().getName());
+        ((TextView)findViewById(R.id.txtProfileName)).setText(user.getName());
         ((TextView)findViewById(R.id.txtCurrentTripDate)).setText(DateFormat.format("dd/MM/yy", user.getCurrentTrip().getStartDate()).toString());
         ((Button)findViewById(R.id.btnProfileAction)).setText(user.m_currentTrip == null ? "Start Trippin" : "End Trippin");
+
     }
 }

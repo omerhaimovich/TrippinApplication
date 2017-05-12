@@ -10,23 +10,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="trippin.trippinapp.activities.MapsActivity"></fragment>
-
-    <Button
+    <LinearLayout android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:height="80dp"
-        android:onClick="ShowProfile"
-        android:text="Profile" />
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_width="80dp" android:layout_margin="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_height="80dp" android:textColor="@color/white"
+            android:background="@drawable/button_primary"
+            android:onClick="ShowProfile" android:id="@+id/btnProfile"
+            android:text="Profile" />
+        <Button
+            android:layout_width="80dp" android:layout_margin="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_height="80dp" android:textColor="@color/white"
+            android:background="@drawable/button_primary"
+            android:onClick="EditSettings"
+            android:text="Settings" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/mapLayout_startTrippinBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:text="Start TripPin"
-        android:onClick="btnStartTrippin"/>
+        android:layout_width="200dp" android:textSize="25dp"
+        android:layout_height="200dp"
+        android:text="Start TripPin" android:textColor="@color/white"
+        android:background="@drawable/button_dark"
+        android:onClick="btnStartTrippin"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
 
 

@@ -1,10 +1,19 @@
 package trippin.trippinapp.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,6 +27,7 @@ import java.util.ArrayList;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.User;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -31,10 +41,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        final ImageButton button = ((ImageButton)findViewById(R.id.btnProfile));
+
+        Glide.with(getApplicationContext()).load(User.getCurrentUser()
+                .getImageUrl()).asBitmap().centerCrop().into(new BitmapImageViewTarget(button) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                button.setBackground(circularBitmapDrawable);
+            }
+        });
     }
+
 
     public void ShowProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void EditSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 

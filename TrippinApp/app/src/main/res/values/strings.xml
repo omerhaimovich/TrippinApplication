@@ -7,4 +7,81 @@
     <!-- Button text -->
     <string name="btn_logout_from_google">Logout from Google</string>
     <string name="btn_revoke_access">Revoke Access</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <!-- Settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data sync &amp; Notification </string>
+    <string name="pref_title_sync_frequency">Attraction Update Frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>Always</item>
+        <item>5 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>0</item>
+        <item>5</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>240</item>
+        <item>360</item>
+    </string-array>
+    <string name="show_notifications">Show Notifications</string>
+    <string name="show_notifications_desc">Pop up nofitication for new attractions </string>
+
+    <!-- Settings General -->
+    <string-array name="radius_preference_entries">
+        <item>100 m</item>
+        <item>500 m</item>
+        <item>1 km</item>
+        <item>5 km</item>
+        <item>10 km</item>
+    </string-array>
+    <string-array name="radius_preference_values">
+        <item>0.1</item>
+        <item>0.5</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
+    <string name="attraction_types">Attraction Types</string>
+    <string-array name="attraction_types_entries">
+        <item>Shopping</item>
+        <item>Food</item>
+        <item>Bars &amp; Night Clubs</item>
+        <item>Art</item>
+        <item>Extreme</item>
+        <item>Parks</item>
+        <item>Nature</item>
+    </string-array>
+    <string-array name="attraction_types_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string name="trip_active">Pause Trip</string>
+    <string name="trip_active_desc">Stop Crawling for Attractions</string>
+    <string name="zoom_radius">Zoom Radius</string>
+    <string name="radius_preference_name">Search Radius</string>
+
+    <!-- headers -->
+    <string name="settings_general">General</string>
+    <string name="settings_display">Display</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
 </resources>

@@ -2,5 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#deff4081</color>
+    <color name="colorAccent_hover">#edfa6497</color>
+    <color name="primary">#bf3af990</color>
+    <color name="primary_hover">#e53af9d0</color>
+    <color name="white">#ffff</color>
 </resources>

@@ -26,6 +26,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import trippin.trippinapp.R;
+import trippin.trippinapp.model.User;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
@@ -114,18 +115,16 @@ public class LoginActivity extends AppCompatActivity implements
             try{
                 personPhotoUrl = acct.getPhotoUrl().toString();
                 String email = acct.getEmail();
-
-                Log.e(TAG, "Name: " + personName + ", email: " + email
-                        + ", Image: " + personPhotoUrl);
-
+                User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
 
                 txtName.setText(personName);
                 txtEmail.setText(email);
-                Glide.with(getApplicationContext()).load(personPhotoUrl)
-                        .thumbnail(0.5f)
-                        .crossFade()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(imgProfilePic);
+
+//                Glide.with(getApplicationContext()).load(personPhotoUrl)
+//                        .thumbnail(0.5f)
+//                        .crossFade()
+//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                        .into(imgProfilePic);
             } catch(Exception e){
                 imgProfilePic.setImageResource(R.mipmap.noprofilephoto);
             }

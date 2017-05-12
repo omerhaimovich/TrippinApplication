@@ -7,8 +7,28 @@ import java.util.ArrayList;
  */
 
 public class User {
+    public String getImageUrl() {
+        return m_imageUrl;
+    }
 
     private static final int ITEM_NOT_EXIST = -1;
+    String m_imageUrl;
+    String m_name;
+    static User m_currentUser;
+
+
+    public static User getCurrentUser() {
+
+        return m_currentUser;
+    }
+
+    public static void SignIn(String email, String username, String image) {
+        User.m_currentUser = new User(email, username, image);
+    }
+
+    public String getName() {
+        return m_name;
+    }
 
     String m_email;
     public ArrayList<Trip> m_trips;
@@ -16,6 +36,13 @@ public class User {
 
     public User(String email) {
         this.m_email = email;
+        m_trips = new ArrayList<Trip>();
+    }
+
+    public User(String email, String name, String image) {
+        this.m_email = email;
+        this.m_name = name;
+        this.m_imageUrl = image;
         m_trips = new ArrayList<Trip>();
     }
 

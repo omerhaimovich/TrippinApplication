@@ -10,13 +10,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@mipmap/background"
     tools:context="trippin.trippinapp.activities.ProfileActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
+        <LinearLayout android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView android:textSize="30dp"
+                android:layout_width="wrap_content" android:text="Name" android:id="@+id/txtProfileName"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
