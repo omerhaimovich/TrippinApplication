@@ -17,6 +17,13 @@ public class Attraction implements Serializable {
     String m_name;
     int m_rate;
     Date m_startDate;
+    Date m_endDate;
+    LatLng m_attractionLocation;
+    BitmapDescriptor m_image;
+
+    public Attraction(){
+
+    }
 
     public Date getStartDate() {
         return m_startDate;
@@ -34,9 +41,7 @@ public class Attraction implements Serializable {
         this.m_endDate = m_endDate;
     }
 
-    Date m_endDate;
-    LatLng m_attractionLocation;
-BitmapDescriptor m_image;
+
 
     public Attraction(String googleID, String name, int rate, LatLng location, Date startDate, Date endDate) {
         this(UUID.randomUUID().toString(), googleID, name, rate, location, startDate, endDate);
@@ -47,7 +52,7 @@ BitmapDescriptor m_image;
         this.m_googleID = m_googleID;
         this.m_name = name;
         this.m_rate = rate;
-        m_attractionLocation = location;
+        this.m_attractionLocation = location;
         this.m_startDate = startDate;
         this.m_endDate = endDate;
     }
@@ -91,4 +96,8 @@ BitmapDescriptor m_image;
     public void setAttractionLocation(LatLng m_attractionLocation) {
         this.m_attractionLocation = m_attractionLocation;
     }
+
+    public String getM_googleID() {return this.m_googleID;}
+    public void setM_googleID(String googleID){
+    this.m_googleID = googleID;}
 }
