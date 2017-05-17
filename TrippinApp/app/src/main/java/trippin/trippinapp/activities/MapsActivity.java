@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.gms.ads.MobileAds;
@@ -42,18 +44,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        final ImageButton button = ((ImageButton)findViewById(R.id.btnProfile));
+        final ImageButton button = ((ImageButton) findViewById(R.id.btnProfile));
 
-        Glide.with(getApplicationContext()).load(User.getCurrentUser()
-                .getImageUrl()).asBitmap().centerCrop().into(new BitmapImageViewTarget(button) {
-            @Override
-            protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
-                circularBitmapDrawable.setCircular(true);
-                button.setBackground(circularBitmapDrawable);
+        RequestManager requestManager = Glide.with(getApplicationContext());
+
+        // TODO: 13-May-17 Hila - check why doesn't work
+        if (requestManager != null) {
+
+            User currUser = User.getCurrentUser();
+
+            if (currUser != null) {
+
+                String imageURL = currUser.getImageUrl();
+
+                if (imageURL != null &&
+                        imageURL.isEmpty() == false) {
+
+                    DrawableTypeRequest<String> imaDrawableTypeRqst = requestManager.load(imageURL);
+
+                    if (imaDrawableTypeRqst != null &&
+                            imaDrawableTypeRqst.asBitmap() != null) {
+                        imaDrawableTypeRqst.asBitmap().centerCrop().into(new BitmapImageViewTarget(button) {
+                            @Override
+                            protected void setResource(Bitmap resource) {
+                                RoundedBitmapDrawable circularBitmapDrawable =
+                                        RoundedBitmapDrawableFactory.create(
+                                                getApplicationContext().getResources(), resource);
+                                circularBitmapDrawable.setCircular(true);
+                                button.setBackground(circularBitmapDrawable);
+                            }
+                        });
+                    }
+                }
             }
-        });
+        }
     }
 
 
