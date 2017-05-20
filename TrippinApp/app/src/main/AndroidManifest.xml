@@ -48,7 +48,7 @@
             android:label="@string/title_activity_settings" />
 
         <service
-            android:name=".services.GetAttractionsService"
+            android:name=".services.UpdateLocationService"
             android:enabled="true"
             android:exported="true"></service>
     </application>
