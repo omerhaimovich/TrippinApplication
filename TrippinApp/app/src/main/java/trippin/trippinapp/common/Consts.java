@@ -1,4 +1,4 @@
-package trippin.trippinapp.services;
+package trippin.trippinapp.common;
 
 /**
  * Created by tacco on 5/12/17.
