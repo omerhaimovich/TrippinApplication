@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -108,17 +106,17 @@ public class LoginActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
 
             String personPhotoUrl;
+            String email = acct.getEmail();
 
             Log.e(TAG, "display name: " + acct.getDisplayName());
 
             String personName = acct.getDisplayName();
+
+            txtName.setText(personName);
+            txtEmail.setText(email);
+
             try{
                 personPhotoUrl = acct.getPhotoUrl().toString();
-                String email = acct.getEmail();
-                User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
-
-                txtName.setText(personName);
-                txtEmail.setText(email);
 
 //                Glide.with(getApplicationContext()).load(personPhotoUrl)
 //                        .thumbnail(0.5f)
@@ -127,7 +125,10 @@ public class LoginActivity extends AppCompatActivity implements
 //                        .into(imgProfilePic);
             } catch(Exception e){
                 imgProfilePic.setImageResource(R.mipmap.noprofilephoto);
+                personPhotoUrl = "mipmap-hdpi/noprofilephoto.png";
             }
+
+            User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
 
             updateUI(true);
         } else {
@@ -224,6 +225,9 @@ public class LoginActivity extends AppCompatActivity implements
             btnSignOut.setVisibility(View.VISIBLE);
             btnRevokeAccess.setVisibility(View.VISIBLE);
             llProfileLayout.setVisibility(View.VISIBLE);
+            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            startActivity(intent);
+
         } else {
             btnSignIn.setVisibility(View.VISIBLE);
             btnSignOut.setVisibility(View.GONE);
