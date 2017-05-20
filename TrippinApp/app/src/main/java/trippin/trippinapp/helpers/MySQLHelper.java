@@ -1,4 +1,4 @@
-package trippin.trippinapp.Helpers;
+package trippin.trippinapp.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
