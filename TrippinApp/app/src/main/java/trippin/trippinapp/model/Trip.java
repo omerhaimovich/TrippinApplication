@@ -29,7 +29,7 @@ public class Trip implements Serializable {
     Date m_updatedAt;
     ArrayList<Attraction> m_attractions;
 
-    public static Trip tripFromJSON(JsonObject object)
+    public static Trip FromJSON(JsonObject object)
     {
         try
         {

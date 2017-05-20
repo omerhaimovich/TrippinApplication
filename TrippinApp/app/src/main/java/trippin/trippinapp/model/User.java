@@ -1,6 +1,12 @@
 package trippin.trippinapp.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by tacco on 5/6/17.
@@ -14,13 +20,19 @@ public class User {
     private static final int ITEM_NOT_EXIST = -1;
     String m_imageUrl;
     String m_name;
-
+    public ArrayList<Trip> getUserTrips() {
+        return m_trips;
+    }
     public String getEmail() {
         return m_email;
     }
-
     static User m_currentUser;
-
+    public String getName() {
+        return m_name;
+    }
+    String m_email;
+    public ArrayList<Trip> m_trips;
+    public Trip m_currentTrip;
 
     public static User getCurrentUser() {
 
@@ -30,14 +42,6 @@ public class User {
     public static void SignIn(String email, String username, String image) {
         User.m_currentUser = new User(email, username, image);
     }
-
-    public String getName() {
-        return m_name;
-    }
-
-    String m_email;
-    public ArrayList<Trip> m_trips;
-    public Trip m_currentTrip;
 
     public User(String email) {
         this.m_email = email;
@@ -51,8 +55,16 @@ public class User {
         m_trips = new ArrayList<Trip>();
     }
 
-    public ArrayList<Trip> getUserTrips() {
-        return m_trips;
+    public Attraction currentAttraction()
+    {
+        for (Attraction attr : m_currentTrip.getAttractions())
+        {
+            if (attr.getEndDate() == null) {
+                return attr;
+            }
+        }
+
+        return null;
     }
 
     public void addNewTrip(Trip newTrip) {
