@@ -1,6 +1,16 @@
 package trippin.trippinapp.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -18,6 +28,30 @@ public class Trip implements Serializable {
     Date m_createdAt;
     Date m_updatedAt;
     ArrayList<Attraction> m_attractions;
+
+    public static Trip tripFromJSON(JsonObject object)
+    {
+        try
+        {
+            ArrayList<Attraction> attractions = new ArrayList<Attraction>();
+
+            String id = object.get("Id").getAsString();
+            String name = object.get("Country").getAsString();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            Date startDate = format.parse(object.get("CreationDate").getAsString());
+            Date endDate = format.parse(object.get("EndDate").getAsString());
+            JsonArray attrs =  object.get("Attractions").getAsJsonArray();
+
+            for (JsonElement attr : attrs) {
+                attractions.add(Attraction.FromJSON(attr.getAsJsonObject()));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     public Trip(String google_id, String name, Date from_date, Date to_date) {
         this(UUID.randomUUID().toString(), google_id, name, from_date, to_date);

@@ -112,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng attractionPos2 = new LatLng(51.507345, -0.12534);
 
         Attraction attraction1 = new Attraction("gdsfg",
-                attractionName1, 1, attractionPos1, null, null);
+                attractionName1, 1, attractionPos1, null, null, null);
 
         MarkerOptions markerOptions1 = new MarkerOptions();
         markerOptions1.title(attractionName1);
@@ -121,7 +121,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(markerOptions1);
 
         Attraction attraction2 = new Attraction("gdsfg",
-                attractionName2, 1, attractionPos2, null, null);
+                attractionName2, 1, attractionPos2, null, null, null);
 
         MarkerOptions markerOptions2 = new MarkerOptions();
         markerOptions2.title(attractionName2);
@@ -143,7 +143,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng attractionPos5 = new LatLng(51.508448, -0.126147);
 
         Attraction attraction3 = new Attraction("gdsfg",
-                attractionName3, 1, attractionPos3, null, null);
+                attractionName3, 1, attractionPos3, null, null, null);
 
         MarkerOptions markerOptions3 = new MarkerOptions();
         markerOptions3.title(attractionName3);
@@ -152,7 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(markerOptions3);
 
         Attraction attraction4 = new Attraction("gdsfg",
-                attractionName4, 1, attractionPos4, null, null);
+                attractionName4, 1, attractionPos4, null, null, null);
 
         MarkerOptions markerOptions4 = new MarkerOptions();
         markerOptions4.title(attractionName4);
@@ -162,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         Attraction attraction5 = new Attraction("gdsfg",
-                attractionName5, 1, attractionPos5, null, null);
+                attractionName5, 1, attractionPos5, null, null, null);
 
         MarkerOptions markerOptions5 = new MarkerOptions();
         markerOptions5.title(attractionName5);

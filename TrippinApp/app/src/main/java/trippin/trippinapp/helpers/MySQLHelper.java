@@ -79,7 +79,6 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID,attraction.getID());
-        values.put(KEY_GoogleID,attraction.getM_googleID());
         values.put(KEY_Name,attraction.getName());
         values.put(KEY_Rate,attraction.getRate());
         values.put(KEY_StartDate,attraction.getStartDate().toString());
@@ -125,7 +124,6 @@ public class MySQLHelper extends SQLiteOpenHelper {
         BitmapDescriptor image = null; //KEY_Image
 
         convertObj.setID(cursor.getString(cursor.getColumnIndex(KEY_ID)));
-        convertObj.setM_googleID(cursor.getString(cursor.getColumnIndex(KEY_GoogleID)));
         convertObj.setName(cursor.getString(cursor.getColumnIndex(KEY_Name)));
         convertObj.setRate(cursor.getInt(cursor.getColumnIndex(KEY_Rate)));
         convertObj.setStartDate(startDate);
