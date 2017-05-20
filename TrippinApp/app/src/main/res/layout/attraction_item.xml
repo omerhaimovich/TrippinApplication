@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:orientation="vertical"
-    android:layout_height="match_parent" android:id="@+id/tripItemContent"
+    android:layout_width="match_parent" android:orientation="horizontal"
+    android:layout_height="wrap_content" android:id="@+id/tripItemContent"
     >
-    <TextView
-        android:layout_width="wrap_content" android:id="@+id/txtName" android:text="London"
-        android:layout_height="wrap_content"  android:textSize="20dp"/>
+
     <LinearLayout
-        android:layout_width="match_parent" android:orientation="horizontal"
+        android:layout_width="0dp" android:layout_weight="1" android:orientation="vertical"
         android:layout_height="match_parent">
         <TextView
-            android:layout_width="0dp" android:layout_weight="1" android:id="@+id/txtFromTime"
-            android:layout_height="wrap_content" android:text="01/01/2016"/>
-        <TextView
-            android:layout_width="0dp" android:layout_weight="1" android:id="@+id/txtToTime"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="0dp" android:layout_weight="1" android:id="@+id/txtRate"
-            android:layout_height="wrap_content" android:text="5"/>
+            android:layout_width="wrap_content" android:id="@+id/txtName" android:text="London"
+            android:layout_height="wrap_content"  android:textSize="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent" android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="0dp" android:layout_weight="1" android:id="@+id/txtFromTime"
+                android:layout_height="wrap_content" android:text="01/01/2016"/>
+
+            <TextView   android:text="01/01/2016"
+                android:layout_width="0dp" android:layout_weight="1" android:id="@+id/txtToTime"
+                android:layout_height="wrap_content"/>
+
+            <TextView android:visibility="gone"
+                android:layout_width="0dp" android:layout_weight="1" android:id="@+id/txtRate"
+                android:layout_height="wrap_content" android:text="5"/>
+
+
+        </LinearLayout>
     </LinearLayout>
+
+    <Button android:textSize="10dp" android:textColor="@color/white" android:layout_margin="8dp"
+        android:layout_width="35dp" android:id="@+id/btnEndAttraction" android:text="end"
+        android:layout_height="35dp" android:background="@drawable/button_danger" />
+
+
+
+
 </LinearLayout>

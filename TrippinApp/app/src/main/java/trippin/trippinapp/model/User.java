@@ -14,6 +14,11 @@ public class User {
     private static final int ITEM_NOT_EXIST = -1;
     String m_imageUrl;
     String m_name;
+
+    public String getEmail() {
+        return m_email;
+    }
+
     static User m_currentUser;
 
 

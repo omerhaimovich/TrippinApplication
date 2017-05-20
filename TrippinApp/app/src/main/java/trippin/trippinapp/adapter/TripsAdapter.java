@@ -2,6 +2,8 @@ package trippin.trippinapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import trippin.trippinapp.R;
 import trippin.trippinapp.activities.TripActivity;
 import trippin.trippinapp.model.Trip;
+import trippin.trippinapp.model.User;
 
 /**
  * Created by tacco on 5/6/17.
@@ -88,12 +91,25 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
         //result.startAnimation(animation);
         lastPosition = position;
 
+        if (User.getCurrentUser().getCurrentTrip() == trip)
+        {
+
+
+        }
         viewHolder.txtName.setText(trip.getName());
         viewHolder.txtFromTime.setText(DateFormat.format("dd/MM/yy", trip.getStartDate()).toString());
 
         if (trip.getEndDate() != null)
         {
             viewHolder.txtToTime.setText(DateFormat.format("dd/MM/yy", trip.getEndDate()).toString());
+        }
+        else
+        {
+            viewHolder.txtName.setTextSize(25);
+            viewHolder.txtFromTime.setTextSize(20);
+            //viewHolder.txtName.setTextColor(Color.BLACK);
+            viewHolder.txtName.setTypeface(null, Typeface.BOLD_ITALIC);
+            viewHolder.txtFromTime.setTypeface(null, Typeface.BOLD_ITALIC);
         }
 
         viewHolder.info.setOnClickListener(this);
