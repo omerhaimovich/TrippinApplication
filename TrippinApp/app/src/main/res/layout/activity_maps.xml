@@ -35,7 +35,7 @@
         android:layout_height="200dp"
         android:text="Start TripPin" android:textColor="@color/white"
         android:background="@drawable/button_dark"
-        android:onClick="btnStartTrippin"
+        android:onClick="StartTrippin"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

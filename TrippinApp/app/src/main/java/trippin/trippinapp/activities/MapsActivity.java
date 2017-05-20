@@ -1,9 +1,12 @@
 package trippin.trippinapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
@@ -13,23 +16,23 @@ import android.widget.ImageButton;
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.User;
+import trippin.trippinapp.serverAPI.Enums.AttractionType;
+import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -78,12 +81,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
     }
 
 
     public void ShowProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+    }
+
+    public void StartTrippin(View view) {
+
+        ((Button)findViewById(R.id.mapLayout_startTrippinBtn)).setVisibility(View.INVISIBLE);
+        //int[] chosenAttractionType = getResources().getIntArray(R.array.attraction_types_values);
+        User currUser = User.getCurrentUser();
+
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Set<String> selections = sharedPref.getStringSet("attraction_types",null);
+        String[] selected = selections.toArray(new String[] {});
+
+        String bla = "bareliah@gmail.com";
+
+        ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
+        for (int i=0 ; i<selected.length;i++) {
+            selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
+        }
+
+        try {
+            RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
+            //RequestHandler.createTrip(currUser.getEmail(),32.075842,34.889338,selectedAttractionTypes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void EditSettings(View view) {

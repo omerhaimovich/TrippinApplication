@@ -32,6 +32,7 @@ public class RequestHandler {
 
     public static Gson objGson = new Gson();
 
+
     public static JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException
     {
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
@@ -90,6 +91,7 @@ public class RequestHandler {
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
+    //get trip
     public static JsonElement connectUser(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
 
         ConnectUserRequest objConnectUserRequest = new ConnectUserRequest();
@@ -102,12 +104,18 @@ public class RequestHandler {
 
     }
 
-    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng,ArrayList<AttractionType> attractionTypes) throws IOException {
 
         CreateTripRequest objConnectUserRequest = new CreateTripRequest();
         objConnectUserRequest.UserEmail = p_strEmail;
         objConnectUserRequest.Lat = p_dLat;
         objConnectUserRequest.Lng = p_dLng;
+
+        objConnectUserRequest.AttractionTypes = new ArrayList<>();
+
+        for (AttractionType attractionType : attractionTypes) {
+            objConnectUserRequest.AttractionTypes.add(attractionType);
+        }
 
         return doPostRequest(objConnectUserRequest);
 
@@ -124,10 +132,11 @@ public class RequestHandler {
         return doGetRequest(tripRequest);
     }
 
-    public static void UpdateUser(String Email, Boolean notificationsOn) throws IOException {
+    public static void UpdateUser(String Email, Boolean notificationsOn,int radius) throws IOException {
         UpdateUserRequest obj = new UpdateUserRequest();
         obj.Email = Email;
         obj.NotificationsOn = notificationsOn;
+        obj.Radius = radius;
 
         doPostRequest(obj);
     }

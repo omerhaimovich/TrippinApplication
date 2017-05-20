@@ -37,11 +37,11 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_ATTRCATIONS_DB="CREATE TABLE " +
             ATTRACTIONS_TABLE_NAME + "(" + KEY_ID + " TEXT PRIMARY KEY," +
-            KEY_GoogleID + " TEXT NOT NULL," +
+            KEY_GoogleID + " TEXT," +
             KEY_Name + " TEXT NOT NULL," +
             KEY_Rate + " INTEGER NOT NULL," +
-            KEY_StartDate + " DATETIME NOT NULL," +
-            KEY_ENDDate + " DATETIME NOT NULL," +
+            KEY_StartDate + " DATETIME," +
+            KEY_ENDDate + " DATETIME," +
             KEY_AttractionLocationLat  + " REAL NOT NULL," +
             KEY_AttractionLocationLng + " REAL NOT NULL," +
             KEY_Image + " TEXT NOT NULL" + ")";
