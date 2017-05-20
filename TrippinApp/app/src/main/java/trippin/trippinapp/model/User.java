@@ -43,6 +43,36 @@ public class User {
         User.m_currentUser = new User(email, username, image);
     }
 
+    public void UpdateTrips(JsonObject object)
+    {
+        try
+        {
+            ArrayList<Trip> trips = new ArrayList<Trip>();
+
+            Trip current = null;
+            m_trips.clear();
+
+            JsonArray attrs =  object.get("TripsObjects").getAsJsonArray();
+
+            for (JsonElement attr : attrs) {
+
+                Trip trip = Trip.FromJSON(attr.getAsJsonObject());
+                m_trips.add(trip);
+
+                if (trip.getEndDate() == null)
+                {
+
+                    current = trip;
+                }
+            }
+
+            m_currentTrip = current;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public User(String email) {
         this.m_email = email;
         m_trips = new ArrayList<Trip>();

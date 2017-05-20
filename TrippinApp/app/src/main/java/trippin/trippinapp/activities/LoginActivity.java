@@ -3,6 +3,7 @@ package trippin.trippinapp.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,8 +24,11 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.io.IOException;
+
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.User;
+import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
@@ -45,6 +49,9 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_login);
 
         btnSignIn = (SignInButton) findViewById(R.id.btn_sign_in);
@@ -129,6 +136,12 @@ public class LoginActivity extends AppCompatActivity implements
             }
 
             User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
+
+            try {
+                RequestHandler.connectUser(User.getCurrentUser().getEmail(), (double)0, (double)0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             updateUI(true);
         } else {

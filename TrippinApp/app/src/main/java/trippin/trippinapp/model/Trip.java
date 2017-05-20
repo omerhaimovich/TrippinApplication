@@ -39,7 +39,12 @@ public class Trip implements Serializable {
             String name = object.get("Country").getAsString();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             Date startDate = format.parse(object.get("CreationDate").getAsString());
-            Date endDate = format.parse(object.get("EndDate").getAsString());
+            String end  = object.get("EndDate").getAsString();
+            Date endDate = null;
+            if (end != null)
+            {
+                endDate = format.parse(end);
+            }
             JsonArray attrs =  object.get("Attractions").getAsJsonArray();
 
             for (JsonElement attr : attrs) {
