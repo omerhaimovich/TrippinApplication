@@ -43,9 +43,9 @@ public class ProfileActivity extends ListActivity {
         setContentView(R.layout.activity_profile);
 
         Trip t1 = new Trip(null, "Berlin", new Date(), null);
-        t1.getAttractions().add(new Attraction(null, "Star Bucks", 5, null, new Date(), null));
-        t1.getAttractions().add(new Attraction(null, "Zara", 4, null, new Date(),new Date()));
-        t1.getAttractions().add(new Attraction(null, "Mcdonalds", 4, null, new Date(),new Date()));
+        t1.getAttractions().add(new Attraction(null, "Star Bucks", 5, null, new Date(), null, null));
+        t1.getAttractions().add(new Attraction(null, "Zara", 4, null, new Date(),new Date(), null));
+        t1.getAttractions().add(new Attraction(null, "Mcdonalds", 4, null, new Date(),new Date(), null));
         Trip t2 = new Trip(null, "London", new Date("20/12/2015"), new Date("29/12/2015"));
         Trip t3 = new Trip(null, "Paris", new Date("05/08/2016"), new Date("13/08/2016"));
         User user = User.getCurrentUser();
