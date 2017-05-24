@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements
                 .requestEmail()
                 .build();
 
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -128,9 +129,13 @@ public class LoginActivity extends AppCompatActivity implements
 
             User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
 
+            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            startActivity(intent);
+
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
+            signIn();
             updateUI(false);
         }
     }
@@ -162,8 +167,8 @@ public class LoginActivity extends AppCompatActivity implements
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            //startActivity(intent);
         }
         else {
         }}
@@ -223,8 +228,8 @@ public class LoginActivity extends AppCompatActivity implements
             btnSignOut.setVisibility(View.VISIBLE);
             btnRevokeAccess.setVisibility(View.VISIBLE);
             llProfileLayout.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            //startActivity(intent);
 
         } else {
             btnSignIn.setVisibility(View.VISIBLE);
