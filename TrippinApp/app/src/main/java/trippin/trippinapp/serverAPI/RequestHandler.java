@@ -1,5 +1,7 @@
 package trippin.trippinapp.serverAPI;
 
+import android.location.Location;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
@@ -30,7 +32,29 @@ import trippin.trippinapp.serverAPI.UrlRequests.UpdateUserRequest;
 
 public class RequestHandler {
 
-    public static Gson objGson = new Gson();
+    private static RequestHandler ourInstance = null;
+    private Location location;
+    private static Gson objGson = new Gson();
+
+    private RequestHandler() {
+    }
+
+    public static RequestHandler getInstance() {
+        if (ourInstance == null) {
+            ourInstance = new RequestHandler();
+        }
+
+        return ourInstance;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
 
 
     public static JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException
