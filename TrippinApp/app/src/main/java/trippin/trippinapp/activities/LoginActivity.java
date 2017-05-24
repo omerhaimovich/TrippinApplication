@@ -72,12 +72,10 @@ public class LoginActivity extends AppCompatActivity implements
         btnSignIn.setSize(SignInButton.SIZE_ICON_ONLY);
     }
 
-
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
 
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(

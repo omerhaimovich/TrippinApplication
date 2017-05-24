@@ -1,14 +1,7 @@
-package trippin.trippinapp.services;
+package trippin.trippinapp.common;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import java.lang.reflect.Type;
-import java.util.Objects;
-import java.util.prefs.Preferences;
-
-import trippin.trippinapp.R;
 
 /**
  * Created by tacco on 5/12/17.
