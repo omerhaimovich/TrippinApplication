@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements
             startActivity(intent);
         }
         else {
-    }}
+        }}
 
     @Override
     public void onStart() {
