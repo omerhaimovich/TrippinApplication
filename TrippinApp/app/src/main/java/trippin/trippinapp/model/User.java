@@ -56,7 +56,7 @@ public class User {
 
             for (JsonElement attr : attrs) {
 
-                Trip trip = Trip.FromJSON(attr.getAsJsonObject());
+                Trip trip = Trip.FromJSON(attr.getAsJsonObject(), false);
                 m_trips.add(trip);
 
                 if (trip.getEndDate() == null)
@@ -87,11 +87,15 @@ public class User {
 
     public Attraction currentAttraction()
     {
-        for (Attraction attr : m_currentTrip.getAttractions())
+        if (m_currentTrip != null)
         {
-            if (attr.getEndDate() == null) {
-                return attr;
+            for (Attraction attr : m_currentTrip.getAttractions())
+            {
+                if (attr.getEndDate() == null) {
+                    return attr;
+                }
             }
+
         }
 
         return null;

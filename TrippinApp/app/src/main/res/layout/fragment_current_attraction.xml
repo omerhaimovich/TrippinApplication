@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:background="@color/white_trans"
+    android:layout_height="match_parent" android:orientation="vertical"
+    tools:context="trippin.trippinapp.fragment.CurrentAttraction">
+
+    <LinearLayout
+        android:layout_width="match_parent" android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageView" />
+
+        <TextView android:id="@+id/fragment_name_attration"
+            android:layout_width="0dp" android:layout_weight="3" android:text="Attraction Name"
+            android:layout_height="wrap_content" android:textSize="36dp" android:layout_margin="10dp"
+            />
+
+        <Button
+            android:id="@+id/end_attraction_frag"
+            android:layout_width="50dp" android:textSize="12dp"
+            android:layout_height="50dp" android:text="End"
+            android:textColor="@color/white"
+            android:background="@drawable/button_danger"
+            android:onClick="btn_end_attr_frag" android:layout_margin="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" >
+    </Button>
+    </LinearLayout>
+</LinearLayout>

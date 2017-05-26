@@ -29,8 +29,10 @@ public class Trip implements Serializable {
     Date m_updatedAt;
     ArrayList<Attraction> m_attractions;
 
-    public static Trip FromJSON(JsonObject object)
+    public static Trip FromJSON(JsonObject object, boolean load_atrraction)
     {
+        Trip trip = null;
+
         try
         {
             ArrayList<Attraction> attractions = new ArrayList<Attraction>();
@@ -45,17 +47,19 @@ public class Trip implements Serializable {
             {
                 endDate = format.parse(end);
             }
-            JsonArray attrs =  object.get("Attractions").getAsJsonArray();
+//            JsonArray attrs =  object.get("GoodAttractionsID").getAsJsonArray();
+//
+//            for (JsonElement attr : attrs) {
+//                attractions.add(Attraction.FromJSON(attr.getAsJsonObject()));
+//            }
 
-            for (JsonElement attr : attrs) {
-                attractions.add(Attraction.FromJSON(attr.getAsJsonObject()));
-            }
+            trip = new Trip(id, name, startDate, endDate);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return null;
+        return trip;
     }
 
     public Trip(String google_id, String name, Date from_date, Date to_date) {

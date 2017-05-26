@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.StrictMode;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.activities.TripActivity;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
+import trippin.trippinapp.serverAPI.RequestHandler;
 
 /**
  * Created by tacco on 5/6/17.
@@ -50,11 +54,25 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
 
         int position = (Integer) v.getTag();
         Object object = getItem(position);
-        Trip trip = (Trip)object;
+        String trip_id = ((Trip)object).getID();
 
-        Intent intent = new Intent(this.getContext(), TripActivity.class);
-        intent.putExtra("trip", trip);
-        this.getContext().startActivity(intent);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            Trip trip = Trip.FromJSON(RequestHandler.getTrip(trip_id,
+                                                    User.getCurrentUser().getEmail(),
+                                                    (double)0,
+                                                    (double)0).getAsJsonObject(), true);
+
+            Intent intent = new Intent(this.getContext(), TripActivity.class);
+            intent.putExtra("trip", trip);
+            this.getContext().startActivity(intent);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            Toast.makeText(mContext, "Failed Loading Trip", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private int lastPosition = -1;

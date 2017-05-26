@@ -50,8 +50,6 @@ public class ProfileActivity extends ListActivity {
 
         try {
             User.getCurrentUser().UpdateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), (double)0, (double)0).getAsJsonObject());
-
-            int t = 12 + 2;
         } catch (IOException e) {
             e.printStackTrace();
         }

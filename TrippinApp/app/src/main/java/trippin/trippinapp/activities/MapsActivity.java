@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 import trippin.trippinapp.R;
+import trippin.trippinapp.fragment.CurrentAttraction;
 import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.User;
 
@@ -43,6 +44,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+//        if (User.getCurrentUser().currentAttraction() != null)
+//        {
+//
+//        }
+
+        if (User.getCurrentUser().getCurrentTrip() == null)
+        {
+            findViewById(R.id.map_endTrippinBtn).setVisibility(View.GONE);
+        }
+        else
+        {
+            findViewById(R.id.map_startTrippinBtn).setVisibility(View.GONE);
+        }
+        CurrentAttraction ca = CurrentAttraction.newInstance(new Attraction("sdfsd", 5, null , null, null, null));//(User.getCurrentUser());
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
 
         final ImageButton button = ((ImageButton) findViewById(R.id.btnProfile));
 
