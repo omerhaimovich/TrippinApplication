@@ -1,16 +1,12 @@
 package trippin.trippinapp.activities;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,17 +15,19 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.Date;
 
+import trippin.trippinapp.R;
 import trippin.trippinapp.adapter.TripsAdapter;
 import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
-import trippin.trippinapp.R;
 
 public class ProfileActivity extends ListActivity {
 
     public void EndTrip(View view) {
         ((Button)findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
         ((Button)findViewById(R.id.btnStartTripProfile)).setVisibility(View.VISIBLE);
+        //TODO : Bar need to continue
+        //RequestHandler.endTrip();
     }
 
     public void StartTrip(View view) {

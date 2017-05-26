@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -104,7 +105,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Set<String> selections = sharedPref.getStringSet("attraction_types",null);
         String[] selected = selections.toArray(new String[] {});
 
-        String bla = "bareliah@gmail.com";
+        //String bla = "bareliah@gmail.com";
 
         ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
         for (int i=0 ; i<selected.length;i++) {
@@ -112,8 +113,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         try {
-            RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
-            //RequestHandler.createTrip(currUser.getEmail(),32.075842,34.889338,selectedAttractionTypes);
+            Location location = RequestHandler.getLocation();
+            //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
+            RequestHandler.createTrip(currUser.getEmail(),location.getLatitude(),location.getLongitude(),selectedAttractionTypes);
         } catch (IOException e) {
             e.printStackTrace();
         }

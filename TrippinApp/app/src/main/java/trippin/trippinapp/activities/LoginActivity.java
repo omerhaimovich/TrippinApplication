@@ -2,6 +2,7 @@ package trippin.trippinapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,15 +24,18 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.io.IOException;
+
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.User;
+import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private static final int RC_SIGN_IN = 007;
+    private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
@@ -76,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 
     private void signOut() {
@@ -127,6 +132,16 @@ public class LoginActivity extends AppCompatActivity implements
                 personPhotoUrl = "mipmap-hdpi/noprofilephoto.png";
             }
 
+            //connect user to the server
+            try{
+                Location location = RequestHandler.getLocation();
+                RequestHandler.connectUser(email,location.getLatitude(),location.getLongitude());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //set data to connected user
             User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
 
             Intent intent = new Intent(LoginActivity.this,MapsActivity.class);

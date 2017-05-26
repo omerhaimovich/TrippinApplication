@@ -10,6 +10,8 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="server_client_id">996954634123-07u42ulilmd457gtb5ahg11nenp5g96g.apps.googleusercontent.com</string>
+
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

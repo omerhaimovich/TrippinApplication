@@ -49,7 +49,7 @@
             android:layout_width="85dp"
             android:layout_margin="5dp"
             android:layout_height="85dp"
-            android:text="End trip" android:textColor="@color/white"
+            android:text="End Trippin" android:textColor="@color/white"
             android:background="@drawable/button_danger"
             android:id="@+id/btnTripEnd" />
     </LinearLayout>
