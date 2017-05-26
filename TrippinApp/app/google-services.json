@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "38180510687",
-    "project_id": "primal-gate-166722"
+    "project_number": "996954634123",
+    "project_id": "firebase-trippinapp"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:38180510687:android:f4ebec183b4f159a",
+        "mobilesdk_app_id": "1:996954634123:android:f4ebec183b4f159a",
         "android_client_info": {
           "package_name": "trippin.trippinapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "38180510687-uovsitm3ivti15h9aj8gm0pj6h56lb08.apps.googleusercontent.com",
+          "client_id": "996954634123-sd58v1ac9cb0fsakhmrg9h0potg7c8hq.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "996954634123-07u42ulilmd457gtb5ahg11nenp5g96g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "trippin.trippinapp",
-            "certificate_hash": "31fe6d41fab755c179c45061c0d54170f730cc55"
+            "certificate_hash": "2fb0d7d011940c0f8175cee93ca6a0f028d32655"
           }
-        },
-        {
-          "client_id": "38180510687-vgv0vdv38ifg102qn5hn4vgc4gli3i1e.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCNNd-EDCdtFBs6j_grK-ZQDftjZVjxw9U"
+          "current_key": "AIzaSyBgleipVMkH-is0nkZwXt9JIJajmNwBj1w"
         }
       ],
       "services": {
