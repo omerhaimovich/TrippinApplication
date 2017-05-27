@@ -23,10 +23,10 @@ public class Attraction implements Serializable {
     String m_id;
     String m_googleID;
     String m_name;
-    int m_rate;
+    double m_rate;
     Date m_startDate;
     Date m_endDate;
-    LatLng m_attractionLocation;
+    transient LatLng m_attractionLocation;
     String m_image;
 
     public Attraction(){
@@ -60,7 +60,7 @@ public class Attraction implements Serializable {
             String start = object.get("StartDate").getAsString();
             Date startDate = format.parse(start);
             String end  = object.get("EndDate").getAsString();
-            int rate  = Math.round(object.get("Rating").getAsFloat());
+            double rate  = object.get("Rating").getAsFloat();
             double x = object.get("Longitude").getAsDouble();
             double y = object.get("Latitude").getAsDouble();
             String url = object.get("PhotoUrl").getAsString();
@@ -80,11 +80,11 @@ public class Attraction implements Serializable {
         return attraction;
     }
 
-    public Attraction(String googleID, String name, int rate, LatLng location, Date startDate, Date endDate, String url) {
+    public Attraction(String googleID, String name, double rate, LatLng location, Date startDate, Date endDate, String url) {
         this(UUID.randomUUID().toString(), googleID, name, rate, location, startDate, endDate, url);
     }
 
-    public Attraction(String _id, String m_googleID, String name, int rate, LatLng location, Date startDate, Date endDate, String url) {
+    public Attraction(String _id, String m_googleID, String name, double rate, LatLng location, Date startDate, Date endDate, String url) {
         this.m_id = _id;
         this.m_googleID = m_googleID;
         this.m_name = name;
@@ -111,7 +111,7 @@ public class Attraction implements Serializable {
         this.m_name = m_name;
     }
 
-    public int getRate() {
+    public double getRate() {
         return m_rate;
     }
 
@@ -123,7 +123,7 @@ public class Attraction implements Serializable {
         this.m_image = m_image;
     }
 
-    public void setRate(int m_rate) {
+    public void setRate(double m_rate) {
         this.m_rate = m_rate;
     }
 

@@ -47,7 +47,7 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
         this.dataSet = data;
         this.mContext = context;
 
-    }
+        }
 
     @Override
     public void onClick(View v) {
