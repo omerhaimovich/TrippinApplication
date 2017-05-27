@@ -1,14 +1,17 @@
 package trippin.trippinapp.model;
 
+import android.icu.text.SimpleDateFormat;
+
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
 import org.w3c.dom.Attr;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -18,40 +21,16 @@ import java.util.UUID;
 
 public class Attraction implements Serializable {
     String m_id;
+    String m_googleID;
     String m_name;
     int m_rate;
     Date m_startDate;
     Date m_endDate;
     LatLng m_attractionLocation;
-    BitmapDescriptor m_image;
+    String m_image;
 
     public Attraction(){
 
-    }
-
-    public static Attraction FromJSON(JsonObject object)
-    {
-        Attraction att = null;
-
-        try
-        {
-            String id = object.get("ID").getAsString();
-            int rate = object.get("Rating").getAsInt();
-            String name = object.get("Name").getAsString();
-            long x = object.get("Longitude").getAsLong();
-            long y = object.get("Latitude").getAsLong();
-            String image = object.get("PhotoUrl").getAsString();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            Date startDate = format.parse(object.get("CreationDate").getAsString());
-            Date endDate = format.parse(object.get("EndDate").getAsString());
-
-            att = new Attraction(id, name, rate, new LatLng(x,y),  startDate, endDate, image);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return att;
     }
 
     public Date getStartDate() {
@@ -70,20 +49,50 @@ public class Attraction implements Serializable {
         this.m_endDate = m_endDate;
     }
 
+    public static Attraction FromJSON(JsonObject object)
+    {
+        Attraction attraction = null;
 
+        try
+        {
+            String id = object.get("Id").getAsString();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            String start = object.get("StartDate").getAsString();
+            Date startDate = format.parse(start);
+            String end  = object.get("EndDate").getAsString();
+            int rate  = Math.round(object.get("Rating").getAsFloat());
+            double x = object.get("Longitude").getAsDouble();
+            double y = object.get("Latitude").getAsDouble();
+            String url = object.get("PhotoUrl").getAsString();
+            String name  = object.get("Name").getAsString();
+            Date endDate = null;
 
-    public Attraction(String name, int rate, LatLng location, Date startDate, Date endDate, String url) {
-        this(UUID.randomUUID().toString(), name, rate, location, startDate, endDate, url);
+            if (end != null) {
+                endDate = format.parse(end);
+            }
+
+            attraction = new Attraction(id,name, rate, new LatLng(x,y),  startDate, endDate, url);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return attraction;
     }
 
-    public Attraction(String _id, String name, int rate, LatLng location, Date startDate, Date endDate, String Url) {
+    public Attraction(String googleID, String name, int rate, LatLng location, Date startDate, Date endDate, String url) {
+        this(UUID.randomUUID().toString(), googleID, name, rate, location, startDate, endDate, url);
+    }
+
+    public Attraction(String _id, String m_googleID, String name, int rate, LatLng location, Date startDate, Date endDate, String url) {
         this.m_id = _id;
+        this.m_googleID = m_googleID;
         this.m_name = name;
         this.m_rate = rate;
         this.m_attractionLocation = location;
         this.m_startDate = startDate;
         this.m_endDate = endDate;
-        //this.m_image = new BitmapDescriptor(Url);
+        this.m_image = url;
     }
 
     public String getID() {
@@ -106,11 +115,11 @@ public class Attraction implements Serializable {
         return m_rate;
     }
 
-    public BitmapDescriptor getImage() {
+    public String getImage() {
         return m_image;
     }
 
-    public void setImage(BitmapDescriptor m_image) {
+    public void setImage(String m_image) {
         this.m_image = m_image;
     }
 
@@ -125,4 +134,8 @@ public class Attraction implements Serializable {
     public void setAttractionLocation(LatLng m_attractionLocation) {
         this.m_attractionLocation = m_attractionLocation;
     }
+
+    public String getM_googleID() {return this.m_googleID;}
+    public void setM_googleID(String googleID){
+    this.m_googleID = googleID;}
 }

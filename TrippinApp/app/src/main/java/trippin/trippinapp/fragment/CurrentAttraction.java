@@ -1,18 +1,26 @@
 package trippin.trippinapp.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import org.w3c.dom.Attr;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.User;
 
 
 /**
@@ -65,6 +73,18 @@ public class CurrentAttraction extends Fragment {
         View view = inflater.inflate(R.layout.fragment_current_attraction, container, false);
 
         ((TextView)view.findViewById(R.id.fragment_name_attration)).setText(m_attraction.getName());
+
+        final ImageView image = ((ImageView)view.findViewById(R.id.imageViewCurrAttr));
+
+        Glide.with(getContext()).load(m_attraction.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                image.setBackground(circularBitmapDrawable);
+            }
+        });
 
         return view;
     }

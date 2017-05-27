@@ -8,6 +8,7 @@ public class UpdateUserRequest implements IUrlRequest {
     public String Email;
 
     public Boolean NotificationsOn;
+    public int Radius;
 
     @Override
     public String getURLSuffix() {

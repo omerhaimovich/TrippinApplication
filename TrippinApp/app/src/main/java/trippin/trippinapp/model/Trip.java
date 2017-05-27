@@ -1,16 +1,14 @@
 package trippin.trippinapp.model;
 
-import com.google.gson.Gson;
+import android.icu.text.SimpleDateFormat;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.w3c.dom.Attr;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -47,13 +45,19 @@ public class Trip implements Serializable {
             {
                 endDate = format.parse(end);
             }
-//            JsonArray attrs =  object.get("GoodAttractionsID").getAsJsonArray();
-//
-//            for (JsonElement attr : attrs) {
-//                attractions.add(Attraction.FromJSON(attr.getAsJsonObject()));
-//            }
 
             trip = new Trip(id, name, startDate, endDate);
+
+            if (load_atrraction)
+            {
+                JsonArray attrs =  object.get("FullAllAttractions").getAsJsonArray();
+
+                for (JsonElement attr : attrs) {
+                    attractions.add(Attraction.FromJSON(attr.getAsJsonObject()));
+                }
+
+                trip.m_attractions = attractions;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,6 +68,11 @@ public class Trip implements Serializable {
 
     public Trip(String google_id, String name, Date from_date, Date to_date) {
         this(UUID.randomUUID().toString(), google_id, name, from_date, to_date);
+    }
+
+    public String getGoogleID()
+    {
+        return m_googleID;
     }
 
     public String getID() {
@@ -114,6 +123,18 @@ public class Trip implements Serializable {
         return m_attractions;
     }
 
+
+    public Attraction getCurrentAttraction()
+    {
+        for (Attraction attr: getAttractions()) {
+            if (attr.getEndDate() == null)
+            {
+                return attr;
+            }
+        }
+
+        return null;
+    }
 
     public Trip(String id, String google_id, String name, Date from_date, Date to_date) {
         this.m_ID = id;

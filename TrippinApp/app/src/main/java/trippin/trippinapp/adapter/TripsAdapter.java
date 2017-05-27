@@ -54,8 +54,7 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
 
         int position = (Integer) v.getTag();
         Object object = getItem(position);
-        String trip_id = ((Trip)object).getID();
-
+        String trip_id = ((Trip)object).getGoogleID();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -66,7 +65,7 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
                                                     (double)0).getAsJsonObject(), true);
 
             Intent intent = new Intent(this.getContext(), TripActivity.class);
-            intent.putExtra("trip", trip);
+            intent.putExtra("trip_id", trip.getGoogleID());
             this.getContext().startActivity(intent);
         } catch (IOException e) {
             e.printStackTrace();
