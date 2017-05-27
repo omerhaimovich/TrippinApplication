@@ -31,7 +31,7 @@ public class TripActivity extends AppCompatActivity {
         Trip current = null;
         try {
             Location location = RequestHandler.getLocation();
-            current = Trip.FromJSON(RequestHandler.getTrip(getIntent().getStringExtra("trip_id"),
+            current = Trip.fromJSON(RequestHandler.getTrip(getIntent().getStringExtra("trip_id"),
                     User.getCurrentUser().getEmail(),
                     location.getLatitude(),
                     location.getLongitude()).getAsJsonObject(), true);
@@ -44,12 +44,12 @@ public class TripActivity extends AppCompatActivity {
             dates += " - " + DateFormat.format("dd/MM/yy", current.getEndDate()).toString();
         }
 
-        ((TextView)findViewById(R.id.txtTripTitle)).setText(current.getName());
-        ((TextView)findViewById(R.id.txtTripDates)).setText(dates);
+        ((TextView) findViewById(R.id.txtTripTitle)).setText(current.getName());
+        ((TextView) findViewById(R.id.txtTripDates)).setText(dates);
 
         AttractionAdapter adapter = new AttractionAdapter(current.getAttractions(), getApplicationContext());
-        ((ListView)findViewById(R.id.lstAttraction)).setAdapter(adapter);
+        ((ListView) findViewById(R.id.lstAttraction)).setAdapter(adapter);
 
-        ((Button)findViewById(R.id.btnTripEnd)).setVisibility(current.getEndDate() == null ? View.VISIBLE : View.GONE);
+        ((Button) findViewById(R.id.btnTripEnd)).setVisibility(current.getEndDate() == null ? View.VISIBLE : View.GONE);
     }
 }

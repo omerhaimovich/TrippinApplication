@@ -23,14 +23,14 @@
             android:layout_alignParentTop="true"
             android:layout_height="80dp" android:textColor="@color/white"
             android:background="@drawable/button_primary"
-            android:onClick="ShowProfile" android:id="@+id/btnProfile"
+            android:onClick="showProfile" android:id="@+id/btnProfile"
             android:text="Profile" />
         <Button
             android:layout_width="80dp" android:layout_margin="10dp"
             android:layout_alignParentTop="true"
             android:layout_height="80dp" android:textColor="@color/white"
             android:background="@drawable/button_primary"
-            android:onClick="EditSettings"
+            android:onClick="editSettings"
             android:text="Settings" />
         <Button
             android:id="@+id/map_endTrippinBtn"
@@ -50,7 +50,7 @@
         android:layout_height="200dp"
         android:text="Start TripPin" android:textColor="@color/white"
         android:background="@drawable/button_dark"
-        android:onClick="StartTrippin"
+        android:onClick="startTrippin"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

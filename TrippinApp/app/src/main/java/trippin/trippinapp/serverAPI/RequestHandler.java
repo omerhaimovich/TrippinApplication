@@ -58,14 +58,12 @@ public class RequestHandler {
     }
 
 
-
-    public static JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException
-    {
+    public static JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException {
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
         strUrlPrefix += urlRequest.getURLSuffix();
 
         URL objURL = new URL(strUrlPrefix);
-        HttpURLConnection objConnection = (HttpURLConnection)objURL.openConnection();
+        HttpURLConnection objConnection = (HttpURLConnection) objURL.openConnection();
 
         objConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
         objConnection.setRequestProperty("Accept-Charset", "utf-8");
@@ -84,22 +82,20 @@ public class RequestHandler {
 
         String s = reader.readLine();
         String strResult = "";
-        while(s != null)
-        {
-            strResult  += s;
-            s= reader.readLine();
+        while (s != null) {
+            strResult += s;
+            s = reader.readLine();
         }
 
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
-    public static JsonElement doGetRequest(IUrlRequest urlRequest) throws IOException
-    {
+    public static JsonElement doGetRequest(IUrlRequest urlRequest) throws IOException {
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
         strUrlPrefix += urlRequest.getURLSuffix();
 
         URL objURL = new URL(strUrlPrefix);
-        HttpURLConnection objConnection = (HttpURLConnection)objURL.openConnection();
+        HttpURLConnection objConnection = (HttpURLConnection) objURL.openConnection();
 
         objConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
         objConnection.setRequestProperty("Accept-Charset", "utf-8");
@@ -108,10 +104,9 @@ public class RequestHandler {
 
         String s = reader.readLine();
         String strResult = "";
-        while(s != null)
-        {
-            strResult  += s;
-            s= reader.readLine();
+        while (s != null) {
+            strResult += s;
+            s = reader.readLine();
         }
 
         return objGson.fromJson(strResult, JsonElement.class);
@@ -130,7 +125,7 @@ public class RequestHandler {
 
     }
 
-    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng,ArrayList<AttractionType> attractionTypes) throws IOException {
+    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng, ArrayList<AttractionType> attractionTypes) throws IOException {
 
         CreateTripRequest objConnectUserRequest = new CreateTripRequest();
         objConnectUserRequest.UserEmail = p_strEmail;
@@ -158,7 +153,7 @@ public class RequestHandler {
         return doGetRequest(tripRequest);
     }
 
-    public static void UpdateUser(String Email, Boolean notificationsOn,int radius) throws IOException {
+    public static void updateUser(String Email, Boolean notificationsOn, int radius) throws IOException {
         UpdateUserRequest obj = new UpdateUserRequest();
         obj.Email = Email;
         obj.NotificationsOn = notificationsOn;
@@ -167,7 +162,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public static void UpdateTrip(String TripId, AttractionType... attractionTypes) throws IOException {
+    public static void updateTrip(String TripId, AttractionType... attractionTypes) throws IOException {
         UpdateTripRequest obj = new UpdateTripRequest();
         obj.TripId = TripId;
         obj.AttractionTypes = new ArrayList<>();
@@ -179,7 +174,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public static JsonElement GetAttractions(String TripId, Double p_dLat, Double p_dLng) throws IOException {
+    public static JsonElement getAttractions(String TripId, Double p_dLat, Double p_dLng) throws IOException {
         GetAttractionRequest obj = new GetAttractionRequest();
         obj.TripId = TripId;
         obj.Lat = p_dLat;
@@ -188,7 +183,7 @@ public class RequestHandler {
         return doGetRequest(obj);
     }
 
-    public static void AttractionChosen(String TripId, String AttractionId) throws IOException {
+    public static void attractionChosen(String TripId, String AttractionId) throws IOException {
         AttractionChosenRequest obj = new AttractionChosenRequest();
         obj.AttractionId = AttractionId;
         obj.TripId = TripId;
@@ -196,7 +191,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public static void AttractionRated(String TripId, String AttractionId, Boolean IsGoodAttraction) throws IOException {
+    public static void attractionRated(String TripId, String AttractionId, Boolean IsGoodAttraction) throws IOException {
         AttractionRatedRequest obj = new AttractionRatedRequest();
         obj.AttractionId = AttractionId;
         obj.TripId = TripId;

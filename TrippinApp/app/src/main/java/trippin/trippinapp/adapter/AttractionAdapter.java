@@ -26,6 +26,7 @@ import trippin.trippinapp.model.Trip;
 public class AttractionAdapter extends ArrayAdapter<Attraction> {
     private ArrayList<Attraction> dataSet;
     Context mContext;
+    private int lastPosition = -1;
 
     // View lookup cache
     private static class ViewHolder {
@@ -42,20 +43,6 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
         this.mContext = context;
 
     }
-
-//    @Override
-//    public void onClick(View v) {
-//
-////        int position = (Integer) v.getTag();
-////        Object object = getItem(position);
-////        Attraction trip = (Attraction) object;
-////
-////        Intent intent = new Intent(this.getContext(), TripActivity.class);
-////        intent.putExtra("trip", trip);
-////        this.getContext().startActivity(intent);
-//    }
-
-    private int lastPosition = -1;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -95,9 +82,7 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
         if (attraction.getEndDate() != null) {
             viewHolder.txtToTime.setText(DateFormat.format("dd/MM/yy", attraction.getEndDate()).toString());
             viewHolder.btnEnd.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
+        } else {
             viewHolder.btnEnd.setVisibility(View.VISIBLE);
             viewHolder.txtToTime.setText("");
             viewHolder.txtName.setTextSize(25);

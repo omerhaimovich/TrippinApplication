@@ -79,7 +79,7 @@ public class User {
 
             for (JsonElement attr : attrs) {
 
-                Trip trip = Trip.FromJSON(attr.getAsJsonObject(), false);
+                Trip trip = Trip.fromJSON(attr.getAsJsonObject(), false);
                 m_trips.add(trip);
 
                 if (trip.getEndDate() == null) {

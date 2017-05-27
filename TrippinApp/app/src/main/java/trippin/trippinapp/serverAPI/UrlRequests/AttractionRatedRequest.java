@@ -11,7 +11,7 @@ public class AttractionRatedRequest  implements IUrlRequest{
 
     @Override
     public String getURLSuffix() {
-        return "attractions/AttractionRated";
+        return "attractions/attractionRated";
     }
 
 }

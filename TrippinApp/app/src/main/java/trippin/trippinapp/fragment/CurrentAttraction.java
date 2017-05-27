@@ -2,7 +2,6 @@ package trippin.trippinapp.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -10,19 +9,14 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
-import org.w3c.dom.Attr;
-
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.Attraction;
-import trippin.trippinapp.model.User;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +39,7 @@ public class CurrentAttraction extends Fragment implements View.OnClickListener 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters
+     *
      * @return A new instance of fragment CurrentAttraction.
      */
     public static CurrentAttraction newInstance(Attraction attr) {
@@ -69,11 +64,11 @@ public class CurrentAttraction extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_current_attraction, container, false);
 
-        ((TextView)view.findViewById(R.id.fragment_name_attration)).setText(m_attraction.getName());
+        ((TextView) view.findViewById(R.id.fragment_name_attration)).setText(m_attraction.getName());
 
         view.findViewById(R.id.end_attraction_frag).setOnClickListener(this);
 
-        final ImageView image = ((ImageView)view.findViewById(R.id.imageViewCurrAttr));
+        final ImageView image = ((ImageView) view.findViewById(R.id.imageViewCurrAttr));
 
         Glide.with(getContext()).load(m_attraction.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
             @Override
@@ -90,7 +85,7 @@ public class CurrentAttraction extends Fragment implements View.OnClickListener 
 
     public void onClose() {
         if (mListener != null) {
-            mListener.CloseAttraction();
+            mListener.closeAttraction();
         }
     }
 
@@ -127,6 +122,6 @@ public class CurrentAttraction extends Fragment implements View.OnClickListener 
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnCurrentAttractionListener {
-        void CloseAttraction();
+        void closeAttraction();
     }
 }

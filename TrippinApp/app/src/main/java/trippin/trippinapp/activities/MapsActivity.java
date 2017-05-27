@@ -41,7 +41,8 @@ import trippin.trippinapp.serverAPI.RequestHandler;
 import trippin.trippinapp.services.UpdateLocationService;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, CurrentAttraction.OnCurrentAttractionListener, Like.OnLikelistener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+        CurrentAttraction.OnCurrentAttractionListener, Like.OnLikelistener {
 
     private GoogleMap mMap;
 
@@ -66,29 +67,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // TODO : remove
         //trip = User.getCurrentUser().getTrips().get(0);
 
-        if (trip == null)
-        {
+        if (trip == null) {
             findViewById(R.id.map_endTrippinBtn).setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             findViewById(R.id.map_startTrippinBtn).setVisibility(View.GONE);
 
             ca = null;
             attraction = null;
             try {
                 // TODO; REMOVE COMMENT
-//                attr = Trip.FromJSON(RequestHandler.getTrip(trip.getGoogleID(),
+//                attr = Trip.fromJSON(RequestHandler.getTrip(trip.getGoogleID(),
 //                        User.getCurrentUser().getEmail(),
 //                        (double)0,(double)0).getAsJsonObject(), true).getCurrentAttraction();
 
                 // TODO : remove
-                attraction = Trip.FromJSON(RequestHandler.getTrip(trip.getGoogleID(),
+                attraction = Trip.fromJSON(RequestHandler.getTrip(trip.getGoogleID(),
                         User.getCurrentUser().getEmail(),
-                        (double)0,(double)0).getAsJsonObject(), true).getAttractions().get(0);
+                        (double) 0, (double) 0).getAsJsonObject(), true).getAttractions().get(0);
 
-                if (attraction != null)
-                {
+                if (attraction != null) {
                     ca = CurrentAttraction.newInstance(attraction);
                     getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
                 }
@@ -132,35 +129,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
-    public void ShowProfile(View view) {
+    public void showProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
-    public void StartTrippin(View view) {
+    public void startTrippin(View view) {
 
-        ((Button)findViewById(R.id.map_startTrippinBtn)).setVisibility(View.INVISIBLE);
+        ((Button) findViewById(R.id.map_startTrippinBtn)).setVisibility(View.INVISIBLE);
 
         //int[] chosenAttractionType = getResources().getIntArray(R.array.attraction_types_values);
         User currUser = User.getCurrentUser();
 
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Set<String> selections = sharedPref.getStringSet("attraction_types",null);
-        String[] selected = selections.toArray(new String[] {});
+        Set<String> selections = sharedPref.getStringSet("attraction_types", null);
+        String[] selected = selections.toArray(new String[]{});
 
         //String bla = "bareliah@gmail.com";
 
         ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
-        for (int i=0 ; i<selected.length;i++) {
+        for (int i = 0; i < selected.length; i++) {
             selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
         }
 
         try {
             Location location = RequestHandler.getLocation();
             //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
-            RequestHandler.createTrip(currUser.getEmail(),location.getLatitude(),location.getLongitude(),selectedAttractionTypes);
+            RequestHandler.createTrip(currUser.getEmail(), location.getLatitude(), location.getLongitude(), selectedAttractionTypes);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void EditSettings(View view) {
+    public void editSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
@@ -186,30 +182,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        int fineLocationPermission = ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION);
-        int coarseLocationPermission = ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        if (fineLocationPermission != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(
-                    this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9);
-
-        }
-
-        if (coarseLocationPermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 9);
-        }
-
-        if (fineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                coarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-
-            Intent intent = new Intent(this, UpdateLocationService.class);
-            startService(intent);
-        }
-
         // Add a marker in Sydney and move the camera
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(attractionPos1));
     }
@@ -219,25 +191,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void CloseAttraction() {
+    public void closeAttraction() {
         Like like = Like.newInstance(attraction.getID());
         like.show(getSupportFragmentManager(), "dialog");
         dialog = like;
-       //
+        //
     }
 
     @Override
-    public void Close() {
+    public void close() {
         getSupportFragmentManager().beginTransaction().remove(ca).commit();
         dialog.dismiss();
     }
 
-    public void btnEndTrippin(View view){
-        ((Button)findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
-        ((Button)findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
+    public void btnEndTrippin(View view) {
+        ((Button) findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
+        ((Button) findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
 
         Trip currentTrip = User.getCurrentUser().getCurrentTrip();
-        if(currentTrip != null){
+        if (currentTrip != null) {
             try {
                 RequestHandler.endTrip(currentTrip.getID());
             } catch (IOException e) {

@@ -25,12 +25,12 @@ import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class ProfileActivity extends ListActivity {
 
-    public void EndTrip(View view) {
-        ((Button)findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
-        ((Button)findViewById(R.id.btnStartTripProfile)).setVisibility(View.VISIBLE);
+    public void endTrip(View view) {
+        ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
+        ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.VISIBLE);
 
         Trip currentTrip = User.getCurrentUser().getCurrentTrip();
-        if(currentTrip != null){
+        if (currentTrip != null) {
             try {
                 RequestHandler.endTrip(currentTrip.getID());
             } catch (IOException e) {
@@ -39,9 +39,9 @@ public class ProfileActivity extends ListActivity {
         }
     }
 
-    public void StartTrip(View view) {
-        ((Button)findViewById(R.id.btnEndTripProfile)).setVisibility(View.VISIBLE);
-        ((Button)findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
+    public void startTrip(View view) {
+        ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.VISIBLE);
+        ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ProfileActivity extends ListActivity {
 
         User user = User.getCurrentUser();
 
-        final ImageView image = ((ImageView)findViewById(R.id.profile_image));
+        final ImageView image = ((ImageView) findViewById(R.id.profile_image));
 
         Glide.with(getApplicationContext()).load(User.getCurrentUser()
                 .getImageUrl()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
@@ -77,16 +77,13 @@ public class ProfileActivity extends ListActivity {
         setListAdapter(trips_adapter);
 
         //((TextView)findViewById(R.id.txtCurrentTripLocation)).setText(user.getCurrentTrip().getName());
-        ((TextView)findViewById(R.id.txtProfileName)).setText(user.getName());
-        ((TextView)findViewById(R.id.txtEmail)).setText(user.getEmail());
+        ((TextView) findViewById(R.id.txtProfileName)).setText(user.getName());
+        ((TextView) findViewById(R.id.txtEmail)).setText(user.getEmail());
         //((TextView)findViewById(R.id.txtCurrentTripDate)).setText(DateFormat.format("dd/MM/yy", user.getCurrentTrip().getStartDate()).toString());
-        if (user.m_currentTrip == null)
-        {
-            ((Button)findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
-        }
-        else
-        {
-            ((Button)findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
+        if (user.m_currentTrip == null) {
+            ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
+        } else {
+            ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
         }
     }
 }

@@ -29,7 +29,7 @@ public class Trip implements Serializable {
     Date m_updatedAt;
     ArrayList<Attraction> m_attractions;
 
-    public static Trip FromJSON(JsonObject object, boolean load_atrraction)
+    public static Trip fromJSON(JsonObject object, boolean load_atrraction)
     {
         Trip trip = null;
 
@@ -55,7 +55,7 @@ public class Trip implements Serializable {
                 JsonArray attrs =  object.get("FullAllAttractions").getAsJsonArray();
 
                 for (JsonElement attr : attrs) {
-                    attractions.add(Attraction.FromJSON(attr.getAsJsonObject()));
+                    attractions.add(Attraction.fromJSON(attr.getAsJsonObject()));
                 }
 
                 trip.m_attractions = attractions;
