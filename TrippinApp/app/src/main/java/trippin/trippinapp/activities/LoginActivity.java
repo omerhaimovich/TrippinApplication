@@ -2,7 +2,6 @@ package trippin.trippinapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -29,7 +28,6 @@ import java.io.IOException;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.User;
-import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
@@ -133,15 +131,6 @@ public class LoginActivity extends AppCompatActivity implements
             } catch(Exception e){
                 imgProfilePic.setImageResource(R.mipmap.noprofilephoto);
                 personPhotoUrl = "mipmap-hdpi/noprofilephoto.png";
-            }
-
-            //connect user to the server
-            try{
-                Location location = RequestHandler.getLocation();
-                RequestHandler.connectUser(email,location.getLatitude(),location.getLongitude());
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
             //set data to connected user

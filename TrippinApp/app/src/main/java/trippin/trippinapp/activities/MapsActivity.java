@@ -231,4 +231,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getSupportFragmentManager().beginTransaction().remove(ca).commit();
         dialog.dismiss();
     }
+
+    public void btnEndTrippin(View view){
+        ((Button)findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
+        ((Button)findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
+
+        Trip currentTrip = User.getCurrentUser().getCurrentTrip();
+        if(currentTrip != null){
+            try {
+                RequestHandler.endTrip(currentTrip.getID());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

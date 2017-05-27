@@ -1,20 +1,13 @@
 package trippin.trippinapp.activities;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.os.StrictMode;
-import android.os.StrictMode;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,13 +15,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.io.IOException;
-import java.io.IOException;
-import java.io.IOException;
-import java.util.Date;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.adapter.TripsAdapter;
-import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
@@ -41,7 +30,11 @@ public class ProfileActivity extends ListActivity {
 
         Trip currentTrip = User.getCurrentUser().getCurrentTrip();
         if(currentTrip != null){
-
+            try {
+                RequestHandler.endTrip(currentTrip.getID());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

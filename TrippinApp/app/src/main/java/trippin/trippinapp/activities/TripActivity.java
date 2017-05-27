@@ -1,8 +1,8 @@
 package trippin.trippinapp.activities;
 
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.adapter.AttractionAdapter;
-import trippin.trippinapp.adapter.TripsAdapter;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;

@@ -1,9 +1,11 @@
 package trippin.trippinapp.model;
 
+import android.location.Location;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.ArrayList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -37,7 +39,9 @@ public class User {
     public static void SignIn(String email, String username, String image) throws IOException {
         User.m_currentUser = new User(email, username, image);
 
-        User.m_currentUser.UpdateTrips(RequestHandler.connectUser(email, (double)0, (double)0).getAsJsonObject());
+        //connect user to the server
+        Location location = RequestHandler.getLocation();
+        User.m_currentUser.UpdateTrips(RequestHandler.connectUser(email, location.getLatitude(), location.getLongitude()).getAsJsonObject());
     }
 
     public Trip getTripByID(String id)
