@@ -39,8 +39,9 @@ public class ProfileActivity extends ListActivity {
         ((Button)findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
         ((Button)findViewById(R.id.btnStartTripProfile)).setVisibility(View.VISIBLE);
 
-        if(User.getCurrentUser().getCurrentTrip() == Trip){
-            RequestHandler.
+        Trip currentTrip = User.getCurrentUser().getCurrentTrip();
+        if(currentTrip != null){
+
         }
     }
 
