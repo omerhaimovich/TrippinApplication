@@ -64,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Trip trip = User.getCurrentUser().getCurrentTrip();
 
         // TODO : remove
-        trip = User.getCurrentUser().getTrips().get(0);
+        //trip = User.getCurrentUser().getTrips().get(0);
 
         if (trip == null)
         {

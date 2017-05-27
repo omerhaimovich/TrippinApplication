@@ -2,6 +2,7 @@ package trippin.trippinapp.activities;
 
 import android.app.ListActivity;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -52,7 +53,8 @@ public class ProfileActivity extends ListActivity {
         StrictMode.setThreadPolicy(policy);
 
         try {
-            User.getCurrentUser().UpdateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), (double)0, (double)0).getAsJsonObject());
+            Location location = RequestHandler.getLocation();
+            User.getCurrentUser().UpdateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), location.getLatitude(), location.getLongitude()).getAsJsonObject());
         } catch (IOException e) {
             e.printStackTrace();
         }
