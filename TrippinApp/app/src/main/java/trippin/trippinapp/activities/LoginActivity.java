@@ -3,7 +3,6 @@ package trippin.trippinapp.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,11 +23,8 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import java.io.IOException;
-
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.User;
-import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
@@ -49,9 +45,6 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_login);
 
         btnSignIn = (SignInButton) findViewById(R.id.btn_sign_in);
@@ -70,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements
                 .requestEmail()
                 .build();
 
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -79,12 +73,10 @@ public class LoginActivity extends AppCompatActivity implements
         btnSignIn.setSize(SignInButton.SIZE_ICON_ONLY);
     }
 
-
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
 
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -137,15 +129,13 @@ public class LoginActivity extends AppCompatActivity implements
 
             User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
 
-            try {
-                RequestHandler.connectUser(User.getCurrentUser().getEmail(), (double)0, (double)0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            startActivity(intent);
 
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
+            signIn();
             updateUI(false);
         }
     }
@@ -177,11 +167,11 @@ public class LoginActivity extends AppCompatActivity implements
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            //startActivity(intent);
         }
         else {
-    }}
+        }}
 
     @Override
     public void onStart() {
@@ -238,8 +228,8 @@ public class LoginActivity extends AppCompatActivity implements
             btnSignOut.setVisibility(View.VISIBLE);
             btnRevokeAccess.setVisibility(View.VISIBLE);
             llProfileLayout.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+            //startActivity(intent);
 
         } else {
             btnSignIn.setVisibility(View.VISIBLE);

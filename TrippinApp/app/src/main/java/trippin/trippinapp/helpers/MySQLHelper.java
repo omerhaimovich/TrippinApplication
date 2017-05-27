@@ -37,11 +37,11 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_ATTRCATIONS_DB="CREATE TABLE " +
             ATTRACTIONS_TABLE_NAME + "(" + KEY_ID + " TEXT PRIMARY KEY," +
-            KEY_GoogleID + " TEXT NOT NULL," +
+            KEY_GoogleID + " TEXT," +
             KEY_Name + " TEXT NOT NULL," +
             KEY_Rate + " INTEGER NOT NULL," +
-            KEY_StartDate + " DATETIME NOT NULL," +
-            KEY_ENDDate + " DATETIME NOT NULL," +
+            KEY_StartDate + " DATETIME," +
+            KEY_ENDDate + " DATETIME," +
             KEY_AttractionLocationLat  + " REAL NOT NULL," +
             KEY_AttractionLocationLng + " REAL NOT NULL," +
             KEY_Image + " TEXT NOT NULL" + ")";
@@ -79,6 +79,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID,attraction.getID());
+        values.put(KEY_GoogleID,attraction.getM_googleID());
         values.put(KEY_Name,attraction.getName());
         values.put(KEY_Rate,attraction.getRate());
         values.put(KEY_StartDate,attraction.getStartDate().toString());
@@ -124,6 +125,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
         BitmapDescriptor image = null; //KEY_Image
 
         convertObj.setID(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+        convertObj.setM_googleID(cursor.getString(cursor.getColumnIndex(KEY_GoogleID)));
         convertObj.setName(cursor.getString(cursor.getColumnIndex(KEY_Name)));
         convertObj.setRate(cursor.getInt(cursor.getColumnIndex(KEY_Rate)));
         convertObj.setStartDate(startDate);

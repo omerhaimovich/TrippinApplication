@@ -4,9 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by tacco on 5/6/17.
@@ -20,19 +18,13 @@ public class User {
     private static final int ITEM_NOT_EXIST = -1;
     String m_imageUrl;
     String m_name;
-    public ArrayList<Trip> getUserTrips() {
-        return m_trips;
-    }
+
     public String getEmail() {
         return m_email;
     }
+
     static User m_currentUser;
-    public String getName() {
-        return m_name;
-    }
-    String m_email;
-    public ArrayList<Trip> m_trips;
-    public Trip m_currentTrip;
+
 
     public static User getCurrentUser() {
 
@@ -43,24 +35,22 @@ public class User {
         User.m_currentUser = new User(email, username, image);
     }
 
-    public void UpdateTrips(JsonObject object)
-    {
-        try
-        {
+
+    public void UpdateTrips(JsonObject object) {
+        try {
             ArrayList<Trip> trips = new ArrayList<Trip>();
 
             Trip current = null;
             m_trips.clear();
 
-            JsonArray attrs =  object.get("TripsObjects").getAsJsonArray();
+            JsonArray attrs = object.get("TripsObjects").getAsJsonArray();
 
             for (JsonElement attr : attrs) {
 
                 Trip trip = Trip.FromJSON(attr.getAsJsonObject(), false);
                 m_trips.add(trip);
 
-                if (trip.getEndDate() == null)
-                {
+                if (trip.getEndDate() == null) {
 
                     current = trip;
                 }
@@ -72,6 +62,14 @@ public class User {
             e.printStackTrace();
         }
     }
+
+    public String getName() {
+        return m_name;
+    }
+
+    String m_email;
+    public ArrayList<Trip> m_trips;
+    public Trip m_currentTrip;
 
     public User(String email) {
         this.m_email = email;
@@ -85,12 +83,11 @@ public class User {
         m_trips = new ArrayList<Trip>();
     }
 
+
     public Attraction currentAttraction()
     {
-        if (m_currentTrip != null)
-        {
-            for (Attraction attr : m_currentTrip.getAttractions())
-            {
+        if (m_currentTrip != null) {
+            for (Attraction attr : m_currentTrip.getAttractions()) {
                 if (attr.getEndDate() == null) {
                     return attr;
                 }
@@ -99,6 +96,9 @@ public class User {
         }
 
         return null;
+    }
+    public ArrayList<Trip> getUserTrips() {
+        return m_trips;
     }
 
     public void addNewTrip(Trip newTrip) {

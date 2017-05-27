@@ -1,5 +1,7 @@
 package trippin.trippinapp.serverAPI;
 
+import android.location.Location;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
@@ -30,7 +32,30 @@ import trippin.trippinapp.serverAPI.UrlRequests.UpdateUserRequest;
 
 public class RequestHandler {
 
-    public static Gson objGson = new Gson();
+    private static RequestHandler ourInstance = null;
+    private Location location;
+    private static Gson objGson = new Gson();
+
+    private RequestHandler() {
+    }
+
+    public static RequestHandler getInstance() {
+        if (ourInstance == null) {
+            ourInstance = new RequestHandler();
+        }
+
+        return ourInstance;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+
 
     public static JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException
     {
@@ -90,6 +115,7 @@ public class RequestHandler {
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
+    //get trip
     public static JsonElement connectUser(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
 
         ConnectUserRequest objConnectUserRequest = new ConnectUserRequest();
@@ -102,12 +128,18 @@ public class RequestHandler {
 
     }
 
-    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng,ArrayList<AttractionType> attractionTypes) throws IOException {
 
         CreateTripRequest objConnectUserRequest = new CreateTripRequest();
         objConnectUserRequest.UserEmail = p_strEmail;
         objConnectUserRequest.Lat = p_dLat;
         objConnectUserRequest.Lng = p_dLng;
+
+        objConnectUserRequest.AttractionTypes = new ArrayList<>();
+
+        for (AttractionType attractionType : attractionTypes) {
+            objConnectUserRequest.AttractionTypes.add(attractionType);
+        }
 
         return doPostRequest(objConnectUserRequest);
 
@@ -124,10 +156,11 @@ public class RequestHandler {
         return doGetRequest(tripRequest);
     }
 
-    public static void UpdateUser(String Email, Boolean notificationsOn) throws IOException {
+    public static void UpdateUser(String Email, Boolean notificationsOn,int radius) throws IOException {
         UpdateUserRequest obj = new UpdateUserRequest();
         obj.Email = Email;
         obj.NotificationsOn = notificationsOn;
+        obj.Radius = radius;
 
         doPostRequest(obj);
     }
