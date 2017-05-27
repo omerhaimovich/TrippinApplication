@@ -122,7 +122,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
         double lat = cursor.getDouble((cursor.getColumnIndex(KEY_AttractionLocationLat)));
         double lng = cursor.getDouble((cursor.getColumnIndex(KEY_AttractionLocationLng)));
         LatLng location = new LatLng(lat,lng);
-        BitmapDescriptor image = null; //KEY_Image
+        String image = null; //KEY_Image
 
         convertObj.setID(cursor.getString(cursor.getColumnIndex(KEY_ID)));
         convertObj.setM_googleID(cursor.getString(cursor.getColumnIndex(KEY_GoogleID)));
