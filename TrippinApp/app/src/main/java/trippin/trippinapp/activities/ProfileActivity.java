@@ -1,17 +1,14 @@
 package trippin.trippinapp.activities;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,13 +16,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.io.IOException;
-import java.util.Date;
 
+import trippin.trippinapp.R;
 import trippin.trippinapp.adapter.TripsAdapter;
-import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
-import trippin.trippinapp.R;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class ProfileActivity extends ListActivity {
@@ -33,6 +28,15 @@ public class ProfileActivity extends ListActivity {
     public void EndTrip(View view) {
         ((Button)findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
         ((Button)findViewById(R.id.btnStartTripProfile)).setVisibility(View.VISIBLE);
+
+        Trip currentTrip = User.getCurrentUser().getCurrentTrip();
+        if(currentTrip != null){
+            try {
+                RequestHandler.endTrip(currentTrip.getID());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void StartTrip(View view) {
@@ -49,7 +53,8 @@ public class ProfileActivity extends ListActivity {
         StrictMode.setThreadPolicy(policy);
 
         try {
-            User.getCurrentUser().UpdateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), (double)0, (double)0).getAsJsonObject());
+            Location location = RequestHandler.getLocation();
+            User.getCurrentUser().UpdateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), location.getLatitude(), location.getLongitude()).getAsJsonObject());
         } catch (IOException e) {
             e.printStackTrace();
         }

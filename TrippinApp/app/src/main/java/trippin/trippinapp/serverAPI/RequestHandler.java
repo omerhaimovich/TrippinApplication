@@ -20,6 +20,8 @@ import trippin.trippinapp.serverAPI.UrlRequests.AttractionChosenRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.AttractionRatedRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.ConnectUserRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.CreateTripRequest;
+import trippin.trippinapp.serverAPI.UrlRequests.EndAttractionRequest;
+import trippin.trippinapp.serverAPI.UrlRequests.EndTripRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.GetAttractionRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.GetTripRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.IUrlRequest;
@@ -33,7 +35,7 @@ import trippin.trippinapp.serverAPI.UrlRequests.UpdateUserRequest;
 public class RequestHandler {
 
     private static RequestHandler ourInstance = null;
-    private Location location;
+    private static Location location;
     private static Gson objGson = new Gson();
 
     private RequestHandler() {
@@ -47,7 +49,7 @@ public class RequestHandler {
         return ourInstance;
     }
 
-    public Location getLocation() {
+    public static Location getLocation() {
         return location;
     }
 
@@ -200,6 +202,26 @@ public class RequestHandler {
         obj.TripId = TripId;
         obj.IsGoodAttraction = true;
         doPostRequest(obj);
+    }
+
+    public static JsonElement endAttraction(String p_strTripID, String p_strAttractionId) throws IOException {
+
+        EndAttractionRequest objEndAttractionRequest = new EndAttractionRequest();
+        objEndAttractionRequest.TripId = p_strTripID;
+        objEndAttractionRequest.AttractionId = p_strAttractionId;
+
+        return doPostRequest(objEndAttractionRequest);
+
+
+    }
+
+    public static JsonElement endTrip(String p_strTripID) throws IOException {
+
+        EndTripRequest objEndAttractionRequest = new EndTripRequest();
+        objEndAttractionRequest.TripId = p_strTripID;
+        return doPostRequest(objEndAttractionRequest);
+
+
     }
 
 }

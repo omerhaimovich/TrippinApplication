@@ -1,8 +1,9 @@
 package trippin.trippinapp.activities;
 
+import android.location.Location;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,6 @@ import java.io.IOException;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.adapter.AttractionAdapter;
-import trippin.trippinapp.adapter.TripsAdapter;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
@@ -30,10 +30,11 @@ public class TripActivity extends AppCompatActivity {
 
         Trip current = null;
         try {
+            Location location = RequestHandler.getLocation();
             current = Trip.FromJSON(RequestHandler.getTrip(getIntent().getStringExtra("trip_id"),
                     User.getCurrentUser().getEmail(),
-                    (double)0,
-                    (double)0).getAsJsonObject(), true);
+                    location.getLatitude(),
+                    location.getLongitude()).getAsJsonObject(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }

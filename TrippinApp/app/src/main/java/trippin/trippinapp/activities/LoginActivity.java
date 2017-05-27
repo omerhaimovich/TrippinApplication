@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private static final int RC_SIGN_IN = 007;
+    private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements
                 personPhotoUrl = "mipmap-hdpi/noprofilephoto.png";
             }
 
-
+            //set data to connected user
             try {
                 User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
                 Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
@@ -146,16 +146,7 @@ public class LoginActivity extends AppCompatActivity implements
 
             updateUI(true);
         } else {
-
-            // TODO: for debug
-//
-//            try {
-//                User.SignIn("atoma664@gmail.com", "tom acco", null);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-//            startActivity(intent);
+            // Signed out, show unauthenticated UI.
             signIn();
             updateUI(false);
         }

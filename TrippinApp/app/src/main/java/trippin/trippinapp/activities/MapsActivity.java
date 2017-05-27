@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -63,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Trip trip = User.getCurrentUser().getCurrentTrip();
 
         // TODO : remove
-        trip = User.getCurrentUser().getTrips().get(0);
+        //trip = User.getCurrentUser().getTrips().get(0);
 
         if (trip == null)
         {
@@ -149,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Set<String> selections = sharedPref.getStringSet("attraction_types",null);
         String[] selected = selections.toArray(new String[] {});
 
-        String bla = "bareliah@gmail.com";
+        //String bla = "bareliah@gmail.com";
 
         ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
         for (int i=0 ; i<selected.length;i++) {
@@ -157,8 +158,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         try {
-            RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
-            //RequestHandler.createTrip(currUser.getEmail(),32.075842,34.889338,selectedAttractionTypes);
+            Location location = RequestHandler.getLocation();
+            //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
+            RequestHandler.createTrip(currUser.getEmail(),location.getLatitude(),location.getLongitude(),selectedAttractionTypes);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -228,5 +230,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void Close() {
         getSupportFragmentManager().beginTransaction().remove(ca).commit();
         dialog.dismiss();
+    }
+
+    public void btnEndTrippin(View view){
+        ((Button)findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
+        ((Button)findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
+
+        Trip currentTrip = User.getCurrentUser().getCurrentTrip();
+        if(currentTrip != null){
+            try {
+                RequestHandler.endTrip(currentTrip.getID());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
