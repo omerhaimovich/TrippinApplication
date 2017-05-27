@@ -1,5 +1,6 @@
 package trippin.trippinapp.activities;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -8,10 +9,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 import trippin.trippinapp.R;
 import trippin.trippinapp.adapter.AttractionAdapter;
 import trippin.trippinapp.adapter.TripsAdapter;
 import trippin.trippinapp.model.Trip;
+import trippin.trippinapp.model.User;
+import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class TripActivity extends AppCompatActivity {
 
@@ -20,7 +25,19 @@ public class TripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip);
 
-        Trip current = (Trip)getIntent().getSerializableExtra("trip");
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Trip current = null;
+        try {
+            current = Trip.FromJSON(RequestHandler.getTrip(getIntent().getStringExtra("trip_id"),
+                    User.getCurrentUser().getEmail(),
+                    (double)0,
+                    (double)0).getAsJsonObject(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         String dates = DateFormat.format("dd/MM/yy", current.getStartDate()).toString();
         if (current.getEndDate() != null) {
             dates += " - " + DateFormat.format("dd/MM/yy", current.getEndDate()).toString();

@@ -1,6 +1,13 @@
 package trippin.trippinapp.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import trippin.trippinapp.serverAPI.RequestHandler;
 
 /**
  * Created by tacco on 5/6/17.
@@ -27,8 +34,50 @@ public class User {
         return m_currentUser;
     }
 
-    public static void SignIn(String email, String username, String image) {
+    public static void SignIn(String email, String username, String image) throws IOException {
         User.m_currentUser = new User(email, username, image);
+
+        User.m_currentUser.UpdateTrips(RequestHandler.connectUser(email, (double)0, (double)0).getAsJsonObject());
+    }
+
+    public Trip getTripByID(String id)
+    {
+        for (Trip tr: getTrips()) {
+
+            if (id == tr.getID())
+            {
+                return tr;
+            }
+        }
+
+        return null;
+    }
+
+    public void UpdateTrips(JsonObject object) {
+        try {
+            ArrayList<Trip> trips = new ArrayList<Trip>();
+
+            Trip current = null;
+            m_trips.clear();
+
+            JsonArray attrs = object.get("TripsObjects").getAsJsonArray();
+
+            for (JsonElement attr : attrs) {
+
+                Trip trip = Trip.FromJSON(attr.getAsJsonObject(), false);
+                m_trips.add(trip);
+
+                if (trip.getEndDate() == null) {
+
+                    current = trip;
+                }
+            }
+
+            m_currentTrip = current;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getName() {
@@ -49,6 +98,20 @@ public class User {
         this.m_name = name;
         this.m_imageUrl = image;
         m_trips = new ArrayList<Trip>();
+    }
+
+
+    public Attraction currentAttraction() {
+        if (m_currentTrip != null) {
+            for (Attraction attr : m_currentTrip.getAttractions()) {
+                if (attr.getEndDate() == null) {
+                    return attr;
+                }
+            }
+
+        }
+
+        return null;
     }
 
     public ArrayList<Trip> getUserTrips() {

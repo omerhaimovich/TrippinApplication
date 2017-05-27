@@ -1,15 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="trippin.trippinapp.activities.MapsActivity"></fragment>
+        tools:context="trippin.trippinapp.activities.MapsActivity"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"></fragment>
+    <LinearLayout android:orientation="vertical" android:layout_alignParentBottom="true"
+        android:layout_width="match_parent" android:id="@+id/CurrentAttractionContainer"
+        android:layout_height="wrap_content">
+    </LinearLayout>
     <LinearLayout android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -27,10 +32,20 @@
             android:background="@drawable/button_primary"
             android:onClick="EditSettings"
             android:text="Settings" />
+        <Button
+            android:id="@+id/map_endTrippinBtn"
+            android:layout_width="80dp" android:textSize="12dp"
+            android:layout_height="80dp" android:text="End Trppin"
+            android:textColor="@color/white"
+            android:background="@drawable/button_danger"
+            android:onClick="btnEndTrippin" android:layout_margin="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" >
+        </Button>
     </LinearLayout>
 
     <Button
-        android:id="@+id/mapLayout_startTrippinBtn"
+        android:id="@+id/map_startTrippinBtn"
         android:layout_width="200dp" android:textSize="25dp"
         android:layout_height="200dp"
         android:text="Start TripPin" android:textColor="@color/white"
@@ -38,6 +53,8 @@
         android:onClick="StartTrippin"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>
 
 

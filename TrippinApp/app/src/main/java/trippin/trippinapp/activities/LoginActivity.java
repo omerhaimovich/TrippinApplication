@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,6 +49,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -80,7 +84,6 @@ public class LoginActivity extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
     private void signOut() {
@@ -142,10 +145,15 @@ public class LoginActivity extends AppCompatActivity implements
             }
 
             //set data to connected user
-            User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
+            try {
+                User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
+                Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+                startActivity(intent);
 
-            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-            startActivity(intent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             updateUI(true);
         } else {
