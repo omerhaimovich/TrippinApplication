@@ -54,7 +54,7 @@ public class ProfileActivity extends ListActivity {
 
         try {
             Location location = RequestHandler.getLocation();
-            User.getCurrentUser().UpdateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), location.getLatitude(), location.getLongitude()).getAsJsonObject());
+            User.getCurrentUser().updateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), location.getLatitude(), location.getLongitude()).getAsJsonObject());
         } catch (IOException e) {
             e.printStackTrace();
         }

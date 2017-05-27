@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements
 
             //set data to connected user
             try {
-                User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
+                User.signIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
                 Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
                 startActivity(intent);
 
