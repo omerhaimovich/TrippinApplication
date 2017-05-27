@@ -3,6 +3,7 @@ package trippin.trippinapp.activities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.StrictMode;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
+import java.io.IOException;
 import java.util.Date;
 
 import trippin.trippinapp.adapter.TripsAdapter;
@@ -24,6 +26,7 @@ import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.R;
+import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class ProfileActivity extends ListActivity {
 
@@ -42,17 +45,16 @@ public class ProfileActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Trip t1 = new Trip(null, "Berlin", new Date(), null);
-        t1.getAttractions().add(new Attraction(null, "Star Bucks", 5, null, new Date(), null));
-        t1.getAttractions().add(new Attraction(null, "Zara", 4, null, new Date(),new Date()));
-        t1.getAttractions().add(new Attraction(null, "Mcdonalds", 4, null, new Date(),new Date()));
-        Trip t2 = new Trip(null, "London", new Date("20/12/2015"), new Date("29/12/2015"));
-        Trip t3 = new Trip(null, "Paris", new Date("05/08/2016"), new Date("13/08/2016"));
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            User.getCurrentUser().UpdateTrips(RequestHandler.connectUser(User.getCurrentUser().getEmail(), (double)0, (double)0).getAsJsonObject());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         User user = User.getCurrentUser();
-        user.addNewTrip(t1);
-        user.addNewTrip(t2);
-        user.addNewTrip(t3);
-        user.setCurrentTrip(t1);
 
         final ImageView image = ((ImageView)findViewById(R.id.profile_image));
 

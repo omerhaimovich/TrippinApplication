@@ -16,7 +16,7 @@ public class GetTripRequest implements IUrlRequest{
         url += TripId;
         url += "&UserEmail=";
         url += UserEmail;
-        url += "&lat=";
+        url += "&Lat=";
         url += Lat.toString();
         url += "&Lng=";
         url += Lng.toString();

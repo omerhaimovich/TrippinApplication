@@ -7,6 +7,7 @@
     <color name="primary">#bf3af990</color>
     <color name="primary_hover">#e53af9d0</color>
     <color name="white">#ffff</color>
+    <color name="white_trans">#b9ffffff</color>
     <color name="danger">#c10000</color>
     <color name="danger_hover">#ec4949</color>
 </resources>

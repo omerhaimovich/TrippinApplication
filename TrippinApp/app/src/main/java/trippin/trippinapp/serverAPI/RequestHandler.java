@@ -2,7 +2,6 @@ package trippin.trippinapp.serverAPI;
 
 import android.location.Location;
 
-import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
@@ -35,7 +34,7 @@ public class RequestHandler {
 
     private static RequestHandler ourInstance = null;
     private Location location;
-    private Gson objGson = new Gson();
+    private static Gson objGson = new Gson();
 
     private RequestHandler() {
     }
@@ -56,12 +55,15 @@ public class RequestHandler {
         this.location = location;
     }
 
-    public JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException {
+
+
+    public static JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException
+    {
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
         strUrlPrefix += urlRequest.getURLSuffix();
 
         URL objURL = new URL(strUrlPrefix);
-        HttpURLConnection objConnection = (HttpURLConnection) objURL.openConnection();
+        HttpURLConnection objConnection = (HttpURLConnection)objURL.openConnection();
 
         objConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
         objConnection.setRequestProperty("Accept-Charset", "utf-8");
@@ -80,20 +82,22 @@ public class RequestHandler {
 
         String s = reader.readLine();
         String strResult = "";
-        while (s != null) {
-            strResult += s;
-            s = reader.readLine();
+        while(s != null)
+        {
+            strResult  += s;
+            s= reader.readLine();
         }
 
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
-    public JsonElement doGetRequest(IUrlRequest urlRequest) throws IOException {
+    public static JsonElement doGetRequest(IUrlRequest urlRequest) throws IOException
+    {
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
         strUrlPrefix += urlRequest.getURLSuffix();
 
         URL objURL = new URL(strUrlPrefix);
-        HttpURLConnection objConnection = (HttpURLConnection) objURL.openConnection();
+        HttpURLConnection objConnection = (HttpURLConnection)objURL.openConnection();
 
         objConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
         objConnection.setRequestProperty("Accept-Charset", "utf-8");
@@ -102,15 +106,17 @@ public class RequestHandler {
 
         String s = reader.readLine();
         String strResult = "";
-        while (s != null) {
-            strResult += s;
-            s = reader.readLine();
+        while(s != null)
+        {
+            strResult  += s;
+            s= reader.readLine();
         }
 
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
-    public JsonElement connectUser(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    //get trip
+    public static JsonElement connectUser(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
 
         ConnectUserRequest objConnectUserRequest = new ConnectUserRequest();
         objConnectUserRequest.Email = p_strEmail;
@@ -122,19 +128,25 @@ public class RequestHandler {
 
     }
 
-    public JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng,ArrayList<AttractionType> attractionTypes) throws IOException {
 
         CreateTripRequest objConnectUserRequest = new CreateTripRequest();
         objConnectUserRequest.UserEmail = p_strEmail;
         objConnectUserRequest.Lat = p_dLat;
         objConnectUserRequest.Lng = p_dLng;
 
+        objConnectUserRequest.AttractionTypes = new ArrayList<>();
+
+        for (AttractionType attractionType : attractionTypes) {
+            objConnectUserRequest.AttractionTypes.add(attractionType);
+        }
+
         return doPostRequest(objConnectUserRequest);
 
 
     }
 
-    public JsonElement getTrip(String p_strTripId, String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public static JsonElement getTrip(String p_strTripId, String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
         GetTripRequest tripRequest = new GetTripRequest();
         tripRequest.Lat = p_dLat;
         tripRequest.Lng = p_dLng;
@@ -144,15 +156,16 @@ public class RequestHandler {
         return doGetRequest(tripRequest);
     }
 
-    public void updateUser(String Email, Boolean notificationsOn) throws IOException {
+    public static void UpdateUser(String Email, Boolean notificationsOn,int radius) throws IOException {
         UpdateUserRequest obj = new UpdateUserRequest();
         obj.Email = Email;
         obj.NotificationsOn = notificationsOn;
+        obj.Radius = radius;
 
         doPostRequest(obj);
     }
 
-    public void updateTrip(String TripId, AttractionType... attractionTypes) throws IOException {
+    public static void UpdateTrip(String TripId, AttractionType... attractionTypes) throws IOException {
         UpdateTripRequest obj = new UpdateTripRequest();
         obj.TripId = TripId;
         obj.AttractionTypes = new ArrayList<>();
@@ -164,7 +177,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public JsonElement getAttractions(String TripId, Double p_dLat, Double p_dLng) throws IOException {
+    public static JsonElement GetAttractions(String TripId, Double p_dLat, Double p_dLng) throws IOException {
         GetAttractionRequest obj = new GetAttractionRequest();
         obj.TripId = TripId;
         obj.Lat = p_dLat;
@@ -173,7 +186,7 @@ public class RequestHandler {
         return doGetRequest(obj);
     }
 
-    public void attractionChosen(String TripId, String AttractionId) throws IOException {
+    public static void AttractionChosen(String TripId, String AttractionId) throws IOException {
         AttractionChosenRequest obj = new AttractionChosenRequest();
         obj.AttractionId = AttractionId;
         obj.TripId = TripId;
@@ -181,7 +194,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public void attractionRated(String TripId, String AttractionId, Boolean IsGoodAttraction) throws IOException {
+    public static void AttractionRated(String TripId, String AttractionId, Boolean IsGoodAttraction) throws IOException {
         AttractionRatedRequest obj = new AttractionRatedRequest();
         obj.AttractionId = AttractionId;
         obj.TripId = TripId;

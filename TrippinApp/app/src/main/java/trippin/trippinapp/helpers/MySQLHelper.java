@@ -37,11 +37,11 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_ATTRCATIONS_DB="CREATE TABLE " +
             ATTRACTIONS_TABLE_NAME + "(" + KEY_ID + " TEXT PRIMARY KEY," +
-            KEY_GoogleID + " TEXT NOT NULL," +
+            KEY_GoogleID + " TEXT," +
             KEY_Name + " TEXT NOT NULL," +
             KEY_Rate + " INTEGER NOT NULL," +
-            KEY_StartDate + " DATETIME NOT NULL," +
-            KEY_ENDDate + " DATETIME NOT NULL," +
+            KEY_StartDate + " DATETIME," +
+            KEY_ENDDate + " DATETIME," +
             KEY_AttractionLocationLat  + " REAL NOT NULL," +
             KEY_AttractionLocationLng + " REAL NOT NULL," +
             KEY_Image + " TEXT NOT NULL" + ")";
@@ -122,7 +122,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
         double lat = cursor.getDouble((cursor.getColumnIndex(KEY_AttractionLocationLat)));
         double lng = cursor.getDouble((cursor.getColumnIndex(KEY_AttractionLocationLng)));
         LatLng location = new LatLng(lat,lng);
-        BitmapDescriptor image = null; //KEY_Image
+        String image = null; //KEY_Image
 
         convertObj.setID(cursor.getString(cursor.getColumnIndex(KEY_ID)));
         convertObj.setM_googleID(cursor.getString(cursor.getColumnIndex(KEY_GoogleID)));

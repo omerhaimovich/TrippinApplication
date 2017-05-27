@@ -1,9 +1,16 @@
 package trippin.trippinapp.model;
 
+import android.icu.text.SimpleDateFormat;
+
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
-
 import java.io.Serializable;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import org.w3c.dom.Attr;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,11 +22,11 @@ public class Attraction implements Serializable {
     String m_id;
     String m_googleID;
     String m_name;
-    int m_rate;
+    double m_rate;
     Date m_startDate;
     Date m_endDate;
-    LatLng m_attractionLocation;
-    BitmapDescriptor m_image;
+    transient LatLng m_attractionLocation;
+    String m_image;
 
     public Attraction(){
 
@@ -41,13 +48,42 @@ public class Attraction implements Serializable {
         this.m_endDate = m_endDate;
     }
 
+    public static Attraction FromJSON(JsonObject object)
+    {
+        Attraction attraction = null;
 
+        try
+        {
+            String id = object.get("Id").getAsString();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            String start = object.get("StartDate").getAsString();
+            Date startDate = format.parse(start);
+            String end  = object.get("EndDate").getAsString();
+            double rate  = object.get("Rating").getAsFloat();
+            double x = object.get("Longitude").getAsDouble();
+            double y = object.get("Latitude").getAsDouble();
+            String url = object.get("PhotoUrl").getAsString();
+            String name  = object.get("Name").getAsString();
+            Date endDate = null;
 
-    public Attraction(String googleID, String name, int rate, LatLng location, Date startDate, Date endDate) {
-        this(UUID.randomUUID().toString(), googleID, name, rate, location, startDate, endDate);
+            if (end != null) {
+                endDate = format.parse(end);
+            }
+
+            attraction = new Attraction(id,name, rate, new LatLng(x,y),  startDate, endDate, url);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return attraction;
     }
 
-    public Attraction(String _id, String m_googleID, String name, int rate, LatLng location, Date startDate, Date endDate) {
+    public Attraction(String googleID, String name, double rate, LatLng location, Date startDate, Date endDate, String url) {
+        this(UUID.randomUUID().toString(), googleID, name, rate, location, startDate, endDate, url);
+    }
+
+    public Attraction(String _id, String m_googleID, String name, double rate, LatLng location, Date startDate, Date endDate, String url) {
         this.m_id = _id;
         this.m_googleID = m_googleID;
         this.m_name = name;
@@ -55,6 +91,7 @@ public class Attraction implements Serializable {
         this.m_attractionLocation = location;
         this.m_startDate = startDate;
         this.m_endDate = endDate;
+        this.m_image = url;
     }
 
     public String getID() {
@@ -73,19 +110,19 @@ public class Attraction implements Serializable {
         this.m_name = m_name;
     }
 
-    public int getRate() {
+    public double getRate() {
         return m_rate;
     }
 
-    public BitmapDescriptor getImage() {
+    public String getImage() {
         return m_image;
     }
 
-    public void setImage(BitmapDescriptor m_image) {
+    public void setImage(String m_image) {
         this.m_image = m_image;
     }
 
-    public void setRate(int m_rate) {
+    public void setRate(double m_rate) {
         this.m_rate = m_rate;
     }
 
