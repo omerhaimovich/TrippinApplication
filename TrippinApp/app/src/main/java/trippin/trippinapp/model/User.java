@@ -2,6 +2,7 @@ package trippin.trippinapp.model;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -41,15 +42,26 @@ public class User {
 
         //connect user to the server
         Location location = RequestHandler.getLocation();
-        User.m_currentUser.UpdateTrips(RequestHandler.connectUser(email, location.getLatitude(), location.getLongitude()).getAsJsonObject());
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        JsonElement userConnaction = RequestHandler.connectUser(email, latitude, longitude);
+
+        if (userConnaction != null &&
+                userConnaction.getAsJsonObject() != null) {
+            User.m_currentUser.UpdateTrips(userConnaction.getAsJsonObject());
+        }
     }
 
-    public Trip getTripByID(String id)
-    {
-        for (Trip tr: getTrips()) {
+    public Trip getTripByID(String id) {
+        for (Trip tr : getTrips()) {
 
-            if (id == tr.getID())
-            {
+            if (id == tr.getID()) {
                 return tr;
             }
         }
