@@ -56,7 +56,7 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
         StrictMode.setThreadPolicy(policy);
 
         try {
-            Trip trip = Trip.fromJSON(RequestHandler.getTrip(trip_id,
+            Trip trip = Trip.fromJSON(RequestHandler.getInstance().getTrip(trip_id,
                                                     User.getCurrentUser().getEmail(),
                                                     (double)0,
                                                     (double)0).getAsJsonObject(), true);

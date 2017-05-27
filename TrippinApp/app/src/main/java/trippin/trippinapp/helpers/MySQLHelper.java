@@ -33,7 +33,6 @@ public class MySQLHelper extends SQLiteOpenHelper {
     private static final String KEY_AttractionLocationLng = "m_attractionLocationLng"; // double
     private static final String KEY_Image = "m_image"; // BitmapDescriptor
 
-
     private static final String CREATE_ATTRCATIONS_DB = "CREATE TABLE " +
             ATTRACTIONS_TABLE_NAME + "(" + KEY_ID + " TEXT PRIMARY KEY," +
             KEY_GoogleID + " TEXT," +

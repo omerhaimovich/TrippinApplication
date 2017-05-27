@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.bumptech.glide.RequestManager;
+
+import trippin.trippinapp.helpers.MySQLHelper;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class UpdateLocationService extends Service implements LocationListener {
@@ -51,6 +54,8 @@ public class UpdateLocationService extends Service implements LocationListener {
 
         if (changedLocation != null) {
             RequestHandler.getInstance().setLocation(changedLocation);
+
+            MySQLHelper mySQLHelper = new MySQLHelper(this);
         }
     }
 

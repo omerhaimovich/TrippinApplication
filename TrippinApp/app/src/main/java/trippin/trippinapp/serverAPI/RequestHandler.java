@@ -35,8 +35,8 @@ import trippin.trippinapp.serverAPI.UrlRequests.UpdateUserRequest;
 public class RequestHandler {
 
     private static RequestHandler ourInstance = null;
-    private static Location location;
-    private static Gson objGson = new Gson();
+    private Location location;
+    private Gson objGson = new Gson();
 
     private RequestHandler() {
     }
@@ -49,7 +49,7 @@ public class RequestHandler {
         return ourInstance;
     }
 
-    public static Location getLocation() {
+    public Location getLocation() {
         return location;
     }
 
@@ -57,8 +57,7 @@ public class RequestHandler {
         this.location = location;
     }
 
-
-    public static JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException {
+    public JsonElement doPostRequest(IUrlRequest urlRequest) throws IOException {
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
         strUrlPrefix += urlRequest.getURLSuffix();
 
@@ -90,7 +89,7 @@ public class RequestHandler {
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
-    public static JsonElement doGetRequest(IUrlRequest urlRequest) throws IOException {
+    public JsonElement doGetRequest(IUrlRequest urlRequest) throws IOException {
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
         strUrlPrefix += urlRequest.getURLSuffix();
 
@@ -112,8 +111,7 @@ public class RequestHandler {
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
-    //get trip
-    public static JsonElement connectUser(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public JsonElement connectUser(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
 
         ConnectUserRequest objConnectUserRequest = new ConnectUserRequest();
         objConnectUserRequest.Email = p_strEmail;
@@ -125,7 +123,7 @@ public class RequestHandler {
 
     }
 
-    public static JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng, ArrayList<AttractionType> attractionTypes) throws IOException {
+    public JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng, ArrayList<AttractionType> attractionTypes) throws IOException {
 
         CreateTripRequest objConnectUserRequest = new CreateTripRequest();
         objConnectUserRequest.UserEmail = p_strEmail;
@@ -143,7 +141,7 @@ public class RequestHandler {
 
     }
 
-    public static JsonElement getTrip(String p_strTripId, String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public JsonElement getTrip(String p_strTripId, String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
         GetTripRequest tripRequest = new GetTripRequest();
         tripRequest.Lat = p_dLat;
         tripRequest.Lng = p_dLng;
@@ -153,7 +151,7 @@ public class RequestHandler {
         return doGetRequest(tripRequest);
     }
 
-    public static void updateUser(String Email, Boolean notificationsOn, int radius) throws IOException {
+    public void updateUser(String Email, Boolean notificationsOn, int radius) throws IOException {
         UpdateUserRequest obj = new UpdateUserRequest();
         obj.Email = Email;
         obj.NotificationsOn = notificationsOn;
@@ -162,7 +160,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public static void updateTrip(String TripId, AttractionType... attractionTypes) throws IOException {
+    public void updateTrip(String TripId, AttractionType... attractionTypes) throws IOException {
         UpdateTripRequest obj = new UpdateTripRequest();
         obj.TripId = TripId;
         obj.AttractionTypes = new ArrayList<>();
@@ -174,7 +172,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public static JsonElement getAttractions(String TripId, Double p_dLat, Double p_dLng) throws IOException {
+    public JsonElement getAttractions(String TripId, Double p_dLat, Double p_dLng) throws IOException {
         GetAttractionRequest obj = new GetAttractionRequest();
         obj.TripId = TripId;
         obj.Lat = p_dLat;
@@ -183,7 +181,7 @@ public class RequestHandler {
         return doGetRequest(obj);
     }
 
-    public static void attractionChosen(String TripId, String AttractionId) throws IOException {
+    public void attractionChosen(String TripId, String AttractionId) throws IOException {
         AttractionChosenRequest obj = new AttractionChosenRequest();
         obj.AttractionId = AttractionId;
         obj.TripId = TripId;
@@ -191,7 +189,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public static void attractionRated(String TripId, String AttractionId, Boolean IsGoodAttraction) throws IOException {
+    public void attractionRated(String TripId, String AttractionId, Boolean IsGoodAttraction) throws IOException {
         AttractionRatedRequest obj = new AttractionRatedRequest();
         obj.AttractionId = AttractionId;
         obj.TripId = TripId;
@@ -199,7 +197,7 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public static JsonElement endAttraction(String p_strTripID, String p_strAttractionId) throws IOException {
+    public JsonElement endAttraction(String p_strTripID, String p_strAttractionId) throws IOException {
 
         EndAttractionRequest objEndAttractionRequest = new EndAttractionRequest();
         objEndAttractionRequest.TripId = p_strTripID;
@@ -210,7 +208,7 @@ public class RequestHandler {
 
     }
 
-    public static JsonElement endTrip(String p_strTripID) throws IOException {
+    public JsonElement endTrip(String p_strTripID) throws IOException {
 
         EndTripRequest objEndAttractionRequest = new EndTripRequest();
         objEndAttractionRequest.TripId = p_strTripID;

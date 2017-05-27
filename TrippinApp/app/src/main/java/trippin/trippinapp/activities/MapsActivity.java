@@ -81,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        (double)0,(double)0).getAsJsonObject(), true).getCurrentAttraction();
 
                 // TODO : remove
-                attraction = Trip.fromJSON(RequestHandler.getTrip(trip.getGoogleID(),
+                attraction = Trip.fromJSON(RequestHandler.getInstance().getTrip(trip.getGoogleID(),
                         User.getCurrentUser().getEmail(),
                         (double) 0, (double) 0).getAsJsonObject(), true).getAttractions().get(0);
 
@@ -154,9 +154,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         try {
-            Location location = RequestHandler.getLocation();
+            Location location = RequestHandler.getInstance().getLocation();
             //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
-            RequestHandler.createTrip(currUser.getEmail(), location.getLatitude(), location.getLongitude(), selectedAttractionTypes);
+            RequestHandler.getInstance().createTrip(currUser.getEmail(), location.getLatitude(), location.getLongitude(), selectedAttractionTypes);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -211,7 +211,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Trip currentTrip = User.getCurrentUser().getCurrentTrip();
         if (currentTrip != null) {
             try {
-                RequestHandler.endTrip(currentTrip.getID());
+                RequestHandler.getInstance().endTrip(currentTrip.getID());
             } catch (IOException e) {
                 e.printStackTrace();
             }

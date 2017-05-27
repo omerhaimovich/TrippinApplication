@@ -40,7 +40,7 @@ public class User {
         User.m_currentUser = new User(email, username, image);
 
         //connect user to the server
-        Location location = RequestHandler.getLocation();
+        Location location = RequestHandler.getInstance().getLocation();
         double latitude = 0.0;
         double longitude = 0.0;
 
@@ -49,7 +49,7 @@ public class User {
             longitude = location.getLongitude();
         }
 
-        JsonElement userConnaction = RequestHandler.connectUser(email, latitude, longitude);
+        JsonElement userConnaction = RequestHandler.getInstance().connectUser(email, latitude, longitude);
 
         if (userConnaction != null &&
                 userConnaction.getAsJsonObject() != null) {
@@ -114,7 +114,6 @@ public class User {
         this.m_imageUrl = image;
         m_trips = new ArrayList<Trip>();
     }
-
 
     public Attraction currentAttraction() {
         if (m_currentTrip != null) {
