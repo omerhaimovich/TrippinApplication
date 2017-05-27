@@ -53,22 +53,13 @@ public class ProfileActivity extends ListActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Location location = RequestHandler.getInstance().getLocation();
-        double latitude = 0.0;
-        double longitude = 0.0;
-
-        if (location != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-        }
 
         User currentUser = User.getCurrentUser();
 
         if (currentUser != null) {
             JsonElement userConnaction = null;
             try {
-                userConnaction = RequestHandler.getInstance().connectUser(
-                        currentUser.getEmail(), latitude, longitude);
+                userConnaction = RequestHandler.getInstance().connectUser(currentUser.getEmail());
             } catch (IOException e) {
                 e.printStackTrace();
             }

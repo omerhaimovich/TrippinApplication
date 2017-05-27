@@ -82,8 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // TODO : remove
                 attraction = Trip.fromJSON(RequestHandler.getInstance().getTrip(trip.getGoogleID(),
-                        User.getCurrentUser().getEmail(),
-                        (double) 0, (double) 0).getAsJsonObject(), true).getAttractions().get(0);
+                        User.getCurrentUser().getEmail()).getAsJsonObject(), true).getAttractions().get(0);
 
                 if (attraction != null) {
                     ca = CurrentAttraction.newInstance(attraction);
@@ -154,9 +153,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         try {
-            Location location = RequestHandler.getInstance().getLocation();
             //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
-            RequestHandler.getInstance().createTrip(currUser.getEmail(), location.getLatitude(), location.getLongitude(), selectedAttractionTypes);
+            RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
         } catch (IOException e) {
             e.printStackTrace();
         }

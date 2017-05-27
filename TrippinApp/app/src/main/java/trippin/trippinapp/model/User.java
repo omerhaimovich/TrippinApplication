@@ -40,16 +40,7 @@ public class User {
         User.m_currentUser = new User(email, username, image);
 
         //connect user to the server
-        Location location = RequestHandler.getInstance().getLocation();
-        double latitude = 0.0;
-        double longitude = 0.0;
-
-        if (location != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-        }
-
-        JsonElement userConnaction = RequestHandler.getInstance().connectUser(email, latitude, longitude);
+        JsonElement userConnaction = RequestHandler.getInstance().connectUser(email);
 
         if (userConnaction != null &&
                 userConnaction.getAsJsonObject() != null) {

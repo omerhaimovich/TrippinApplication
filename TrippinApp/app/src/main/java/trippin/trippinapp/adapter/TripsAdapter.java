@@ -57,9 +57,7 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
 
         try {
             Trip trip = Trip.fromJSON(RequestHandler.getInstance().getTrip(trip_id,
-                                                    User.getCurrentUser().getEmail(),
-                                                    (double)0,
-                                                    (double)0).getAsJsonObject(), true);
+                                                    User.getCurrentUser().getEmail()).getAsJsonObject(), true);
 
             Intent intent = new Intent(this.getContext(), TripActivity.class);
             intent.putExtra("trip_id", trip.getGoogleID());

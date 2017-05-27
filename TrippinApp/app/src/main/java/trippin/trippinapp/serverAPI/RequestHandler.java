@@ -15,6 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import trippin.trippinapp.common.Consts;
+import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.serverAPI.Enums.AttractionType;
 import trippin.trippinapp.serverAPI.UrlRequests.AttractionChosenRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.AttractionRatedRequest;
@@ -64,20 +66,20 @@ public class RequestHandler {
         URL objURL = new URL(strUrlPrefix);
         HttpURLConnection objConnection = (HttpURLConnection) objURL.openConnection();
 
-        objConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
-        objConnection.setRequestProperty("Accept-Charset", "utf-8");
+        objConnection.setRequestProperty(Consts.CONTENT_TYPE, "application/json;charset=utf-8");
+        objConnection.setRequestProperty("Accept-Charset", Consts.UTF_8);
         objConnection.setRequestMethod("POST");
         objConnection.setDoInput(true);
         objConnection.setDoOutput(true);
 
         OutputStream os = objConnection.getOutputStream();
 
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "utf-8"));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, Consts.UTF_8));
         writer.write(objGson.toJson(urlRequest));
         writer.flush();
         writer.close();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(objConnection.getInputStream(), "utf-8"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(objConnection.getInputStream(), Consts.UTF_8));
 
         String s = reader.readLine();
         String strResult = "";
@@ -96,10 +98,10 @@ public class RequestHandler {
         URL objURL = new URL(strUrlPrefix);
         HttpURLConnection objConnection = (HttpURLConnection) objURL.openConnection();
 
-        objConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
-        objConnection.setRequestProperty("Accept-Charset", "utf-8");
+        objConnection.setRequestProperty(Consts.CONTENT_TYPE, "application/json;charset=utf-8");
+        objConnection.setRequestProperty("Accept-Charset", Consts.UTF_8);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(objConnection.getInputStream(), "utf-8"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(objConnection.getInputStream(), Consts.UTF_8));
 
         String s = reader.readLine();
         String strResult = "";
@@ -111,24 +113,45 @@ public class RequestHandler {
         return objGson.fromJson(strResult, JsonElement.class);
     }
 
-    public JsonElement connectUser(String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public JsonElement connectUser(String p_strEmail) throws IOException {
 
         ConnectUserRequest objConnectUserRequest = new ConnectUserRequest();
         objConnectUserRequest.Email = p_strEmail;
-        objConnectUserRequest.Lat = p_dLat;
-        objConnectUserRequest.Lng = p_dLng;
+
+        Location location = RequestHandler.getInstance().getLocation();
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        objConnectUserRequest.Lat = latitude;
+        objConnectUserRequest.Lng = longitude;
 
         return doPostRequest(objConnectUserRequest);
 
 
     }
 
-    public JsonElement createTrip(String p_strEmail, Double p_dLat, Double p_dLng, ArrayList<AttractionType> attractionTypes) throws IOException {
+    public JsonElement createTrip(String p_strEmail, ArrayList<AttractionType> attractionTypes) throws IOException {
 
         CreateTripRequest objConnectUserRequest = new CreateTripRequest();
         objConnectUserRequest.UserEmail = p_strEmail;
-        objConnectUserRequest.Lat = p_dLat;
-        objConnectUserRequest.Lng = p_dLng;
+
+
+        Location location = RequestHandler.getInstance().getLocation();
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        objConnectUserRequest.Lat = latitude;
+        objConnectUserRequest.Lng = longitude;
 
         objConnectUserRequest.AttractionTypes = new ArrayList<>();
 
@@ -141,10 +164,20 @@ public class RequestHandler {
 
     }
 
-    public JsonElement getTrip(String p_strTripId, String p_strEmail, Double p_dLat, Double p_dLng) throws IOException {
+    public JsonElement getTrip(String p_strTripId, String p_strEmail) throws IOException {
         GetTripRequest tripRequest = new GetTripRequest();
-        tripRequest.Lat = p_dLat;
-        tripRequest.Lng = p_dLng;
+
+        Location location = RequestHandler.getInstance().getLocation();
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        tripRequest.Lat = latitude;
+        tripRequest.Lng = longitude;
         tripRequest.UserEmail = p_strEmail;
         tripRequest.TripId = p_strTripId;
 
@@ -172,13 +205,25 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public JsonElement getAttractions(String TripId, Double p_dLat, Double p_dLng) throws IOException {
+    public JsonElement getAttractions(String TripId) throws IOException {
         GetAttractionRequest obj = new GetAttractionRequest();
         obj.TripId = TripId;
-        obj.Lat = p_dLat;
-        obj.Lng = p_dLng;
 
-        return doGetRequest(obj);
+        Location location = RequestHandler.getInstance().getLocation();
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        obj.Lat = latitude;
+        obj.Lng = longitude;
+
+        JsonElement attractionsFromServer = doGetRequest(obj);
+
+        return attractionsFromServer;
     }
 
     public void attractionChosen(String TripId, String AttractionId) throws IOException {
