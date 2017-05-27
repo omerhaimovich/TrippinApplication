@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -30,19 +31,28 @@ import java.util.Set;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.fragment.CurrentAttraction;
+import trippin.trippinapp.fragment.Like;
 import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.Enums.AttractionType;
 import trippin.trippinapp.serverAPI.RequestHandler;
 import trippin.trippinapp.services.UpdateLocationService;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, CurrentAttraction.OnCurrentAttractionListener, Like.OnLikelistener {
 
     private GoogleMap mMap;
 
+    CurrentAttraction ca;
+    Attraction attraction;
+    DialogFragment dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -50,22 +60,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-//        if (User.getCurrentUser().currentAttraction() != null)
-//        {
-//
-//        }
+        Trip trip = User.getCurrentUser().getCurrentTrip();
 
-        if (User.getCurrentUser().getCurrentTrip() == null)
+        // TODO : remove
+        trip = User.getCurrentUser().getTrips().get(0);
+
+        if (trip == null)
         {
             findViewById(R.id.map_endTrippinBtn).setVisibility(View.GONE);
         }
         else
         {
             findViewById(R.id.map_startTrippinBtn).setVisibility(View.GONE);
-        }
-        CurrentAttraction ca = null;
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
+            ca = null;
+            attraction = null;
+            try {
+                // TODO; REMOVE COMMENT
+//                attr = Trip.FromJSON(RequestHandler.getTrip(trip.getGoogleID(),
+//                        User.getCurrentUser().getEmail(),
+//                        (double)0,(double)0).getAsJsonObject(), true).getCurrentAttraction();
+
+                // TODO : remove
+                attraction = Trip.FromJSON(RequestHandler.getTrip(trip.getGoogleID(),
+                        User.getCurrentUser().getEmail(),
+                        (double)0,(double)0).getAsJsonObject(), true).getAttractions().get(0);
+
+                if (attraction != null)
+                {
+                    ca = CurrentAttraction.newInstance(attraction);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         final ImageButton button = ((ImageButton) findViewById(R.id.btnProfile));
 
@@ -100,10 +129,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-        StrictMode.setThreadPolicy(policy);
     }
 
 
@@ -114,7 +139,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void StartTrippin(View view) {
 
-        ((Button)findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
+        ((Button)findViewById(R.id.map_startTrippinBtn)).setVisibility(View.INVISIBLE);
+
         //int[] chosenAttractionType = getResources().getIntArray(R.array.attraction_types_values);
         User currUser = User.getCurrentUser();
 
@@ -178,7 +204,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (fineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 coarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
-
             Intent intent = new Intent(this, UpdateLocationService.class);
             startService(intent);
         }
@@ -189,6 +214,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void btnStartTrippin(View view) {
 //        mMap.addMarker(markerOptions5);
+    }
 
+    @Override
+    public void CloseAttraction() {
+        Like like = Like.newInstance(attraction.getID());
+        like.show(getSupportFragmentManager(), "dialog");
+        dialog = like;
+       //
+    }
+
+    @Override
+    public void Close() {
+        getSupportFragmentManager().beginTransaction().remove(ca).commit();
+        dialog.dismiss();
     }
 }

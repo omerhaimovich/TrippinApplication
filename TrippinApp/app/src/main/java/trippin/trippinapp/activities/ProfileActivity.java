@@ -54,7 +54,6 @@ public class ProfileActivity extends ListActivity {
             e.printStackTrace();
         }
 
-
         User user = User.getCurrentUser();
 
         final ImageView image = ((ImageView)findViewById(R.id.profile_image));

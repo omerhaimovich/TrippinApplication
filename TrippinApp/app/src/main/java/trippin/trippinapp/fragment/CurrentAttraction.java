@@ -1,18 +1,27 @@
 package trippin.trippinapp.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import org.w3c.dom.Attr;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.User;
 
 
 /**
@@ -23,11 +32,11 @@ import trippin.trippinapp.model.Attraction;
  * Use the {@link CurrentAttraction#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CurrentAttraction extends Fragment {
+public class CurrentAttraction extends Fragment implements View.OnClickListener {
     private Attraction m_attraction;
     private static String ATTRACTION = "ATTRACTION";
 
-    private OnFragmentInteractionListener mListener;
+    private OnCurrentAttractionListener mListener;
 
     public CurrentAttraction() {
         // Required empty public constructor
@@ -35,13 +44,9 @@ public class CurrentAttraction extends Fragment {
 
     /**
      * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * this fragment using the provided parameters
      * @return A new instance of fragment CurrentAttraction.
      */
-    // TODO: Rename and change types and number of parameters
     public static CurrentAttraction newInstance(Attraction attr) {
         CurrentAttraction fragment = new CurrentAttraction();
         Bundle args = new Bundle();
@@ -66,24 +71,37 @@ public class CurrentAttraction extends Fragment {
 
         ((TextView)view.findViewById(R.id.fragment_name_attration)).setText(m_attraction.getName());
 
+        view.findViewById(R.id.end_attraction_frag).setOnClickListener(this);
+
+        final ImageView image = ((ImageView)view.findViewById(R.id.imageViewCurrAttr));
+
+        Glide.with(getContext()).load(m_attraction.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                image.setBackground(circularBitmapDrawable);
+            }
+        });
+
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onClose() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.CloseAttraction();
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-        //    mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnCurrentAttractionListener) {
+            mListener = (OnCurrentAttractionListener) context;
         } else {
-        //    throw new RuntimeException(context.toString()
-           //         + " must implement OnFragmentInteractionListener");
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -91,6 +109,11 @@ public class CurrentAttraction extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        onClose();
     }
 
     /**
@@ -103,8 +126,7 @@ public class CurrentAttraction extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnCurrentAttractionListener {
+        void CloseAttraction();
     }
 }

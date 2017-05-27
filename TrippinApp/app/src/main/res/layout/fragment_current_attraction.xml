@@ -9,24 +9,22 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/imageView" />
+            android:layout_width="100dp" android:layout_margin="10dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageViewCurrAttr" />
 
         <TextView android:id="@+id/fragment_name_attration"
             android:layout_width="0dp" android:layout_weight="3" android:text="Attraction Name"
-            android:layout_height="wrap_content" android:textSize="36dp" android:layout_margin="10dp"
+            android:layout_height="wrap_content" android:textSize="32dp" android:layout_margin="10dp"
             />
 
-        <Button
+        <TextView
             android:id="@+id/end_attraction_frag"
-            android:layout_width="50dp" android:textSize="12dp"
-            android:layout_height="50dp" android:text="End"
-            android:textColor="@color/white"
-            android:background="@drawable/button_danger"
-            android:onClick="btn_end_attr_frag" android:layout_margin="5dp"
-            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content" android:textSize="15dp"
+            android:layout_height="wrap_content" android:text="X" android:layout_marginTop="-10dp"
+            android:layout_alignParentBottom="true" android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:layout_alignParentEnd="true" >
-    </Button>
+    </TextView>
     </LinearLayout>
 </LinearLayout>

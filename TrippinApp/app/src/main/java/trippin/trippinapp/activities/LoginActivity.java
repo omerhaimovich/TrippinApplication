@@ -3,6 +3,7 @@ package trippin.trippinapp.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +23,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+
+import java.io.IOException;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.User;
@@ -44,6 +47,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -127,14 +133,29 @@ public class LoginActivity extends AppCompatActivity implements
                 personPhotoUrl = "mipmap-hdpi/noprofilephoto.png";
             }
 
-            User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
 
-            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
-            startActivity(intent);
+            try {
+                User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
+                Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+                startActivity(intent);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             updateUI(true);
         } else {
-            // Signed out, show unauthenticated UI.
+
+            // TODO: for debug
+//
+//            try {
+//                User.SignIn("atoma664@gmail.com", "tom acco", null);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+//            startActivity(intent);
             signIn();
             updateUI(false);
         }
