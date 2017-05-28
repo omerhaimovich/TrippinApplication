@@ -51,6 +51,7 @@
             android:layout_height="85dp"
             android:text="End Trippin" android:textColor="@color/white"
             android:background="@drawable/button_danger"
-            android:id="@+id/btnTripEnd" />
+            android:id="@+id/btnTripEnd"
+            android:onClick="EndTrip"/>
     </LinearLayout>
 </RelativeLayout>
