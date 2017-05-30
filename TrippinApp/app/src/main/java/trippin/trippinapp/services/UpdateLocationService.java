@@ -11,7 +11,11 @@ import android.support.annotation.Nullable;
 
 import com.bumptech.glide.RequestManager;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import trippin.trippinapp.helpers.MySQLHelper;
+import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
@@ -51,19 +55,33 @@ public class UpdateLocationService extends Service implements LocationListener {
     }
 
     @Override
-    public void onLocationChanged(Location changedLocation ) {
+    public void onLocationChanged(Location changedLocation) {
 
         if (changedLocation != null) {
             RequestHandler.getInstance().setLocation(changedLocation);
 
             User currentUser = User.getCurrentUser();
 
-            if (currentUser != null){
+            if (currentUser != null) {
                 if (currentUser.getCurrentTrip() != null) {
+                    try {
+                        ArrayList<Attraction> attractionsFromServer = RequestHandler.getInstance().getAttractions(
+                                currentUser.getCurrentTrip().getID());
 
+                        if (attractionsFromServer != null){
+                            MySQLHelper mySQLHelper = new MySQLHelper(this);
+
+                            ArrayList<Attraction> attractionsFromDB = mySQLHelper.getAttractions();
+
+                            if (attractionsFromDB != null){
+
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            MySQLHelper mySQLHelper = new MySQLHelper(this);
         }
     }
 
@@ -78,8 +96,7 @@ public class UpdateLocationService extends Service implements LocationListener {
         if (provider.compareTo(LocationManager.GPS_PROVIDER) == 0) {
             // getting GPS status
             isGPSEnabled = true;
-        }
-        else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
+        } else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
             // getting network status
             isNetworkEnabled = true;
         }
@@ -91,8 +108,7 @@ public class UpdateLocationService extends Service implements LocationListener {
         if (provider.compareTo(LocationManager.GPS_PROVIDER) == 0) {
             // getting GPS status
             isGPSEnabled = false;
-        }
-        else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
+        } else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
             // getting network status
             isNetworkEnabled = false;
         }

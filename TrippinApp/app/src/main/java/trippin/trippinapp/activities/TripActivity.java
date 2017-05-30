@@ -30,8 +30,8 @@ public class TripActivity extends AppCompatActivity {
 
         Trip current = null;
         try {
-            current = Trip.fromJSON(RequestHandler.getInstance().getTrip(getIntent().getStringExtra("trip_id"),
-                    User.getCurrentUser().getEmail()).getAsJsonObject(), true);
+            current = RequestHandler.getInstance().getTrip(getIntent().getStringExtra("trip_id"),
+                    User.getCurrentUser().getEmail(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }

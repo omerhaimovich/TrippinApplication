@@ -81,8 +81,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        (double)0,(double)0).getAsJsonObject(), true).getCurrentAttraction();
 
                 // TODO : remove
-                attraction = Trip.fromJSON(RequestHandler.getInstance().getTrip(trip.getGoogleID(),
-                        User.getCurrentUser().getEmail()).getAsJsonObject(), true).getAttractions().get(0);
+
+                Trip attractionsTrip = RequestHandler.getInstance().getTrip(trip.getGoogleID(),
+                        User.getCurrentUser().getEmail(), true);
+
+                if (attractionsTrip != null) {
+                    attraction = attractionsTrip.getAttractions().get(0);
+                }
 
                 if (attraction != null) {
                     ca = CurrentAttraction.newInstance(attraction);

@@ -3,7 +3,9 @@ package trippin.trippinapp.serverAPI;
 import android.location.Location;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 
 import trippin.trippinapp.common.Consts;
 import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.serverAPI.Enums.AttractionType;
 import trippin.trippinapp.serverAPI.UrlRequests.AttractionChosenRequest;
 import trippin.trippinapp.serverAPI.UrlRequests.AttractionRatedRequest;
@@ -92,6 +95,8 @@ public class RequestHandler {
     }
 
     public JsonElement doGetRequest(IUrlRequest urlRequest) throws IOException {
+        ArrayList<JsonObject> retVal = new ArrayList<>();
+
         String strUrlPrefix = "http://db.cs.colman.ac.il/trippin/api/";
         strUrlPrefix += urlRequest.getURLSuffix();
 
@@ -131,8 +136,6 @@ public class RequestHandler {
         objConnectUserRequest.Lng = longitude;
 
         return doPostRequest(objConnectUserRequest);
-
-
     }
 
     public JsonElement createTrip(String p_strEmail, ArrayList<AttractionType> attractionTypes) throws IOException {
@@ -164,7 +167,9 @@ public class RequestHandler {
 
     }
 
-    public JsonElement getTrip(String p_strTripId, String p_strEmail) throws IOException {
+    public Trip getTrip(String p_strTripId, String p_strEmail, boolean isLoadAttractions) throws IOException {
+        Trip retVal = null;
+
         GetTripRequest tripRequest = new GetTripRequest();
 
         Location location = RequestHandler.getInstance().getLocation();
@@ -181,7 +186,13 @@ public class RequestHandler {
         tripRequest.UserEmail = p_strEmail;
         tripRequest.TripId = p_strTripId;
 
-        return doGetRequest(tripRequest);
+        JsonElement tripJson = doGetRequest(tripRequest);
+
+        if (tripJson != null){
+            retVal = Trip.fromJSON(tripJson.getAsJsonObject(), isLoadAttractions);
+        }
+
+        return retVal;
     }
 
     public void updateUser(String Email, Boolean notificationsOn, int radius) throws IOException {
@@ -205,7 +216,9 @@ public class RequestHandler {
         doPostRequest(obj);
     }
 
-    public JsonElement getAttractions(String TripId) throws IOException {
+    public ArrayList<Attraction> getAttractions(String TripId) throws IOException {
+        ArrayList<Attraction> attractions = new ArrayList<>();
+
         GetAttractionRequest obj = new GetAttractionRequest();
         obj.TripId = TripId;
 
@@ -223,7 +236,18 @@ public class RequestHandler {
 
         JsonElement attractionsFromServer = doGetRequest(obj);
 
-        return attractionsFromServer;
+        if (attractionsFromServer != null) {
+            JsonArray attractionsJsons = attractionsFromServer.getAsJsonArray();
+
+            for (int i = 0; i < attractionsJsons.size(); i++) {
+                JsonElement currAttraction = attractionsJsons.get(i);
+
+                if (currAttraction != null) {
+                    attractions.add(Attraction.fromJSON(currAttraction.getAsJsonObject()));
+                }
+            }
+        }
+        return attractions;
     }
 
     public void attractionChosen(String TripId, String AttractionId) throws IOException {
@@ -249,8 +273,6 @@ public class RequestHandler {
         objEndAttractionRequest.AttractionId = p_strAttractionId;
 
         return doPostRequest(objEndAttractionRequest);
-
-
     }
 
     public JsonElement endTrip(String p_strTripID) throws IOException {
