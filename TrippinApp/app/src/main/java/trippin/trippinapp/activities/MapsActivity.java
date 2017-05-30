@@ -22,9 +22,11 @@ import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -185,6 +187,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.animateCamera( CameraUpdateFactory.zoomTo( 5.0f ) );
 
         int fineLocationPermission = ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION);
@@ -230,6 +233,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void Close() {
         getSupportFragmentManager().beginTransaction().remove(ca).commit();
         dialog.dismiss();
+    }
+
+    public void find_me(View view){
+        //connect user to the server
+        Location location = RequestHandler.getLocation();
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15.0f));
     }
 
     public void btnEndTrippin(View view){
