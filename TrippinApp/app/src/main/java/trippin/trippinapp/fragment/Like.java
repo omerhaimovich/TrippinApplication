@@ -115,7 +115,7 @@ public class Like extends DialogFragment implements View.OnClickListener {
 
         //END attration
         try {
-            RequestHandler.endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
+            RequestHandler.getInstance().endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
         } catch (IOException e) {
             e.printStackTrace();
         }

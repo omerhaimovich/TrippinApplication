@@ -22,9 +22,13 @@ import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +37,7 @@ import java.util.Set;
 import trippin.trippinapp.R;
 import trippin.trippinapp.fragment.CurrentAttraction;
 import trippin.trippinapp.fragment.Like;
+import trippin.trippinapp.helpers.MySQLHelper;
 import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
@@ -64,9 +69,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Trip trip = User.getCurrentUser().getCurrentTrip();
 
-        // TODO : remove
-        //trip = User.getCurrentUser().getTrips().get(0);
-
         if (trip == null) {
             findViewById(R.id.map_endTrippinBtn).setVisibility(View.GONE);
         } else {
@@ -75,12 +77,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             ca = null;
             attraction = null;
             try {
-                // TODO; REMOVE COMMENT
-//                attr = Trip.fromJSON(RequestHandler.getTrip(trip.getGoogleID(),
-//                        User.getCurrentUser().getEmail(),
-//                        (double)0,(double)0).getAsJsonObject(), true).getCurrentAttraction();
-
-                // TODO : remove
 
                 Trip attractionsTrip = RequestHandler.getInstance().getTrip(trip.getGoogleID(),
                         User.getCurrentUser().getEmail(), true);
@@ -184,13 +180,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(attractionPos1));
     }
 
     public void btnStartTrippin(View view) {
-//        mMap.addMarker(markerOptions5);
+
+        MySQLHelper mySQLHelper = new MySQLHelper(this);
+        ArrayList<Attraction> attractions = mySQLHelper.getAttractions();
+
+        boolean isMapInFocus = false;
+
+        if (attractions != null) {
+            for (Attraction currAttraction : attractions) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(currAttraction.getAttractionLocation());
+                markerOptions.title(currAttraction.getName());
+                markerOptions.icon(BitmapDescriptorFactory.fromPath(currAttraction.getImage()));
+                mMap.addMarker(markerOptions);
+
+                if (isMapInFocus == false) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(currAttraction.getAttractionLocation()));
+
+                    isMapInFocus = true;
+                }
+            }
+        }
+
     }
 
     @Override
