@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.bumptech.glide.RequestManager;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import trippin.trippinapp.common.Consts;
 import trippin.trippinapp.helpers.MySQLHelper;
 import trippin.trippinapp.helpers.NotificationHelper;
 import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
@@ -66,6 +68,37 @@ public class UpdateLocationService extends Service implements LocationListener {
 
         if (changedLocation != null) {
             RequestHandler.getInstance().setLocation(changedLocation);
+
+            User currentUser = User.getCurrentUser();
+
+            if (currentUser != null) {
+                Trip currentTrip = currentUser.getCurrentTrip();
+                if (currentTrip != null) {
+                    Attraction currentAttraction = currentUser.currentAttraction();
+
+                    if (currentAttraction != null) {
+                        LatLng attractionLatlng = currentAttraction.getAttractionLocation();
+
+                        Location attractionLocation = new Location("");
+                        attractionLocation.setLatitude(attractionLatlng.latitude);
+                        attractionLocation.setLongitude(attractionLatlng.longitude);
+
+                        float distanceFromCurrAttraction = changedLocation.distanceTo(attractionLocation);
+
+                        if (distanceFromCurrAttraction >= Consts.DISTANCE_FROM_CURRENT_ATTRACTION) {
+
+                            try {
+                                RequestHandler.getInstance().endAttraction(
+                                        currentTrip.getID(), currentAttraction.getID());
+
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
