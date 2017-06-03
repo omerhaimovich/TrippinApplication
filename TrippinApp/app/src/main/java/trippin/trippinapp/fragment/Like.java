@@ -112,6 +112,13 @@ public class Like extends DialogFragment implements View.OnClickListener {
 
             mListener.close();
         }
+
+        //END attration
+        try {
+            RequestHandler.endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
