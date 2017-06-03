@@ -129,6 +129,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getAttractions();
+    }
+
     public void showProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
@@ -136,31 +143,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void startTrippin(View view) {
 
-        ((Button) findViewById(R.id.map_startTrippinBtn)).setVisibility(View.INVISIBLE);
+        (findViewById(R.id.map_startTrippinBtn)).setVisibility(View.INVISIBLE);
 
-        //int[] chosenAttractionType = getResources().getIntArray(R.array.attraction_types_values);
         User currUser = User.getCurrentUser();
 
-
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Set<String> selections = sharedPref.getStringSet("attraction_types", null);
-        String[] selected = selections.toArray(new String[]{});
 
-        //String bla = "bareliah@gmail.com";
+        if (sharedPref != null) {
+            Set<String> selections = sharedPref.getStringSet("attraction_types", null);
 
-        ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
-        for (int i = 0; i < selected.length; i++) {
-            selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
+            if (selections != null) {
+
+                String[] selected = selections.toArray(new String[]{});
+
+                ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
+                for (int i = 0; i < selected.length; i++) {
+                    selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
+                }
+
+                try {
+                    //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
+                    RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-        try {
-            //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
-            RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
     public void editSettings(View view) {
@@ -180,16 +188,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        getAttractions();
     }
 
-    public void btnStartTrippin(View view) {
+    public void getAttractions() {
 
         MySQLHelper mySQLHelper = new MySQLHelper(this);
         ArrayList<Attraction> attractions = mySQLHelper.getAttractions();
 
         boolean isMapInFocus = false;
 
-        if (attractions != null) {
+        if (attractions != null &&
+                attractions.isEmpty() == false) {
+            mMap.clear();
+
             for (Attraction currAttraction : attractions) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(currAttraction.getAttractionLocation());
