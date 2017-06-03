@@ -13,8 +13,11 @@ import com.bumptech.glide.RequestManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
 
+import trippin.trippinapp.common.Consts;
 import trippin.trippinapp.helpers.MySQLHelper;
+import trippin.trippinapp.helpers.NotificationHelper;
 import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
@@ -43,6 +46,10 @@ public class UpdateLocationService extends Service implements LocationListener {
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        Timer getNewAttractionsFromServer = new Timer();
+        getNewAttractionsFromServer.schedule(
+                new GetNewAttractionsTask(this), 0, Consts.GET_NEW_ATTRACTIONS_TIMER);
+
         updateLocation();
 
         return super.onStartCommand(intent, flags, startId);
@@ -59,29 +66,6 @@ public class UpdateLocationService extends Service implements LocationListener {
 
         if (changedLocation != null) {
             RequestHandler.getInstance().setLocation(changedLocation);
-
-            User currentUser = User.getCurrentUser();
-
-            if (currentUser != null) {
-                if (currentUser.getCurrentTrip() != null) {
-                    try {
-                        ArrayList<Attraction> attractionsFromServer = RequestHandler.getInstance().getAttractions(
-                                currentUser.getCurrentTrip().getID());
-
-                        if (attractionsFromServer != null){
-                            MySQLHelper mySQLHelper = new MySQLHelper(this);
-
-                            ArrayList<Attraction> attractionsFromDB = mySQLHelper.getAttractions();
-
-                            if (attractionsFromDB != null){
-
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
         }
     }
 
