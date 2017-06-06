@@ -124,8 +124,9 @@ public class RequestHandler {
         objConnectUserRequest.Email = p_strEmail;
 
         Location location = RequestHandler.getInstance().getLocation();
-        double latitude = 0.0;
-        double longitude = 0.0;
+        double latitude = 32.1812643;
+        double longitude = 34.9781035;
+
 
         if (location != null) {
             latitude = location.getLatitude();
@@ -145,8 +146,8 @@ public class RequestHandler {
 
 
         Location location = RequestHandler.getInstance().getLocation();
-        double latitude = 0.0;
-        double longitude = 0.0;
+        double latitude = 32.1812643;
+        double longitude = 34.9781035;
 
         if (location != null) {
             latitude = location.getLatitude();

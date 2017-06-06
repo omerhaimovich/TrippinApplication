@@ -28,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -188,6 +189,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.animateCamera( CameraUpdateFactory.zoomTo( 5.0f ) );
         getAttractions();
     }
 
@@ -231,6 +233,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void close() {
         getSupportFragmentManager().beginTransaction().remove(ca).commit();
         dialog.dismiss();
+    }
+
+    public void find_me(View view){
+        //connect user to the server
+        Location location = RequestHandler.getInstance().getLocation();
+        double latitude = 32.1812643;
+        double longitude = 34.9781035;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15.0f));
     }
 
     public void btnEndTrippin(View view) {

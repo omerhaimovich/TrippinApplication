@@ -15,9 +15,22 @@
         android:layout_width="match_parent" android:id="@+id/CurrentAttractionContainer"
         android:layout_height="wrap_content">
     </LinearLayout>
+
+    <Button
+        android:id="@+id/map_startTrippinBtn"
+        android:layout_width="200dp" android:textSize="25dp"
+        android:layout_height="200dp"
+        android:text="Start TripPin" android:textColor="@color/white"
+        android:background="@drawable/button_dark"
+        android:onClick="startTrippin"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
     <LinearLayout android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
         <ImageButton
             android:layout_width="80dp" android:layout_margin="10dp"
             android:layout_alignParentTop="true"
@@ -44,17 +57,14 @@
         </Button>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/map_startTrippinBtn"
-        android:layout_width="200dp" android:textSize="25dp"
-        android:layout_height="200dp"
-        android:text="Start TripPin" android:textColor="@color/white"
-        android:background="@drawable/button_dark"
-        android:onClick="startTrippin"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-
+    <ImageButton
+        android:id="@+id/findme"
+        android:layout_width="80dp" android:textSize="12dp"
+        android:layout_height="80dp" android:text="End Trppin"
+        android:background="@drawable/ic_my_location_black_24dp"
+        android:onClick="find_me" android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
 
 
