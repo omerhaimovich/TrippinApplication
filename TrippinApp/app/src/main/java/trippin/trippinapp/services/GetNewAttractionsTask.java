@@ -3,6 +3,8 @@ package trippin.trippinapp.services;
 import android.content.Context;
 import android.location.Location;
 
+import com.google.gson.JsonElement;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TimerTask;
@@ -10,6 +12,7 @@ import java.util.TimerTask;
 import trippin.trippinapp.helpers.MySQLHelper;
 import trippin.trippinapp.helpers.NotificationHelper;
 import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
@@ -34,11 +37,33 @@ public class GetNewAttractionsTask extends TimerTask {
             User currentUser = User.getCurrentUser();
 
             if (currentUser != null) {
+
+                if (currentUser.getCurrentTrip() == null) {
+                    try {
+                        JsonElement newTripJson = RequestHandler.getInstance().createTrip(
+                                currentUser.getEmail(), null);
+
+                        if (newTripJson != null &&
+                                newTripJson.getAsJsonObject() != null) {
+
+                            Trip newTrip = Trip.fromJSON(newTripJson.getAsJsonObject(), false);
+
+                            if (newTrip != null) {
+                                currentUser.setCurrentTrip(newTrip);
+                            }
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
                 if (currentUser.getCurrentTrip() != null) {
 
                     try {
                         ArrayList<Attraction> attractionsFromServer =
-                                RequestHandler.getInstance().getAttractions(currentUser.getCurrentTrip().getID());
+                                RequestHandler.getInstance().getAttractions(currentUser.getCurrentTrip().getGoogleID());
 
                         if (attractionsFromServer != null) {
                             MySQLHelper mySQLHelper = new MySQLHelper(mContext);

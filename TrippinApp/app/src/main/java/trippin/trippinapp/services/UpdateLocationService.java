@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 
 import com.bumptech.glide.RequestManager;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonElement;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,6 +74,28 @@ public class UpdateLocationService extends Service implements LocationListener {
 
             if (currentUser != null) {
                 Trip currentTrip = currentUser.getCurrentTrip();
+
+                if (currentTrip == null) {
+                    try {
+                        JsonElement newTripJson = RequestHandler.getInstance().createTrip(
+                                currentUser.getEmail(), null);
+
+                        if (newTripJson != null &&
+                                newTripJson.getAsJsonObject() != null) {
+
+                            Trip newTrip = Trip.fromJSON(newTripJson.getAsJsonObject(), false);
+
+                            if (newTrip != null) {
+                                currentUser.setCurrentTrip(newTrip);
+                            }
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
                 if (currentTrip != null) {
                     Attraction currentAttraction = currentUser.currentAttraction();
 

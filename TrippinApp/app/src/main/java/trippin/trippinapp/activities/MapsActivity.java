@@ -82,8 +82,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Trip attractionsTrip = RequestHandler.getInstance().getTrip(trip.getGoogleID(),
                         User.getCurrentUser().getEmail(), true);
 
-                if (attractionsTrip != null) {
-                    attraction = attractionsTrip.getAttractions().get(0);
+                if (attractionsTrip != null &&
+                        attractionsTrip.getCurrentAttraction() != null) {
+
+                    attraction = attractionsTrip.getCurrentAttraction();
                 }
 
                 if (attraction != null) {
@@ -189,7 +191,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.animateCamera( CameraUpdateFactory.zoomTo( 5.0f ) );
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(5.0f));
         getAttractions();
     }
 
@@ -235,7 +237,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dialog.dismiss();
     }
 
-    public void find_me(View view){
+    public void find_me(View view) {
         //connect user to the server
         Location location = RequestHandler.getInstance().getLocation();
         double latitude = 32.1812643;

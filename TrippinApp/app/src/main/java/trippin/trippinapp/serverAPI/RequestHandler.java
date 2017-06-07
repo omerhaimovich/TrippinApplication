@@ -159,9 +159,14 @@ public class RequestHandler {
 
         objConnectUserRequest.AttractionTypes = new ArrayList<>();
 
+        if (attractionTypes == null) {
+            attractionTypes = new ArrayList<>();
+        }
+
         for (AttractionType attractionType : attractionTypes) {
             objConnectUserRequest.AttractionTypes.add(attractionType);
         }
+
 
         return doPostRequest(objConnectUserRequest);
 
@@ -189,7 +194,7 @@ public class RequestHandler {
 
         JsonElement tripJson = doGetRequest(tripRequest);
 
-        if (tripJson != null){
+        if (tripJson != null) {
             retVal = Trip.fromJSON(tripJson.getAsJsonObject(), isLoadAttractions);
         }
 
