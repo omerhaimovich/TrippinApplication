@@ -15,52 +15,19 @@ public class Settings {
         Settings.preferences = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
     }
 
-//    public static Boolean SaveSettings(String key, Object value)
-//    {
-//        SharedPreferences.Editor editor = preferences.edit();
-//
-//        if (value instanceof Integer)
-//        {
-//            editor.putInt(key, (int)value);
-//        }
-//        else if (value instanceof String)
-//        {
-//            editor.putString(key, value.toString());
-//        }
-//        else if (value instanceof Boolean)
-//        {
-//            editor.putBoolean(key, (boolean)value);
-//        }
-//        else if (value instanceof Float)
-//        {
-//            editor.putFloat(key, (float)value);
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//
-//        editor.commit();
-//        return true;
-//    }
-
-    public static Integer GetIntegerSettings(String key)
-    {
+    public static Integer getIntegerSettings(String key) {
         return preferences.getInt(key, -999);
     }
 
-    public static Float GetFloatSettings(String key)
-    {
+    public static Float getFloatSettings(String key) {
         return preferences.getFloat(key, -999);
     }
 
-    public static Boolean GetBooleanSettings(String key)
-    {
+    public static Boolean getBooleanSettings(String key) {
         return preferences.getBoolean(key, false);
     }
 
-    public static String GetStringSettings(String key)
-    {
+    public static String getStringSettings(String key) {
         return preferences.getString(key, null);
     }
 }

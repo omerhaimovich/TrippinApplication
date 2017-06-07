@@ -14,7 +14,7 @@ public class GetAttractionRequest implements IUrlRequest
 
     @Override
     public String getURLSuffix() {
-        String url ="attractions/GetAttractions?tripId=";
+        String url ="attractions/getAttractions?tripId=";
         url += TripId;
         url += "&lat=";
         url += Lat;

@@ -2,17 +2,13 @@ package trippin.trippinapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.StrictMode;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +29,7 @@ import trippin.trippinapp.serverAPI.RequestHandler;
 public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickListener{
     private ArrayList<Trip> dataSet;
     Context mContext;
+    private int lastPosition = -1;
 
     // View lookup cache
     private static class ViewHolder {
@@ -59,10 +56,8 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
         StrictMode.setThreadPolicy(policy);
 
         try {
-            Trip trip = Trip.FromJSON(RequestHandler.getTrip(trip_id,
-                                                    User.getCurrentUser().getEmail(),
-                                                    (double)0,
-                                                    (double)0).getAsJsonObject(), true);
+            Trip trip = RequestHandler.getInstance().getTrip(
+                    trip_id, User.getCurrentUser().getEmail(), true);
 
             Intent intent = new Intent(this.getContext(), TripActivity.class);
             intent.putExtra("trip_id", trip.getGoogleID());
@@ -73,8 +68,6 @@ public class TripsAdapter extends ArrayAdapter<Trip> implements View.OnClickList
             Toast.makeText(mContext, "Failed Loading Trip", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private int lastPosition = -1;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

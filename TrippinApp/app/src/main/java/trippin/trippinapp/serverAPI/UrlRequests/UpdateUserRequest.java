@@ -12,6 +12,6 @@ public class UpdateUserRequest implements IUrlRequest {
 
     @Override
     public String getURLSuffix() {
-        return "users/UpdateUser";
+        return "users/updateUser";
     }
 }

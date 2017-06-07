@@ -1,10 +1,13 @@
 package trippin.trippinapp.activities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +31,7 @@ import java.io.IOException;
 
 import trippin.trippinapp.R;
 import trippin.trippinapp.model.User;
+import trippin.trippinapp.services.UpdateLocationService;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
@@ -77,6 +81,31 @@ public class LoginActivity extends AppCompatActivity implements
 
         // Customizing G+ button
         btnSignIn.setSize(SignInButton.SIZE_ICON_ONLY);
+
+
+        int fineLocationPermission = ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarseLocationPermission = ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (fineLocationPermission != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                    this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9);
+
+        }
+
+        if (coarseLocationPermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 9);
+        }
+
+        if (fineLocationPermission == PackageManager.PERMISSION_GRANTED &&
+                coarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
+
+            Intent intent = new Intent(this, UpdateLocationService.class);
+            startService(intent);
+        }
     }
 
     private void signIn() {
@@ -120,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements
             txtName.setText(personName);
             txtEmail.setText(email);
 
-            try{
+            try {
                 personPhotoUrl = acct.getPhotoUrl().toString();
 
 //                Glide.with(getApplicationContext()).load(personPhotoUrl)
@@ -128,15 +157,15 @@ public class LoginActivity extends AppCompatActivity implements
 //                        .crossFade()
 //                        .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                        .into(imgProfilePic);
-            } catch(Exception e){
+            } catch (Exception e) {
                 imgProfilePic.setImageResource(R.mipmap.noprofilephoto);
                 personPhotoUrl = "mipmap-hdpi/noprofilephoto.png";
             }
 
             //set data to connected user
             try {
-                User.SignIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
-                Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
+                User.signIn(acct.getEmail(), acct.getDisplayName(), personPhotoUrl);
+                Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                 startActivity(intent);
 
             } catch (IOException e) {
@@ -181,9 +210,9 @@ public class LoginActivity extends AppCompatActivity implements
             handleSignInResult(result);
             //Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
             //startActivity(intent);
+        } else {
         }
-        else {
-        }}
+    }
 
     @Override
     public void onStart() {

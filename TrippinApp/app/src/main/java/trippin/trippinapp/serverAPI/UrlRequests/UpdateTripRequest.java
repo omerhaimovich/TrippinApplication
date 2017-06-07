@@ -15,6 +15,6 @@ public class UpdateTripRequest implements IUrlRequest{
 
     @Override
     public String getURLSuffix() {
-        return "trips/UpdateTrip";
+        return "trips/updateTrip";
     }
 }

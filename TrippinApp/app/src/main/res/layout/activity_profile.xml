@@ -10,13 +10,13 @@
     <Button android:id="@+id/btnStartTripProfile"
         android:layout_width="80dp" android:layout_alignParentEnd="true"
         android:layout_height="80dp" android:layout_marginBottom="5dp" android:background="@drawable/round_button_primary"
-        android:text="Start Trippin" android:layout_marginEnd="15dp" android:onClick="StartTrip"
+        android:text="Start Trippin" android:layout_marginEnd="15dp" android:onClick="startTrip"
         android:layout_alignParentBottom="true" android:textColor="@color/white"
         />
     <Button android:id="@+id/btnEndTripProfile"
         android:layout_width="80dp" android:layout_alignParentEnd="true"
         android:layout_height="80dp" android:layout_marginBottom="5dp" android:background="@drawable/button_danger"
-        android:text="End Trippin" android:layout_marginEnd="15dp" android:onClick="EndTrip"
+        android:text="End Trippin" android:layout_marginEnd="15dp" android:onClick="endTrip"
         android:layout_alignParentBottom="true" android:textColor="@color/white"
         />
 

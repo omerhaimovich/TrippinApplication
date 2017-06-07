@@ -22,9 +22,14 @@ import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +38,7 @@ import java.util.Set;
 import trippin.trippinapp.R;
 import trippin.trippinapp.fragment.CurrentAttraction;
 import trippin.trippinapp.fragment.Like;
+import trippin.trippinapp.helpers.MySQLHelper;
 import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
@@ -41,7 +47,8 @@ import trippin.trippinapp.serverAPI.RequestHandler;
 import trippin.trippinapp.services.UpdateLocationService;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, CurrentAttraction.OnCurrentAttractionListener, Like.OnLikelistener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+        CurrentAttraction.OnCurrentAttractionListener, Like.OnLikelistener {
 
     private GoogleMap mMap;
 
@@ -63,32 +70,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Trip trip = User.getCurrentUser().getCurrentTrip();
 
-        // TODO : remove
-        //trip = User.getCurrentUser().getTrips().get(0);
-
-        if (trip == null)
-        {
+        if (trip == null) {
             findViewById(R.id.map_endTrippinBtn).setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             findViewById(R.id.map_startTrippinBtn).setVisibility(View.GONE);
 
             ca = null;
             attraction = null;
             try {
-                // TODO; REMOVE COMMENT
-//                attr = Trip.FromJSON(RequestHandler.getTrip(trip.getGoogleID(),
-//                        User.getCurrentUser().getEmail(),
-//                        (double)0,(double)0).getAsJsonObject(), true).getCurrentAttraction();
 
-                // TODO : remove
-                attraction = Trip.FromJSON(RequestHandler.getTrip(trip.getGoogleID(),
-                        User.getCurrentUser().getEmail(),
-                        (double)0,(double)0).getAsJsonObject(), true).getAttractions().get(0);
+                Trip attractionsTrip = RequestHandler.getInstance().getTrip(trip.getGoogleID(),
+                        User.getCurrentUser().getEmail(), true);
 
-                if (attraction != null)
-                {
+                if (attractionsTrip != null &&
+                        attractionsTrip.getCurrentAttraction() != null) {
+
+                    attraction = attractionsTrip.getCurrentAttraction();
+                }
+
+                if (attraction != null) {
                     ca = CurrentAttraction.newInstance(attraction);
                     getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
                 }
@@ -132,43 +132,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    public void ShowProfile(View view) {
+        getAttractions();
+    }
+
+    public void showProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
-    public void StartTrippin(View view) {
+    public void startTrippin(View view) {
 
-        ((Button)findViewById(R.id.map_startTrippinBtn)).setVisibility(View.INVISIBLE);
+        (findViewById(R.id.map_startTrippinBtn)).setVisibility(View.INVISIBLE);
 
-        //int[] chosenAttractionType = getResources().getIntArray(R.array.attraction_types_values);
         User currUser = User.getCurrentUser();
 
-
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Set<String> selections = sharedPref.getStringSet("attraction_types",null);
-        String[] selected = selections.toArray(new String[] {});
 
-        //String bla = "bareliah@gmail.com";
+        if (sharedPref != null) {
+            Set<String> selections = sharedPref.getStringSet("attraction_types", null);
 
-        ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
-        for (int i=0 ; i<selected.length;i++) {
-            selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
+            if (selections != null) {
+
+                String[] selected = selections.toArray(new String[]{});
+
+                ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
+                for (int i = 0; i < selected.length; i++) {
+                    selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
+                }
+
+                try {
+                    //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
+                    RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-        try {
-            Location location = RequestHandler.getLocation();
-            //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
-            RequestHandler.createTrip(currUser.getEmail(),location.getLatitude(),location.getLongitude(),selectedAttractionTypes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
-    public void EditSettings(View view) {
+    public void editSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
@@ -185,61 +191,74 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        int fineLocationPermission = ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION);
-        int coarseLocationPermission = ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        if (fineLocationPermission != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(
-                    this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9);
-
-        }
-
-        if (coarseLocationPermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 9);
-        }
-
-        if (fineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                coarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-
-            Intent intent = new Intent(this, UpdateLocationService.class);
-            startService(intent);
-        }
-
-        // Add a marker in Sydney and move the camera
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(attractionPos1));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(5.0f));
+        getAttractions();
     }
 
-    public void btnStartTrippin(View view) {
-//        mMap.addMarker(markerOptions5);
+    public void getAttractions() {
+
+        MySQLHelper mySQLHelper = new MySQLHelper(this);
+        ArrayList<Attraction> attractions = mySQLHelper.getAttractions();
+
+        boolean isMapInFocus = false;
+
+        if (attractions != null &&
+                attractions.isEmpty() == false) {
+            mMap.clear();
+
+            for (Attraction currAttraction : attractions) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(currAttraction.getAttractionLocation());
+                markerOptions.title(currAttraction.getName());
+                markerOptions.icon(BitmapDescriptorFactory.fromPath(currAttraction.getImage()));
+                mMap.addMarker(markerOptions);
+
+                if (isMapInFocus == false) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(currAttraction.getAttractionLocation()));
+
+                    isMapInFocus = true;
+                }
+            }
+        }
+
     }
 
     @Override
-    public void CloseAttraction() {
+    public void closeAttraction() {
         Like like = Like.newInstance(attraction.getID());
         like.show(getSupportFragmentManager(), "dialog");
         dialog = like;
-       //
+        //
     }
 
     @Override
-    public void Close() {
+    public void close() {
         getSupportFragmentManager().beginTransaction().remove(ca).commit();
         dialog.dismiss();
     }
 
-    public void btnEndTrippin(View view){
-        ((Button)findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
-        ((Button)findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
+    public void find_me(View view) {
+        //connect user to the server
+        Location location = RequestHandler.getInstance().getLocation();
+        double latitude = 32.1812643;
+        double longitude = 34.9781035;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15.0f));
+    }
+
+    public void btnEndTrippin(View view) {
+        ((Button) findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
+        ((Button) findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
 
         Trip currentTrip = User.getCurrentUser().getCurrentTrip();
-        if(currentTrip != null){
+        if (currentTrip != null) {
             try {
-                RequestHandler.endTrip(currentTrip.getID());
+                RequestHandler.getInstance().endTrip(currentTrip.getID());
             } catch (IOException e) {
                 e.printStackTrace();
             }

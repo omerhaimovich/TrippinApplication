@@ -2,6 +2,7 @@ package trippin.trippinapp.model;
 
 
 import com.google.gson.JsonObject;
+
 import android.icu.text.SimpleDateFormat;
 
 import com.google.gson.JsonArray;
@@ -11,6 +12,7 @@ import com.google.gson.JsonObject;
 import org.w3c.dom.Attr;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -29,40 +31,48 @@ public class Trip implements Serializable {
     Date m_updatedAt;
     ArrayList<Attraction> m_attractions;
 
-    public static Trip FromJSON(JsonObject object, boolean load_atrraction)
-    {
+    public static Trip fromJSON(JsonObject object, boolean load_atrraction) {
         Trip trip = null;
 
-        try
-        {
-            ArrayList<Attraction> attractions = new ArrayList<Attraction>();
 
-            String id = object.get("Id").getAsString();
-            String name = object.get("Country").getAsString();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            Date startDate = format.parse(object.get("CreationDate").getAsString());
-            String end  = object.get("EndDate").getAsString();
+        ArrayList<Attraction> attractions = new ArrayList<Attraction>();
+
+        String id = object.get("Id").getAsString();
+        String name = object.get("Country").getAsString();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date startDate = null;
+
+        try {
+            startDate = format.parse(object.get("CreationDate").getAsString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (startDate != null) {
+
+            String end = object.get("EndDate").getAsString();
             Date endDate = null;
-            if (end != null)
-            {
-                endDate = format.parse(end);
+
+            if (end != null) {
+                try {
+                    endDate = format.parse(end);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
             trip = new Trip(id, name, startDate, endDate);
 
-            if (load_atrraction)
-            {
-                JsonArray attrs =  object.get("FullAllAttractions").getAsJsonArray();
+            if (load_atrraction) {
+                JsonArray attrs = object.get("FullAllAttractions").getAsJsonArray();
 
                 for (JsonElement attr : attrs) {
-                    attractions.add(Attraction.FromJSON(attr.getAsJsonObject()));
+                    attractions.add(Attraction.fromJSON(attr.getAsJsonObject()));
                 }
 
                 trip.m_attractions = attractions;
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return trip;
@@ -72,8 +82,7 @@ public class Trip implements Serializable {
         this(UUID.randomUUID().toString(), google_id, name, from_date, to_date);
     }
 
-    public String getGoogleID()
-    {
+    public String getGoogleID() {
         return m_googleID;
     }
 
@@ -126,12 +135,13 @@ public class Trip implements Serializable {
     }
 
 
-    public Attraction getCurrentAttraction()
-    {
-        for (Attraction attr: getAttractions()) {
-            if (attr.getEndDate() == null)
-            {
-                return attr;
+    public Attraction getCurrentAttraction() {
+
+        if (getAttractions() != null) {
+            for (Attraction attr : getAttractions()) {
+                if (attr.getEndDate() == null) {
+                    return attr;
+                }
             }
         }
 

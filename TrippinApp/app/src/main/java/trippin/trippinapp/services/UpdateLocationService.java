@@ -9,6 +9,20 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.bumptech.glide.RequestManager;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonElement;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Timer;
+
+import trippin.trippinapp.common.Consts;
+import trippin.trippinapp.helpers.MySQLHelper;
+import trippin.trippinapp.helpers.NotificationHelper;
+import trippin.trippinapp.model.Attraction;
+import trippin.trippinapp.model.Trip;
+import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class UpdateLocationService extends Service implements LocationListener {
@@ -35,6 +49,10 @@ public class UpdateLocationService extends Service implements LocationListener {
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        Timer getNewAttractionsFromServer = new Timer();
+        getNewAttractionsFromServer.schedule(
+                new GetNewAttractionsTask(this), 0, Consts.GET_NEW_ATTRACTIONS_TIMER);
+
         updateLocation();
 
         return super.onStartCommand(intent, flags, startId);
@@ -47,10 +65,63 @@ public class UpdateLocationService extends Service implements LocationListener {
     }
 
     @Override
-    public void onLocationChanged(Location changedLocation ) {
+    public void onLocationChanged(Location changedLocation) {
 
         if (changedLocation != null) {
             RequestHandler.getInstance().setLocation(changedLocation);
+
+            User currentUser = User.getCurrentUser();
+
+            if (currentUser != null) {
+                Trip currentTrip = currentUser.getCurrentTrip();
+
+                if (currentTrip == null) {
+                    try {
+                        JsonElement newTripJson = RequestHandler.getInstance().createTrip(
+                                currentUser.getEmail(), null);
+
+                        if (newTripJson != null &&
+                                newTripJson.getAsJsonObject() != null) {
+
+                            Trip newTrip = Trip.fromJSON(newTripJson.getAsJsonObject(), false);
+
+                            if (newTrip != null) {
+                                currentUser.setCurrentTrip(newTrip);
+                            }
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                if (currentTrip != null) {
+                    Attraction currentAttraction = currentUser.currentAttraction();
+
+                    if (currentAttraction != null) {
+                        LatLng attractionLatlng = currentAttraction.getAttractionLocation();
+
+                        Location attractionLocation = new Location("");
+                        attractionLocation.setLatitude(attractionLatlng.latitude);
+                        attractionLocation.setLongitude(attractionLatlng.longitude);
+
+                        float distanceFromCurrAttraction = changedLocation.distanceTo(attractionLocation);
+
+                        if (distanceFromCurrAttraction >= Consts.DISTANCE_FROM_CURRENT_ATTRACTION) {
+
+                            try {
+                                RequestHandler.getInstance().endAttraction(
+                                        currentTrip.getID(), currentAttraction.getID());
+
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -65,8 +136,7 @@ public class UpdateLocationService extends Service implements LocationListener {
         if (provider.compareTo(LocationManager.GPS_PROVIDER) == 0) {
             // getting GPS status
             isGPSEnabled = true;
-        }
-        else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
+        } else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
             // getting network status
             isNetworkEnabled = true;
         }
@@ -78,8 +148,7 @@ public class UpdateLocationService extends Service implements LocationListener {
         if (provider.compareTo(LocationManager.GPS_PROVIDER) == 0) {
             // getting GPS status
             isGPSEnabled = false;
-        }
-        else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
+        } else if (provider.compareTo(LocationManager.NETWORK_PROVIDER) == 0) {
             // getting network status
             isNetworkEnabled = false;
         }

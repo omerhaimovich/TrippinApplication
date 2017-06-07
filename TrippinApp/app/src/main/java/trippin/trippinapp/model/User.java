@@ -2,7 +2,6 @@ package trippin.trippinapp.model;
 
 import android.location.Location;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -37,24 +36,15 @@ public class User {
         return m_currentUser;
     }
 
-    public static void SignIn(String email, String username, String image) throws IOException {
+    public static void signIn(String email, String username, String image) throws IOException {
         User.m_currentUser = new User(email, username, image);
 
         //connect user to the server
-        Location location = RequestHandler.getLocation();
-        double latitude = 0.0;
-        double longitude = 0.0;
-
-        if (location != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-        }
-
-        JsonElement userConnaction = RequestHandler.connectUser(email, latitude, longitude);
+        JsonElement userConnaction = RequestHandler.getInstance().connectUser(email);
 
         if (userConnaction != null &&
                 userConnaction.getAsJsonObject() != null) {
-            User.m_currentUser.UpdateTrips(userConnaction.getAsJsonObject());
+            User.m_currentUser.updateTrips(userConnaction.getAsJsonObject());
         }
     }
 
@@ -69,7 +59,7 @@ public class User {
         return null;
     }
 
-    public void UpdateTrips(JsonObject object) {
+    public void updateTrips(JsonObject object) {
         try {
             ArrayList<Trip> trips = new ArrayList<Trip>();
 
@@ -80,7 +70,7 @@ public class User {
 
             for (JsonElement attr : attrs) {
 
-                Trip trip = Trip.FromJSON(attr.getAsJsonObject(), false);
+                Trip trip = Trip.fromJSON(attr.getAsJsonObject(), false);
                 m_trips.add(trip);
 
                 if (trip.getEndDate() == null) {
@@ -115,7 +105,6 @@ public class User {
         this.m_imageUrl = image;
         m_trips = new ArrayList<Trip>();
     }
-
 
     public Attraction currentAttraction() {
         if (m_currentTrip != null) {

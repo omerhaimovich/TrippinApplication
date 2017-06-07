@@ -10,6 +10,6 @@ public class AttractionChosenRequest implements IUrlRequest {
 
     @Override
     public String getURLSuffix() {
-        return "attractions/AttractionChosen";
+        return "attractions/attractionChosen";
     }
 }

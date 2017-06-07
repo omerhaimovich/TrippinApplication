@@ -1,9 +1,6 @@
 package trippin.trippinapp.fragment;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.DialogFragment;
@@ -12,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 
-import java.io.Closeable;
 import java.io.IOException;
 
 import trippin.trippinapp.R;
@@ -55,22 +50,6 @@ public class Like extends DialogFragment implements View.OnClickListener {
         return fragment;
     }
 
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        // Get the layout inflater
-//        LayoutInflater inflater = getActivity().getLayoutInflater();
-//
-//
-//
-//
-//        // Inflate and set the layout for the dialog
-//        // Pass null as the parent view because its going in the dialog layout
-//        builder.setView(inflater.inflate(R.layout.fragment_like, null));
-//
-//        return builder.create();
-//    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,8 +68,8 @@ public class Like extends DialogFragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_like, container, false);
 
-        ((Button)view.findViewById(R.id.vote_up)).setOnClickListener(this);
-        ((Button)view.findViewById(R.id.vote_down)).setOnClickListener(this);
+        ((Button) view.findViewById(R.id.vote_up)).setOnClickListener(this);
+        ((Button) view.findViewById(R.id.vote_down)).setOnClickListener(this);
 
         return view;
     }
@@ -114,32 +93,29 @@ public class Like extends DialogFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.vote_up)
-        {
+        if (v.getId() == R.id.vote_up) {
             try {
-                RequestHandler.AttractionRated(User.getCurrentUser().getCurrentTrip().getGoogleID(), attraction_id, true);
+                RequestHandler.getInstance().attractionRated(User.getCurrentUser().getCurrentTrip().getGoogleID(), attraction_id, true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            mListener.Close();
-        }
-        else if (v.getId() == R.id.vote_down)
-        {
+            mListener.close();
+        } else if (v.getId() == R.id.vote_down) {
             try {
                 // TODO: Chagne
-                //RequestHandler.AttractionRated(User.getCurrentUser().getCurrentTrip().getGoogleID(), attraction_id, false);
-                RequestHandler.AttractionRated(User.getCurrentUser().getTrips().get(0).getGoogleID(), attraction_id, false);
+                //RequestHandler.attractionRated(User.getCurrentUser().getCurrentTrip().getGoogleID(), attraction_id, false);
+                RequestHandler.getInstance().attractionRated(User.getCurrentUser().getTrips().get(0).getGoogleID(), attraction_id, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            mListener.Close();
+            mListener.close();
         }
 
         //END attration
         try {
-            RequestHandler.endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
+            RequestHandler.getInstance().endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -156,6 +132,6 @@ public class Like extends DialogFragment implements View.OnClickListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnLikelistener {
-        void Close();
+        void close();
     }
 }
