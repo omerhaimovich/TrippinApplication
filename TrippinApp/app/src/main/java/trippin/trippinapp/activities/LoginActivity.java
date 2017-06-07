@@ -264,6 +264,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void updateUI(boolean isSignedIn) {
+        /*
         if (isSignedIn) {
             btnSignIn.setVisibility(View.GONE);
             btnSignOut.setVisibility(View.VISIBLE);
@@ -272,11 +273,11 @@ public class LoginActivity extends AppCompatActivity implements
             //Intent intent = new Intent(LoginActivity.this,MapsActivity.class);
             //startActivity(intent);
 
-        } else {
+        } else {*/
             btnSignIn.setVisibility(View.VISIBLE);
             btnSignOut.setVisibility(View.GONE);
             btnRevokeAccess.setVisibility(View.GONE);
             llProfileLayout.setVisibility(View.GONE);
-        }
+       // }
     }
 }

@@ -3,8 +3,6 @@ package trippin.trippinapp.services;
 import android.content.Context;
 import android.location.Location;
 
-import com.google.gson.JsonElement;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TimerTask;
@@ -12,7 +10,6 @@ import java.util.TimerTask;
 import trippin.trippinapp.helpers.MySQLHelper;
 import trippin.trippinapp.helpers.NotificationHelper;
 import trippin.trippinapp.model.Attraction;
-import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
@@ -36,7 +33,7 @@ public class GetNewAttractionsTask extends TimerTask {
         if (location != null) {
             User currentUser = User.getCurrentUser();
 
-            if (currentUser != null) {
+            if (currentUser != null) {/*
 
                 if (currentUser.getCurrentTrip() == null) {
                     try {
@@ -56,7 +53,7 @@ public class GetNewAttractionsTask extends TimerTask {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
+*/
                 }
 
                 if (currentUser.getCurrentTrip() != null) {
@@ -109,4 +106,4 @@ public class GetNewAttractionsTask extends TimerTask {
             }
         }
     }
-}
+

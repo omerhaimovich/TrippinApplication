@@ -9,17 +9,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.bumptech.glide.RequestManager;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.JsonElement;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Timer;
 
 import trippin.trippinapp.common.Consts;
-import trippin.trippinapp.helpers.MySQLHelper;
-import trippin.trippinapp.helpers.NotificationHelper;
 import trippin.trippinapp.model.Attraction;
 import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
@@ -76,6 +71,7 @@ public class UpdateLocationService extends Service implements LocationListener {
                 Trip currentTrip = currentUser.getCurrentTrip();
 
                 if (currentTrip == null) {
+                    /*
                     try {
                         JsonElement newTripJson = RequestHandler.getInstance().createTrip(
                                 currentUser.getEmail(), null);
@@ -92,7 +88,7 @@ public class UpdateLocationService extends Service implements LocationListener {
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
+                    }*/
 
                 }
 

@@ -1,6 +1,5 @@
 package trippin.trippinapp.activities;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +55,7 @@ public class TripActivity extends AppCompatActivity {
         Trip currentTrip = User.getCurrentUser().getCurrentTrip();
         if(currentTrip != null){
             try {
-                RequestHandler.endTrip(currentTrip.getID());
+                RequestHandler.getInstance().endTrip(currentTrip.getID());
             } catch (IOException e) {
                 e.printStackTrace();
             }

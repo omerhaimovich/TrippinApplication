@@ -40,7 +40,7 @@ import trippin.trippinapp.serverAPI.UrlRequests.UpdateUserRequest;
 public class RequestHandler {
 
     private static RequestHandler ourInstance = null;
-    private Location location;
+    private static Location location;
     private Gson objGson = new Gson();
 
     private RequestHandler() {
@@ -55,6 +55,10 @@ public class RequestHandler {
     }
 
     public Location getLocation() {
+        location = new Location("");
+        location.setLatitude(41.890251);
+        location.setLongitude(12.492373);
+
         return location;
     }
 
