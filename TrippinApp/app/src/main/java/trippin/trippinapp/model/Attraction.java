@@ -59,17 +59,20 @@ public class Attraction implements Serializable {
             String id = object.get("Id").getAsString();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             String start = object.get("StartDate").getAsString();
-            Date startDate = format.parse(start);
+
+
+            Date startDate = start.equals("0001-01-01T00:00:00") ? null : format.parse(start);
+
             String end = object.get("EndDate").getAsString();
             double rate = object.get("Rating").getAsFloat();
-            double x = object.get("Longitude").getAsDouble();
-            double y = object.get("Latitude").getAsDouble();
+            double y = object.get("Longitude").getAsDouble();
+            double x = object.get("Latitude").getAsDouble();
             String url = object.get("PhotoUrl").getAsString();
             String name = object.get("Name").getAsString();
             Date endDate = null;
 
             if (end != null) {
-                endDate = format.parse(end);
+                endDate = end.equals("0001-01-01T00:00:00") ? null : format.parse(end);
             }
 
             attraction = new Attraction(id, name, rate, new LatLng(x, y), startDate, endDate, url);

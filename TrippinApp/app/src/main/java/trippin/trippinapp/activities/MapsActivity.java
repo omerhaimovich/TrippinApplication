@@ -30,6 +30,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.nearby.messages.internal.Update;
+import com.google.gson.JsonElement;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -136,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onResume() {
         super.onResume();
 
-        getAttractions();
+        if (mMap != null) {getAttractions(); }
     }
 
     public void showProfile(View view) {
@@ -167,6 +169,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 try {
                     //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
                     RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
+                    User.getCurrentUser().updateTrips(RequestHandler.getInstance().connectUser(User.getCurrentUser().getEmail()).getAsJsonObject());
+
+                    getAttractions();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -210,7 +216,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(currAttraction.getAttractionLocation());
                 markerOptions.title(currAttraction.getName());
-                markerOptions.icon(BitmapDescriptorFactory.fromPath(currAttraction.getImage()));
+
+                if (currAttraction.getImage() != null)
+                {
+                    markerOptions.icon(BitmapDescriptorFactory.fromPath(currAttraction.getImage()));
+                }
+
                 mMap.addMarker(markerOptions);
 
                 if (isMapInFocus == false) {

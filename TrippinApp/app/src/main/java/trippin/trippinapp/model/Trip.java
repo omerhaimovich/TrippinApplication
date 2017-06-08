@@ -4,6 +4,8 @@ package trippin.trippinapp.model;
 import com.google.gson.JsonObject;
 
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -31,6 +33,7 @@ public class Trip implements Serializable {
     Date m_updatedAt;
     ArrayList<Attraction> m_attractions;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static Trip fromJSON(JsonObject object, boolean load_atrraction) {
         Trip trip = null;
 
@@ -38,15 +41,21 @@ public class Trip implements Serializable {
         ArrayList<Attraction> attractions = new ArrayList<Attraction>();
 
         String id = object.get("Id").getAsString();
-        String name = object.get("Country").getAsString();
+        String name = object.get("Country").isJsonNull() ? null :  object.get("Country").getAsString();
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Date startDate = null;
 
         try {
-            startDate = format.parse(object.get("CreationDate").getAsString());
+            startDate = format1.parse(object.get("CreationDate").getAsString());
         } catch (ParseException e) {
             e.printStackTrace();
+            try {
+                startDate = format2.parse(object.get("CreationDate").getAsString());
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
         }
 
         if (startDate != null) {
@@ -54,11 +63,17 @@ public class Trip implements Serializable {
             String end = object.get("EndDate").getAsString();
             Date endDate = null;
 
-            if (end != null) {
+            if (end != null && !end.equals("0001-01-01T00:00:00Z")) {
                 try {
-                    endDate = format.parse(end);
+                    endDate = format1.parse(end);
                 } catch (ParseException e) {
                     e.printStackTrace();
+
+                    try {
+                        endDate = format2.parse(end);
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
 

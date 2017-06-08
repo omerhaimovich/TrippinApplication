@@ -80,8 +80,12 @@ public class MySQLHelper extends SQLiteOpenHelper {
         values.put(KEY_GoogleID, attraction.getM_googleID());
         values.put(KEY_Name, attraction.getName());
         values.put(KEY_Rate, attraction.getRate());
-        values.put(KEY_StartDate, attraction.getStartDate().toString());
-        values.put(KEY_ENDDate, attraction.getEndDate().toString());
+        if (attraction.getStartDate() != null) {
+            values.put(KEY_StartDate, attraction.getStartDate().toString());
+        }
+        if (attraction.getEndDate() != null) {
+            values.put(KEY_ENDDate, attraction.getEndDate().toString());
+        }
         values.put(KEY_AttractionLocationLat, lat);
         values.put(KEY_AttractionLocationLng, lng);
         values.put(KEY_Image, attraction.getImage().toString());
