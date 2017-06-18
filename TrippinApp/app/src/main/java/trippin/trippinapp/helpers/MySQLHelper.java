@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.text.SimpleDateFormat;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -119,12 +121,29 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         Attraction convertObj = new Attraction();
 
-        Date startDate = null; //KEY_StartDate
-        Date EndDate = null; //KEY_ENDDate
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+        String start = cursor.getString(cursor.getColumnIndex(KEY_StartDate));
+        String end = cursor.getString(cursor.getColumnIndex(KEY_ENDDate));
+
+        Date startDate = null;
+        try {
+            startDate = start.equals("0001-01-01T00:00:00") ? null : format.parse(start);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date EndDate = null;
+        try {
+            EndDate = end.equals("0001-01-01T00:00:00") ? null : format.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         double lat = cursor.getDouble((cursor.getColumnIndex(KEY_AttractionLocationLat)));
         double lng = cursor.getDouble((cursor.getColumnIndex(KEY_AttractionLocationLng)));
         LatLng location = new LatLng(lat, lng);
-        String image = null; //KEY_Image
+        String image = cursor.getString(cursor.getColumnIndex(KEY_Image));
 
         convertObj.setID(cursor.getString(cursor.getColumnIndex(KEY_ID)));
         convertObj.setM_googleID(cursor.getString(cursor.getColumnIndex(KEY_GoogleID)));

@@ -64,15 +64,19 @@
     </string-array>
     <string name="attraction_types">Attraction Types</string>
     <string-array name="attraction_types_entries">
-        <item>Shopping</item>
-        <item>Food</item>
+        <item>Museums</item>
+        <item>Markets</item>
+        <item>Shopping malls</item>
+        <item>Theaters</item>
         <item>Bars &amp; Night Clubs</item>
-        <item>Art</item>
-        <item>Extreme</item>
-        <item>Parks</item>
+        <item>Restaurants</item>
+        <item>History</item>
+        <item>Children</item>
         <item>Nature</item>
+        <item>Land marks</item>
     </string-array>
     <string-array name="attraction_types_values">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -80,6 +84,8 @@
         <item>5</item>
         <item>6</item>
         <item>7</item>
+        <item>8</item>
+        <item>9</item>
     </string-array>
     <string name="trip_active">Pause Trip</string>
     <string name="trip_active_desc">Stop Crawling for Attractions</string>
