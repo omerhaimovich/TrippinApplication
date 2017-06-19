@@ -17,6 +17,8 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.nearby.messages.internal.Update;
 import com.google.gson.JsonElement;
@@ -52,6 +55,59 @@ import trippin.trippinapp.services.UpdateLocationService;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         CurrentAttraction.OnCurrentAttractionListener, Like.OnLikelistener {
 
+    class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+            MyInfoWindowAdapter(){
+                myContentsView = getLayoutInflater().inflate(R.layout.attraction, null);
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                final String[] Content = marker.getSnippet().split(";");
+
+                TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.attrNameMarker));
+                tvTitle.setText(marker.getTitle());
+                TextView rate = ((TextView)myContentsView.findViewById(R.id.txtAttrRateMarker));
+                rate.setText(Content[0]);
+
+                TextView type = ((TextView)myContentsView.findViewById(R.id.txtAttrTypeMarker));
+                type.setText(Content[1]);
+                final ImageView image = ((ImageView) myContentsView.findViewById(R.id.attrImageMarker));
+
+//                myContentsView.findViewById(R.id.startAttractionBtn).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        try {
+//                            RequestHandler.getInstance().attractionChosen(Content[3], Content[4]);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+
+                Glide.with(getApplicationContext()).load(Content[2]).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        image.setBackground(circularBitmapDrawable);
+                    }
+                });
+
+                return myContentsView;
+            }
+
+            @Override
+            public View getInfoWindow(Marker marker) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+    }
+
     private GoogleMap mMap;
 
     CurrentAttraction ca;
@@ -69,6 +125,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
 
         Trip trip = User.getCurrentUser().getCurrentTrip();
 
@@ -199,6 +257,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.animateCamera(CameraUpdateFactory.zoomTo(5.0f));
         getAttractions();
+        mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                String Content[] = marker.getSnippet().split(";");
+                try {
+                    RequestHandler.getInstance().attractionChosen(Content[4], Content[3]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     public void getAttractions() {
@@ -216,6 +288,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(currAttraction.getAttractionLocation());
                 markerOptions.title(currAttraction.getName());
+                markerOptions.snippet(currAttraction.getRate() + ";" + "general" + ";" + currAttraction.getImage() + ";" + currAttraction.getM_googleID() + ";" + User.getCurrentUser().getCurrentTrip().getGoogleID());
 
                 if (currAttraction.getImage() != null)
                 {
@@ -236,7 +309,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void closeAttraction() {
-        Like like = Like.newInstance(attraction.getID());
+        Like like = Like.newInstance(attraction.getM_googleID());
         like.show(getSupportFragmentManager(), "dialog");
         dialog = like;
         //

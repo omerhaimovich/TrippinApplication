@@ -56,8 +56,8 @@ public class RequestHandler {
 
     public Location getLocation() {
         location = new Location("");
-        location.setLatitude(41.890251);
-        location.setLongitude(12.492373);
+        location.setLatitude(32.0628236);
+        location.setLongitude(34.7725855);
 
         return location;
     }

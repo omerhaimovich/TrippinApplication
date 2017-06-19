@@ -33,28 +33,7 @@ public class GetNewAttractionsTask extends TimerTask {
         if (location != null) {
             User currentUser = User.getCurrentUser();
 
-            if (currentUser != null) {/*
-
-                if (currentUser.getCurrentTrip() == null) {
-                    try {
-                        JsonElement newTripJson = RequestHandler.getInstance().createTrip(
-                                currentUser.getEmail(), null);
-
-                        if (newTripJson != null &&
-                                newTripJson.getAsJsonObject() != null) {
-
-                            Trip newTrip = Trip.fromJSON(newTripJson.getAsJsonObject(), false);
-
-                            if (newTrip != null) {
-                                currentUser.setCurrentTrip(newTrip);
-                            }
-                        }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-*/
-                }
+            if (currentUser != null) {
 
                 if (currentUser.getCurrentTrip() != null) {
 
@@ -104,6 +83,7 @@ public class GetNewAttractionsTask extends TimerTask {
                     }
                 }
             }
+        }
         }
     }
 

@@ -61,7 +61,7 @@ public class Attraction implements Serializable {
             String start = object.get("StartDate").getAsString();
 
 
-            Date startDate = start.equals("0001-01-01T00:00:00") ? null : format.parse(start);
+            Date startDate = start.equals("0001-01-01T00:00:00") || start.equals("0001-01-01T00:00:00Z") ? null : format.parse(start);
 
             String end = object.get("EndDate").getAsString();
             double rate = object.get("Rating").getAsFloat();
@@ -72,7 +72,7 @@ public class Attraction implements Serializable {
             Date endDate = null;
 
             if (end != null) {
-                endDate = end.equals("0001-01-01T00:00:00") ? null : format.parse(end);
+                endDate = end.equals("0001-01-01T00:00:00") || end.equals("0001-01-01T00:00:00Z") ? null : format.parse(end);
             }
 
             attraction = new Attraction(id, name, rate, new LatLng(x, y), startDate, endDate, url);

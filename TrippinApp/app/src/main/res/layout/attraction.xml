@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp" android:layout_margin="20px" android:orientation="vertical"
+    android:layout_height="wrap_content"  >
+    <LinearLayout android:layout_margin="10px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="30dp" android:layout_margin="5dp"
+            android:layout_height="30dp"
+            android:id="@+id/attrImageMarker" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_margin="5dp" android:text="Name" android:textSize="24dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/attrNameMarker" />
+    </LinearLayout>
+    <LinearLayout android:layout_margin="10px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content" android:text="Rate:"
+            android:layout_height="wrap_content"  android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content" android:id="@+id/txtAttrRateMarker" android:text="4"
+            android:layout_height="wrap_content" android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout android:layout_margin="10px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content" android:text="Type:"
+            android:layout_height="wrap_content"  android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content" android:id="@+id/txtAttrTypeMarker" android:text="General"
+            android:layout_height="wrap_content" android:layout_weight="1" />
+    </LinearLayout>
+    <!--<Button android:text="Start"-->
+        <!--android:layout_width="match_parent" android:id="@+id/startAttractionBtn"-->
+        <!--android:layout_height="wrap_content" />-->
+
+</LinearLayout>

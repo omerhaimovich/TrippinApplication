@@ -95,6 +95,7 @@ public class Like extends DialogFragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.vote_up) {
             try {
+                RequestHandler.getInstance().endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
                 RequestHandler.getInstance().attractionRated(User.getCurrentUser().getCurrentTrip().getGoogleID(), attraction_id, true);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -111,13 +112,6 @@ public class Like extends DialogFragment implements View.OnClickListener {
             }
 
             mListener.close();
-        }
-
-        //END attration
-        try {
-            RequestHandler.getInstance().endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

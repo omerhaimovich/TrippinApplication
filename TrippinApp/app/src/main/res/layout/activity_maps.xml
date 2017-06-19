@@ -62,9 +62,13 @@
         android:layout_width="80dp" android:textSize="12dp"
         android:layout_height="80dp" android:text="End Trppin"
         android:background="@drawable/ic_my_location_black_24dp"
-        android:onClick="find_me" android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:onClick="find_me"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp" />
 </RelativeLayout>
 
 
