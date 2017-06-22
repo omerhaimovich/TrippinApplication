@@ -19,11 +19,21 @@ import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class GetNewAttractionsTask extends TimerTask {
 
-    private Context mContext;
+    private static Context mContext;
+    static GetNewAttractionsTask mAttractionsTask;
 
     public GetNewAttractionsTask(Context ctx) {
-
         mContext = ctx;
+    }
+
+    public static GetNewAttractionsTask getInstance(){
+
+        // maybe this make all the problems
+        if (mAttractionsTask == null) {
+            mAttractionsTask = new GetNewAttractionsTask(mContext);
+        }
+
+        return mAttractionsTask;
     }
 
     @Override

@@ -1,15 +1,12 @@
 package trippin.trippinapp.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -28,13 +25,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.nearby.messages.internal.Update;
-import com.google.gson.JsonElement;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +43,7 @@ import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.Enums.AttractionType;
 import trippin.trippinapp.serverAPI.RequestHandler;
-import trippin.trippinapp.services.UpdateLocationService;
+import trippin.trippinapp.services.GetNewAttractionsTask;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -214,9 +208,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (sharedPref != null) {
             Set<String> selections = sharedPref.getStringSet("attraction_types", null);
-
-            if (selections != null) {
-
                 String[] selected = selections.toArray(new String[]{});
 
                 ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
@@ -225,7 +216,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 try {
-                    //RequestHandler.createTrip(bla,32.075842,34.889338,selectedAttractionTypes);
+                    GetNewAttractionsTask.getInstance().run();
                     RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
                     User.getCurrentUser().updateTrips(RequestHandler.getInstance().connectUser(User.getCurrentUser().getEmail()).getAsJsonObject());
 
@@ -234,7 +225,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+
         }
     }
 
