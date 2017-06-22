@@ -53,10 +53,9 @@ public class GetNewAttractionsTask extends TimerTask {
 
                         if (attractionsFromServer != null) {
                             MySQLHelper mySQLHelper = new MySQLHelper(mContext);
-
                             ArrayList<Attraction> attractionsFromDB = mySQLHelper.getAttractions();
 
-                            if (attractionsFromDB != null) {
+                            //if (attractionsFromDB != null) {
 
                                 ArrayList<Attraction> notificationAttractions = new ArrayList<>();
 
@@ -86,7 +85,7 @@ public class GetNewAttractionsTask extends TimerTask {
 
                                     mySQLHelper.addAttraction(currAttFromServer);
                                 }
-                            }
+                            //}
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

@@ -76,18 +76,16 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         double lat = attraction.getAttractionLocation().latitude;
         double lng = attraction.getAttractionLocation().longitude;
+        String startDate = attraction.getStartDate() != null ? attraction.getStartDate().toString() : null;
+        String endDate = attraction.getEndDate() != null ? attraction.getEndDate().toString() : null;
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID, attraction.getID());
         values.put(KEY_GoogleID, attraction.getM_googleID());
         values.put(KEY_Name, attraction.getName());
         values.put(KEY_Rate, attraction.getRate());
-        if (attraction.getStartDate() != null) {
-            values.put(KEY_StartDate, attraction.getStartDate().toString());
-        }
-        if (attraction.getEndDate() != null) {
-            values.put(KEY_ENDDate, attraction.getEndDate().toString());
-        }
+        values.put(KEY_StartDate,startDate);
+        values.put(KEY_ENDDate, endDate);
         values.put(KEY_AttractionLocationLat, lat);
         values.put(KEY_AttractionLocationLng, lng);
         values.put(KEY_Image, attraction.getImage().toString());
@@ -105,11 +103,16 @@ public class MySQLHelper extends SQLiteOpenHelper {
         ArrayList<Attraction> Arryattractions = new ArrayList<Attraction>();
         Attraction tempAttraction;
 
-        if (cursor.moveToFirst()) {
-            do {
-                tempAttraction = readAttractionToObject(cursor);
 
-                Arryattractions.add(tempAttraction);
+        if (cursor.getCount() != 0 && cursor.moveToFirst()) {
+            do {
+                try {
+                    tempAttraction = readAttractionToObject(cursor);
+
+                    Arryattractions.add(tempAttraction);
+                }catch (Exception e){
+
+                }
 
             } while (cursor.moveToNext());
         }
@@ -128,15 +131,15 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         Date startDate = null;
         try {
-            startDate = start.equals("0001-01-01T00:00:00") ? null : format.parse(start);
-        } catch (ParseException e) {
+            startDate = format.parse(start);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         Date EndDate = null;
         try {
-            EndDate = end.equals("0001-01-01T00:00:00") ? null : format.parse(end);
-        } catch (ParseException e) {
+            EndDate = format.parse(end);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
