@@ -10,12 +10,11 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
-    <!--Tom
+    <!--Tom -->
     <string name="server_client_id">996954634123-sdhjnlng6lp9ep01paiqfev4cj4lf45h.apps.googleusercontent.com</string>
--->
 
-    <!--Bar -->
-    <string name="server_client_id">996954634123-07u42ulilmd457gtb5ahg11nenp5g96g.apps.googleusercontent.com</string><!--
+    <!--Bar
+    <string name="server_client_id">996954634123-07u42ulilmd457gtb5ahg11nenp5g96g.apps.googleusercontent.com</string>
 -->
     <!--Hila
     <string name="server_client_id">996954634123-hcdck8hd3gki4u77m4c79u284bb4bidp.apps.googleusercontent.com</string>-->

@@ -46,7 +46,7 @@ public class User {
                 userConnaction.getAsJsonObject() != null) {
             User.m_currentUser.updateTrips(userConnaction.getAsJsonObject());
         }
-    }
+        }
 
     public Trip getTripByID(String id) {
         for (Trip tr : getTrips()) {

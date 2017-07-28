@@ -3,7 +3,9 @@ package trippin.trippinapp.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -21,16 +23,24 @@ import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -49,27 +59,69 @@ import trippin.trippinapp.services.GetNewAttractionsTask;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         CurrentAttraction.OnCurrentAttractionListener, Like.OnLikelistener {
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Maps Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
+
     class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         private final View myContentsView;
 
-            MyInfoWindowAdapter(){
-                myContentsView = getLayoutInflater().inflate(R.layout.attraction, null);
-            }
+        MyInfoWindowAdapter() {
+            myContentsView = getLayoutInflater().inflate(R.layout.attraction, null);
+        }
 
-            @Override
-            public View getInfoContents(Marker marker) {
+        @Override
+        public View getInfoContents(Marker marker) {
 
-                final String[] Content = marker.getSnippet().split(";");
+            final String[] Content = marker.getSnippet().split(";");
 
-                TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.attrNameMarker));
-                tvTitle.setText(marker.getTitle());
-                TextView rate = ((TextView)myContentsView.findViewById(R.id.txtAttrRateMarker));
-                rate.setText(Content[0]);
+            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.attrNameMarker));
+            tvTitle.setText(marker.getTitle());
+            TextView rate = ((TextView) myContentsView.findViewById(R.id.txtAttrRateMarker));
+            rate.setText(Content[0]);
 
-                TextView type = ((TextView)myContentsView.findViewById(R.id.txtAttrTypeMarker));
-                type.setText(Content[1]);
-                final ImageView image = ((ImageView) myContentsView.findViewById(R.id.attrImageMarker));
+            TextView type = ((TextView) myContentsView.findViewById(R.id.txtAttrTypeMarker));
+            type.setText(Content[1]);
+            final ImageView image = ((ImageView) myContentsView.findViewById(R.id.attrImageMarker));
 
 //                myContentsView.findViewById(R.id.startAttractionBtn).setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -82,24 +134,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    }
 //                });
 
-                Glide.with(getApplicationContext()).load(Content[2]).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
-                        circularBitmapDrawable.setCircular(true);
-                        image.setBackground(circularBitmapDrawable);
-                    }
-                });
+            Glide.with(getApplicationContext()).load(Content[2]).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                            RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    image.setBackground(circularBitmapDrawable);
+                }
+            });
 
-                return myContentsView;
-            }
+            return myContentsView;
+        }
 
-            @Override
-            public View getInfoWindow(Marker marker) {
-                // TODO Auto-generated method stub
-                return null;
-            }
+        @Override
+        public View getInfoWindow(Marker marker) {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 
     private GoogleMap mMap;
@@ -119,7 +171,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
 
         Trip trip = User.getCurrentUser().getCurrentTrip();
@@ -184,13 +235,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (mMap != null) {getAttractions(); }
+        if (mMap != null) {
+            getAttractions();
+        }
     }
 
     public void showProfile(View view) {
@@ -208,23 +264,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (sharedPref != null) {
             Set<String> selections = sharedPref.getStringSet("attraction_types", null);
-                String[] selected = selections.toArray(new String[]{});
+            String[] selected = selections.toArray(new String[]{});
 
-                ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
-                for (int i = 0; i < selected.length; i++) {
-                    selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
-                }
+            ArrayList<AttractionType> selectedAttractionTypes = new ArrayList<AttractionType>();
+            for (int i = 0; i < selected.length; i++) {
+                selectedAttractionTypes.add(AttractionType.values()[Integer.parseInt(selected[i])]);
+            }
 
-                try {
-                    GetNewAttractionsTask.getInstance().run();
-                    RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
-                    User.getCurrentUser().updateTrips(RequestHandler.getInstance().connectUser(User.getCurrentUser().getEmail()).getAsJsonObject());
+            try {
+                GetNewAttractionsTask.getInstance().run();
+                RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
+                User.getCurrentUser().updateTrips(RequestHandler.getInstance().connectUser(User.getCurrentUser().getEmail()).getAsJsonObject());
 
-                    getAttractions();
+                getAttractions();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
     }
@@ -256,12 +312,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String Content[] = marker.getSnippet().split(";");
                 try {
                     RequestHandler.getInstance().attractionChosen(Content[4], Content[3]);
+                    Attraction a = RequestHandler.getInstance().getTrip(User.getCurrentUser().getCurrentTrip().getGoogleID(), User.getCurrentUser().getEmail(), true).getCurrentAttraction();
+                    ca = CurrentAttraction.newInstance(a);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
             }
         });
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            // Log exception
+            return null;
+        }
     }
 
     public void getAttractions() {
@@ -281,9 +355,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markerOptions.title(currAttraction.getName());
                 markerOptions.snippet(currAttraction.getRate() + ";" + "general" + ";" + currAttraction.getImage() + ";" + currAttraction.getM_googleID() + ";" + User.getCurrentUser().getCurrentTrip().getGoogleID());
 
-                if (currAttraction.getImage() != null)
-                {
-                    markerOptions.icon(BitmapDescriptorFactory.fromPath(currAttraction.getImage()));
+                if (currAttraction.getImage() != null) {
+                    try {
+                        markerOptions.icon(null);//BitmapDescriptorFactory.fromBitmap(getBitmapFromURL(currAttraction.getImage())));
+                    } catch (Exception e) {
+
+                    }
+
                 }
 
                 mMap.addMarker(markerOptions);

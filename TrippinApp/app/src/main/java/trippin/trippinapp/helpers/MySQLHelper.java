@@ -124,21 +124,23 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         Attraction convertObj = new Attraction();
 
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         String start = cursor.getString(cursor.getColumnIndex(KEY_StartDate));
         String end = cursor.getString(cursor.getColumnIndex(KEY_ENDDate));
 
+
         Date startDate = null;
         try {
-            startDate = format.parse(start);
+           if (start != null) { startDate = format.parse(start); } ;
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         Date EndDate = null;
         try {
-            EndDate = format.parse(end);
+            if (end != null) { EndDate = format.parse(end); };
         } catch (Exception e) {
             e.printStackTrace();
         }

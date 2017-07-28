@@ -26,23 +26,23 @@ import trippin.trippinapp.serverAPI.RequestHandler;
 
 public class ProfileActivity extends ListActivity {
 
-    public void endTrip(View view) {
-        ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
-        ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.VISIBLE);
-
-        Trip currentTrip = User.getCurrentUser().getCurrentTrip();
-        if (currentTrip != null) {
-            try {
-                RequestHandler.getInstance().endTrip(currentTrip.getID());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    public void endTrip(View view) {
+//        ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
+//        ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.VISIBLE);
+//
+//        Trip currentTrip = User.getCurrentUser().getCurrentTrip();
+//        if (currentTrip != null) {
+//            try {
+//                RequestHandler.getInstance().endTrip(currentTrip.getID());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     public void startTrip(View view) {
-        ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.VISIBLE);
-        ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
+//        ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.VISIBLE);
+//        ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -90,11 +90,11 @@ public class ProfileActivity extends ListActivity {
             ((TextView) findViewById(R.id.txtProfileName)).setText(currentUser.getName());
             ((TextView) findViewById(R.id.txtEmail)).setText(currentUser.getEmail());
             //((TextView)findViewById(R.id.txtCurrentTripDate)).setText(DateFormat.format("dd/MM/yy", user.getCurrentTrip().getStartDate()).toString());
-            if (currentUser.m_currentTrip == null) {
-                ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
-            } else {
-                ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
-            }
+//            if (currentUser.m_currentTrip == null) {
+//                ((Button) findViewById(R.id.btnEndTripProfile)).setVisibility(View.INVISIBLE);
+//            } else {
+//                ((Button) findViewById(R.id.btnStartTripProfile)).setVisibility(View.INVISIBLE);
+//            }
         }
     }
 }

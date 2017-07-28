@@ -82,11 +82,14 @@ public class Trip implements Serializable {
             if (load_atrraction) {
                 JsonArray attrs = object.get("FullAllAttractions").getAsJsonArray();
 
-                for (JsonElement attr : attrs) {
-                    attractions.add(Attraction.fromJSON(attr.getAsJsonObject()));
-                }
+                if (!attrs.toString().contains("null"))
+                {
+                    for (JsonElement attr : attrs) {
+                        attractions.add(Attraction.fromJSON(attr.getAsJsonObject()));
+                    }
 
-                trip.m_attractions = attractions;
+                    trip.m_attractions = attractions;
+                }
             }
         }
 
