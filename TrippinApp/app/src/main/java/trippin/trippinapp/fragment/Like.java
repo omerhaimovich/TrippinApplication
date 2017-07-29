@@ -93,27 +93,27 @@ public class Like extends DialogFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.vote_up) {
-            try {
-                RequestHandler.getInstance().endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
-                RequestHandler.getInstance().attractionRated(User.getCurrentUser().getCurrentTrip().getGoogleID(), attraction_id, true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-            mListener.close();
-        } else if (v.getId() == R.id.vote_down) {
-            try {
-                // TODO: Chagne
-                //RequestHandler.attractionRated(User.getCurrentUser().getCurrentTrip().getGoogleID(), attraction_id, false);
-                RequestHandler.getInstance().endAttraction(User.getCurrentUser().getCurrentTrip().getGoogleID(),attraction_id);
-                RequestHandler.getInstance().attractionRated(User.getCurrentUser().getTrips().get(0).getGoogleID(), attraction_id, false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            //get current trip ID
+            String currentTripID=User.getCurrentUser().getCurrentTrip().getGoogleID();
 
+            //close attraction
+            RequestHandler.getInstance().endAttraction(currentTripID,attraction_id);
+
+            //like or dislike attraction
+            if (v.getId() == R.id.vote_up) {
+                    RequestHandler.getInstance().attractionRated(currentTripID, attraction_id, true);
+            } else if (v.getId() == R.id.vote_down) {
+                    RequestHandler.getInstance().attractionRated(currentTripID, attraction_id, false);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
             mListener.close();
         }
+
     }
 
     /**

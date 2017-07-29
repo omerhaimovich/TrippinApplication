@@ -272,7 +272,7 @@ public class RequestHandler {
         AttractionRatedRequest obj = new AttractionRatedRequest();
         obj.AttractionId = AttractionId;
         obj.TripId = TripId;
-        obj.IsGoodAttraction = true;
+        obj.IsGoodAttraction = IsGoodAttraction;
         doPostRequest(obj);
     }
 
