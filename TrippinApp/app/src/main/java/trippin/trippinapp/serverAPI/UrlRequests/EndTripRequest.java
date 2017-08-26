@@ -10,6 +10,6 @@ public class EndTripRequest implements IUrlRequest
 
     @Override
     public String getURLSuffix() {
-        return "trips/endTrip";
+        return "trips/EndTrip";
     }
 }

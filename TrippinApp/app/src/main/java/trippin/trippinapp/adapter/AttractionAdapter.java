@@ -63,7 +63,6 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
             viewHolder.txtFromTime = (TextView) convertView.findViewById(R.id.txtFromTime);
             viewHolder.txtToTime = (TextView) convertView.findViewById(R.id.txtToTime);
             viewHolder.txtRate = (TextView) convertView.findViewById(R.id.txtRate);
-            viewHolder.btnEnd = (Button) convertView.findViewById(R.id.btnEndAttraction);
             result = convertView;
 
             convertView.setTag(viewHolder);
@@ -81,9 +80,7 @@ public class AttractionAdapter extends ArrayAdapter<Attraction> {
 
         if (attraction.getEndDate() != null) {
             viewHolder.txtToTime.setText(DateFormat.format("dd/MM/yy", attraction.getEndDate()).toString());
-            viewHolder.btnEnd.setVisibility(View.INVISIBLE);
         } else {
-            viewHolder.btnEnd.setVisibility(View.VISIBLE);
             viewHolder.txtToTime.setText("");
             viewHolder.txtName.setTextSize(25);
             viewHolder.txtFromTime.setTextSize(20);

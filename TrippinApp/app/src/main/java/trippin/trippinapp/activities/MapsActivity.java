@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
@@ -275,7 +276,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 GetNewAttractionsTask.getInstance().run();
                 RequestHandler.getInstance().createTrip(currUser.getEmail(), selectedAttractionTypes);
                 User.getCurrentUser().updateTrips(RequestHandler.getInstance().connectUser(User.getCurrentUser().getEmail()).getAsJsonObject());
-
+                findViewById(R.id.map_endTrippinBtn).setVisibility(View.VISIBLE);
                 getAttractions();
 
             } catch (IOException e) {
@@ -309,16 +310,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                String Content[] = marker.getSnippet().split(";");
-                try {
-                    RequestHandler.getInstance().attractionChosen(Content[4], Content[3]);
-                    Attraction a = RequestHandler.getInstance().getTrip(User.getCurrentUser().getCurrentTrip().getGoogleID(), User.getCurrentUser().getEmail(), true).getCurrentAttraction();
-                    ca = CurrentAttraction.newInstance(a);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
+                String Content[] = marker.getSnippet().split(";");
+                if (attraction == null)
+                {
+                    try {
+
+                        RequestHandler.getInstance().attractionChosen(Content[4], Content[3]);
+                        attraction = RequestHandler.getInstance().getTrip(User.getCurrentUser().getCurrentTrip().getGoogleID(), User.getCurrentUser().getEmail(), true).getCurrentAttraction();
+                        ca = CurrentAttraction.newInstance(attraction);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.CurrentAttractionContainer, ca).commit();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Must end current attraction to chose new one", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -345,6 +354,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         boolean isMapInFocus = false;
 
+        Trip trip = User.getCurrentUser().getCurrentTrip();
+        String trip_id = null;
+        if (trip != null) {trip_id = trip.getGoogleID();}
+
         if (attractions != null &&
                 attractions.isEmpty() == false) {
             mMap.clear();
@@ -353,7 +366,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(currAttraction.getAttractionLocation());
                 markerOptions.title(currAttraction.getName());
-                markerOptions.snippet(currAttraction.getRate() + ";" + "general" + ";" + currAttraction.getImage() + ";" + currAttraction.getM_googleID() + ";" + User.getCurrentUser().getCurrentTrip().getGoogleID());
+                markerOptions.snippet(currAttraction.getRate() + ";" + "general" + ";" + currAttraction.getImage() + ";" + currAttraction.getM_googleID() + ";" + trip_id);
 
                 if (currAttraction.getImage() != null) {
                     try {
@@ -378,9 +391,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void closeAttraction() {
+
         Like like = Like.newInstance(attraction.getM_googleID());
         like.show(getSupportFragmentManager(), "dialog");
         dialog = like;
+        attraction = null;
         //
     }
 
@@ -405,16 +420,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void btnEndTrippin(View view) {
-        ((Button) findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
-        ((Button) findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
+        if (attraction == null) {
+            ((Button) findViewById(R.id.map_endTrippinBtn)).setVisibility(View.INVISIBLE);
+            ((Button) findViewById(R.id.map_startTrippinBtn)).setVisibility(View.VISIBLE);
 
-        Trip currentTrip = User.getCurrentUser().getCurrentTrip();
-        if (currentTrip != null) {
-            try {
-                RequestHandler.getInstance().endTrip(currentTrip.getID());
-            } catch (IOException e) {
-                e.printStackTrace();
+            Trip currentTrip = User.getCurrentUser().getCurrentTrip();
+            if (currentTrip != null) {
+
+                try {
+                    RequestHandler.getInstance().endTrip(currentTrip.getGoogleID());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Must end current attraction to end trip", Toast.LENGTH_SHORT).show();
         }
     }
 }

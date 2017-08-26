@@ -46,11 +46,11 @@ public class TripActivity extends AppCompatActivity {
         AttractionAdapter adapter = new AttractionAdapter(current.getAttractions(), getApplicationContext());
         ((ListView) findViewById(R.id.lstAttraction)).setAdapter(adapter);
 
-        ((Button) findViewById(R.id.btnTripEnd)).setVisibility(current.getEndDate() == null ? View.VISIBLE : View.GONE);
+        //((Button) findViewById(R.id.btnTripEnd)).setVisibility(current.getEndDate() == null ? View.VISIBLE : View.GONE);
     }
 
     public void EndTrip(View view) {
-        ((Button)findViewById(R.id.btnTripEnd)).setVisibility(View.INVISIBLE);
+       // ((Button)findViewById(R.id.btnTripEnd)).setVisibility(View.INVISIBLE);
 
         Trip currentTrip = User.getCurrentUser().getCurrentTrip();
         if(currentTrip != null){

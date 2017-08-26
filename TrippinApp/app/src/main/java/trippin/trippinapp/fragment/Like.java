@@ -13,6 +13,7 @@ import android.widget.Button;
 import java.io.IOException;
 
 import trippin.trippinapp.R;
+import trippin.trippinapp.model.Trip;
 import trippin.trippinapp.model.User;
 import trippin.trippinapp.serverAPI.RequestHandler;
 
@@ -96,10 +97,14 @@ public class Like extends DialogFragment implements View.OnClickListener {
 
         try {
             //get current trip ID
-            String currentTripID=User.getCurrentUser().getCurrentTrip().getGoogleID();
+            Trip t = User.getCurrentUser().getCurrentTrip();
+
+            String currentTripID=t.getGoogleID();
 
             //close attraction
             RequestHandler.getInstance().endAttraction(currentTripID,attraction_id);
+
+
 
             //like or dislike attraction
             if (v.getId() == R.id.vote_up) {

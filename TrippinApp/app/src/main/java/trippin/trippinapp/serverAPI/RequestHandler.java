@@ -56,8 +56,22 @@ public class RequestHandler {
 
     public Location getLocation() {
         location = new Location("");
-        location.setLatitude(32.0628236);
-        location.setLongitude(34.7725855);
+        // Israel - tlv
+        //location.setLatitude(32.0628236);
+        //location.setLongitude(34.7725855);
+
+        // Italy - rome
+        //location.setLatitude(41.890251);
+        //location.setLongitude(12.492373);
+
+        // Italy - rome
+        location.setLatitude(31.970577);
+        location.setLongitude(34.770851);
+
+
+        // Manhathan
+//        location.setLatitude(40.758896);
+//        location.setLongitude(-73.985130);
 
         return location;
     }
